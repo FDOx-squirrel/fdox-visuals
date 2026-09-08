@@ -153,6 +153,33 @@ ist der Ort, an dem künftige Vortrags-/Paper-Grafiken der Familie entstehen.
     davon. Nicht selbst gefixt (anderes Repo, A3) — nur im neuen Diagramm
     sichtbar gemacht (S6), damit es nicht implizit als "funktioniert"
     dargestellt wird.
+12. **"Role classification" und "Crosswalk & Mapping Rules" sind
+    parallele, unabhängige Zweige — kein Nacheinander.** Am echten
+    `main.py` abgelesen: `DATA --> ROLES` (Rollenklassifikation kommt
+    direkt aus den ZIP-Rohdaten) und `INGEST --> CROSSWALK` (Crosswalk
+    kommt aus dem schema-validierten `MD.cff`) sind zwei getrennte
+    Startpunkte, die beide unabhängig in `fdo-metadata.ttl` und
+    `Provenance tracking` münden. Die einspaltige Darstellung in S4s
+    erster Fassung erzwang eine Reihenfolge, die es im Code nicht gibt —
+    und zwang genau deshalb eine der beiden Verbindungslinien (Crosswalk
+    → Provenance), diagonal **durch** die jeweils andere Box zu laufen,
+    weil die eine physisch zwischen Quelle und Ziel der anderen lag
+    (gemeldet von Flo als "Kacheln in der Mitte", 2026-09-08). Fix: echte
+    Gabelung, zwei Boxen nebeneinander statt gestapelt — löst das Problem
+    strukturell, nicht nur durch eine andere Linienführung.
+13. **Die erste `fdox-citation-cff-schema.svg`-Fassung (S6) hatte zwei
+    Boxen mit demselben Klassennamen "CITATION_cff"** (eine für
+    "forwarded to RDF", eine für "not forwarded") — von Flo direkt als
+    "verstehe ich nicht" zurückgemeldet, zu Recht: zwei gleichnamige
+    Klassenboxen lesen sich wie ein Diagrammfehler, nicht wie eine
+    bewusste Aufteilung nach Laufzeitverhalten, und die Verbindungslinien
+    zu `Author`/`Identifier` mussten dadurch weit kreuzen. Fix: eine
+    Klasse, Felder nach Bedeutung gruppiert (nicht nach RDF-Status),
+    RDF-Status als `[not in RDF]`-Tag pro Feld — dieselbe
+    Klammer-Konvention, die S5 schon für `[required]` benutzt.
+    `authors`/`contributors`/`identifiers` bewusst benachbart platziert,
+    damit `Author`/`Identifier` direkt danebenstehen können und die
+    Linien nicht mehr durchs ganze Diagramm laufen müssen.
 
 ## A2. Zielbild
 
@@ -427,6 +454,25 @@ schafft mehr Bodenabstand, nicht weniger — die alte Zahl war zu knapp
 bemessen, nicht zu großzügig). Erneut deterministisch, `git status`
 danach leer.
 
+### Nachtrag 2026-09-08 (3) — echte Gabelung statt gestapelter Boxen
+
+Siehe A1 Befund 12. "Role classification" und "Crosswalk & Mapping
+Rules" sind jetzt zwei halbbreite Boxen nebeneinander (`FORK_LEFT`/
+`FORK_RIGHT`) statt zwei gestapelte Zeilen. `PROCESS_BOX_W` dafür auf
+760 angehoben (vorher 480) — bei der alten Breite überlappte sich der
+Text der beiden halbbreiten Boxen. Verbindung zu `fdo-metadata.ttl`:
+Crosswalk (rechte Hälfte) geht direkt nach rechts raus; Role
+classification (linke Hälfte) kann das nicht ohne Crosswalk zu kreuzen,
+läuft daher über eine Ecken-Route (`_elbow_arrow`, rechtwinklig) durch
+die leere Lücke oberhalb der Gabel-Zeile — offener Raum, keine Box im
+Weg. Verbindung zu Provenance tracking: beide Hälften fallen einfach
+senkrecht nach unten, treffen an zwei verschiedenen x-Positionen auf
+Provenance' Oberkante — sauberer Trichter, keine Diagonale durch eine
+Box mehr. Canvas jetzt 3692×1672 (breiter wegen der Gabel, aber flacher,
+da eine Zeile weniger als vorher: 6 statt 7). Zoom-Vergleich vor/nach
+bestätigt: keine Linie läuft mehr durch eine Box. 6,17 MP, weiterhin
+Slides-sicher, 10px Rand, deterministisch, `git status` danach leer.
+
 ## S5 — MD.cff-Schema-Klassendiagramm (neu)
 
 **Ziel:** `img/fdox-md-cff-schema.svg`/`.png` — UML-artiges
@@ -468,20 +514,39 @@ ohne `md_cff_version`-Analogon, da CITATION.cff kein FDOx-Format ist);
 und `crosswalks/citation_crosswalk_engine.py` gegeneinander gelesen statt
 nur die YAML.
 
-Zwei zentrale Boxen statt einer: **"forwarded to RDF"** (8 Felder, voller
-Teal-Stil wie MD_cff) und **"mapped … not forwarded"** (14 Felder, grau,
-gestrichelter Rahmen) — der Unterschied selbst ist der eigentliche Inhalt
-der Grafik, nicht nur eine Feldliste. `Author`- und `Identifier`-Satelliten
-rechts, `contributors` (im "not forwarded"-Block) verbindet sich mit
-gestrichelter Linie zu `Author`, um zu zeigen: die Struktur existiert,
-der Datenfluss dorthin nicht. Fußnote im Bild selbst benennt Datei und
-Funktion (`_normalize_citation()`), damit die Aussage überprüfbar bleibt,
-ohne dass man diese PRIMER.md dafür lesen muss.
+**Eine** zentrale `CITATION_cff`-Box (nicht zwei — siehe A1 Befund 13 und
+den Nachtrag unten), 22 Felder nach Bedeutung gruppiert (Identität,
+Personen, Provenienz/Links, Lizenz, Repository), RDF-Status als
+`[not in RDF]¹`-Tag pro Feld in gedämpftem Grau, dieselbe
+Klammer-Konvention wie `[required]` in S5. `authors`/`contributors`/
+`identifiers` bewusst benachbart platziert, `Author`- und
+`Identifier`-Satelliten rechts daneben, direkt auf Höhe dieser drei
+Zeilen. Fußnote im Bild selbst benennt Datei und Funktion
+(`_normalize_citation()`), damit die Aussage überprüfbar bleibt, ohne
+dass man diese PRIMER.md dafür lesen muss.
 
 **Abnahme:** ✅ erledigt — alle 22 Felder stammen aus `grep "from_term:
-cff:" crosswalks/crosswalk.fdo-metadata.yaml`, die 8/14-Aufteilung aus
-`_normalize_citation()`s tatsächlichem Rückgabe-Dict gegengeprüft (nicht
-geraten); 3405×1580 vor Trim, danach exakt 10px Rand, 5,38 MP.
+cff:" crosswalks/crosswalk.fdo-metadata.yaml`, die Forwarded/Dropped-
+Markierung aus `_normalize_citation()`s tatsächlichem Rückgabe-Dict
+gegengeprüft (nicht geraten); 2507×1403 vor Trim, danach exakt 10px
+Rand, 3,52 MP.
+
+### Nachtrag 2026-09-08 — von zwei gleichnamigen Boxen auf eine Klasse umgestellt
+
+Erste Fassung hatte zwei separate Boxen, beide betitelt "CITATION_cff"
+(eine "forwarded to RDF", eine "mapped … not forwarded"). Flos Feedback:
+"ich verstehe diese Grafik nicht" — zu Recht, siehe A1 Befund 13. Zwei
+gleichnamige Klassenboxen lesen sich wie ein Fehler im Diagramm, nicht
+wie eine bewusste Aufteilung nach Laufzeitverhalten, und die
+Verbindungslinien zu `Author`/`Identifier` mussten dadurch weit über das
+Bild kreuzen (Flo: "es überkreuzen sich nur Linien zwischen den Boxen").
+Umgebaut auf eine einzelne Klasse mit Feldern in natürlicher Reihenfolge
+(nicht nach RDF-Status sortiert) und dem `[not in RDF]`-Tag als
+Attribut-Eigenschaft statt als Box-Trennkriterium — dieselbe Änderung,
+die A1 Befund 13 beschreibt. Verifiziert: `authors`/`contributors` laufen
+jetzt in einem gemeinsamen Punkt auf `Author` zusammen (keine Kreuzung
+mehr, nur ein gemeinsamer Endpunkt), `identifiers`→`Identifier` läuft
+separat und kreuzt nichts. 2507×1403, 10px Rand, 3,52 MP, deterministisch.
 
 ---
 

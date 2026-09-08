@@ -7,11 +7,23 @@ it only reads a subset of it. Built from
 mapped at all) cross-checked against
 `fdo-squirrel/crosswalks/citation_crosswalk_engine.py`'s
 `_normalize_citation()` (which of those mapped fields actually reach the
-RDF output). The two don't fully agree — see PRIMER.md A1 for the finding
-this surfaced: 14 of the 22 fields the crosswalk YAML maps are silently
-dropped before any RDF is emitted, because `_normalize_citation()` only
-forwards a fixed allow-list. Both groups are drawn, visually distinguished,
-rather than only drawing the ones that "work".
+RDF output). The two don't fully agree — see PRIMER.md A1 for the
+finding: 14 of the 22 fields the crosswalk YAML maps are silently dropped
+before any RDF is emitted, because `_normalize_citation()` only forwards
+a fixed allow-list.
+
+One class box, not two (first version split "forwarded" and "not
+forwarded" into two separately-titled `CITATION_cff` boxes — confusing,
+read as two copies of the same class rather than one class with a
+per-field status; see PRIMER.md A1 Befund 13). Fields are grouped the way
+a person reading a CITATION.cff would group them (identity, people,
+provenance/links, licensing, repository), same as any other class
+diagram; the RDF status is a per-field `[not in RDF]` tag, the same
+bracket convention MD.cff's diagram already uses for `[required]`, not a
+second box. Author/Identifier satellites sit next to the three rows that
+actually reference them (authors, contributors, identifiers — grouped
+adjacently for exactly this reason), so the connecting lines are short
+and don't cross each other.
 
 Produces:
   img/fdox-citation-cff-schema.svg / .png (transparent)
@@ -38,43 +50,44 @@ from visuals_utils import (  # noqa: E402
 
 ACCENT = "#0E9488"
 TINT = "#E6F6F4"
-DROPPED_ACCENT = "#8A93A6"   # muted grey-blue: mapped in YAML, never reaches RDF
-DROPPED_TINT = "#EEF0F3"
 
-BOX_W = 460
-FIELD_H = 28
-HEADER_H = 44
+BOX_W = 520
+FIELD_H = 30
+HEADER_H = 46
 PAD_V = 14
 ROW_GAP = 34
-COL_GAP = 560
+COL_GAP = 420
 
-FORWARDED = [
-    "string abstract",
-    "string url",
-    "string repository-code",
-    "string repository",
-    "string license",
-    "string[] keywords",
-    "list<Identifier> identifiers",
-    "list<Author> authors",
+# (field text, forwarded-to-RDF?)
+FIELDS = [
+    ("string title", False),
+    ("string abstract", True),
+    ("string type", False),
+    ("string version", False),
+    ("string date-released", False),
+    ("string cff-version", False),
+    ("list<Author> authors", True),
+    ("list<Author> contributors", False),
+    ("list<Identifier> identifiers", True),
+    ("string doi", False),
+    ("string url", True),
+    ("string repository", True),
+    ("string repository-code", True),
+    ("string repository-artifact", False),
+    ("string license", True),
+    ("string license-url", False),
+    ("string[] keywords", True),
+    ("string commit", False),
+    ("string contact", False),
+    ("string message", False),
+    ("list preferred-citation", False),
+    ("list references", False),
 ]
 
-NOT_FORWARDED = [
-    "string cff-version",
-    "string message",
-    "string title",
-    "string type",
-    "string version",
-    "string date-released",
-    "string doi",
-    "string repository-artifact",
-    "string license-url",
-    "string commit",
-    "string contact",
-    "list<Author> contributors",
-    "list preferred-citation",
-    "list references",
-]
+# indices (0-based) into FIELDS, for connecting lines to satellites
+IDX_AUTHORS = 6
+IDX_CONTRIBUTORS = 7
+IDX_IDENTIFIERS = 8
 
 SATELLITES = [
     ("Author", ["string given-names", "string family-names", "string orcid"]),
@@ -82,105 +95,108 @@ SATELLITES = [
 ]
 
 
-def _render_box(x: float, y: float, w: float, title: str, fields: list[str], accent: str, tint: str,
-                 field_color: str | None = None, dashed: bool = False, subtitle: str | None = None) -> tuple[str, float]:
-    extra = 22 if subtitle else 0
-    header_h = HEADER_H + extra
+def _render_box(x: float, y: float, w: float, title: str, fields: list[str], accent: str, tint: str) -> tuple[str, float]:
+    header_h = HEADER_H
     h = header_h + len(fields) * FIELD_H + 2 * PAD_V
-    dash = ' stroke-dasharray="10 7"' if dashed else ""
-    out = f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{tint}" stroke="{accent}" stroke-width="3"{dash}/>'
+    out = f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{tint}" stroke="{accent}" stroke-width="3"/>'
     out += (
         f'<text x="{x+w/2}" y="{y+30}" text-anchor="middle" font-family="Fira Sans" '
-        f'font-weight="700" font-size="25" fill="{INK}">{esc(title)}</text>'
+        f'font-weight="700" font-size="26" fill="{INK}">{esc(title)}</text>'
     )
-    if subtitle:
-        out += (
-            f'<text x="{x+w/2}" y="{y+50}" text-anchor="middle" font-family="Fira Sans" '
-            f'font-weight="400" font-size="16" fill="{accent}">{esc(subtitle)}</text>'
-        )
-    out += f'<line x1="{x}" y1="{y+header_h}" x2="{x+w}" y2="{y+header_h}" stroke="{accent}" stroke-width="2.5"{dash}/>'
+    out += f'<line x1="{x}" y1="{y+header_h}" x2="{x+w}" y2="{y+header_h}" stroke="{accent}" stroke-width="2.5"/>'
     fy = y + header_h + 22
-    fc = field_color or INK
     for f in fields:
         out += (
             f'<text x="{x+16}" y="{fy}" text-anchor="start" font-family="Fira Sans" '
-            f'font-weight="400" font-size="18" fill="{fc}">+ {esc(f)}</text>'
+            f'font-weight="400" font-size="18" fill="{INK}">+ {esc(f)}</text>'
         )
         fy += FIELD_H
     return out, h
 
 
+def _field_row_y(box_top: float, idx: int) -> float:
+    """Absolute y of field row `idx`'s text baseline, matching _render_box's own layout math."""
+    return box_top + HEADER_H + 22 + idx * FIELD_H
+
+
 def _build_svg() -> tuple[str, float, float]:
     pad = 50
-    center_x = pad + BOX_W + COL_GAP / 2 - BOX_W / 2
 
-    # center: two stacked boxes (forwarded, then not-forwarded)
-    fwd_svg, fwd_h = _render_box(
-        center_x, pad, BOX_W, "CITATION_cff", FORWARDED, ACCENT, TINT,
-        subtitle="forwarded to RDF",
-    )
-    gap_between = 34
-    dropped_svg, dropped_h = _render_box(
-        center_x, pad + fwd_h + gap_between, BOX_W, "CITATION_cff", NOT_FORWARDED,
-        DROPPED_ACCENT, DROPPED_TINT, field_color=MUTED, dashed=True,
-        subtitle="mapped in crosswalk.fdo-metadata.yaml, not forwarded \u00b9",
-    )
-    center_total_h = fwd_h + gap_between + dropped_h
+    # centre class box height (computed once so satellites can be placed
+    # relative to it before we render anything)
+    center_h = HEADER_H + len(FIELDS) * FIELD_H + 2 * PAD_V
+    center_x = pad
+    center_y = pad
 
-    # right column: satellites, vertically centred on the combined centre block
-    sat_heights = [HEADER_H + len(f) * FIELD_H + 2 * PAD_V for _, f in SATELLITES]
-    sat_total = sum(sat_heights) + (len(SATELLITES) - 1) * ROW_GAP
     right_x = center_x + BOX_W + COL_GAP
-    sat_y0 = pad + center_total_h / 2 - sat_total / 2
 
-    W = right_x + BOX_W + pad
+    # satellite y-positions: Author sits centred between the authors and
+    # contributors rows (rows 6 and 7); Identifier sits level with the
+    # identifiers row (row 8) - all three are adjacent in FIELDS, so both
+    # satellites land close to the same, small stretch of the centre box.
+    author_target_y = (
+        _field_row_y(center_y, IDX_AUTHORS) + _field_row_y(center_y, IDX_CONTRIBUTORS)
+    ) / 2 - FIELD_H / 2
+    ident_target_y = _field_row_y(center_y, IDX_IDENTIFIERS) - FIELD_H / 2
+
+    sat_heights = [HEADER_H + len(f) * FIELD_H + 2 * PAD_V for _, f in SATELLITES]
+    author_y = author_target_y - sat_heights[0] / 2
+    ident_y = ident_target_y - sat_heights[1] / 2
+    # keep Identifier comfortably below Author (min gap), since their
+    # target rows are close together but the boxes themselves are taller
+    min_gap = 24
+    if ident_y < author_y + sat_heights[0] + min_gap:
+        ident_y = author_y + sat_heights[0] + min_gap
+    sat_y = {"Author": author_y, "Identifier": ident_y}
+
+    content_bottom = max(center_y + center_h, ident_y + sat_heights[1])
     footnote_h = 90
-    H = pad + max(center_total_h, sat_total) + footnote_h
+    W = right_x + BOX_W + pad
+    H = content_bottom + footnote_h
 
     parts = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">']
     parts.append(font_face_css())
 
-    # connecting lines: authors/contributors/identifiers -> satellites
+    # connecting lines, drawn first (under the boxes)
     lines = []
-    sy = sat_y0
-    sat_positions = []
-    for (title, fields), hh in zip(SATELLITES, sat_heights):
-        sat_positions.append((title, sy, hh))
-        sy += hh + ROW_GAP
 
-    def _line_to_sat(sat_title, from_x, from_y, dashed=False):
-        for title, sy0, hh in sat_positions:
-            if title == sat_title:
-                dash = ' stroke-dasharray="10 7"' if dashed else ""
-                lines.append(
-                    f'<line x1="{from_x}" y1="{from_y}" x2="{right_x}" y2="{sy0+hh/2}" '
-                    f'stroke="{MUTED}" stroke-width="2.5"{dash}/>'
-                )
+    def _line(from_y: float, sat_title: str, sat_h: float):
+        ty = sat_y[sat_title] + sat_h / 2
+        lines.append(
+            f'<line x1="{center_x+BOX_W}" y1="{from_y}" x2="{right_x}" y2="{ty}" '
+            f'stroke="{MUTED}" stroke-width="2.5"/>'
+        )
 
-    # locate the y of "identifiers" and "authors" rows in the forwarded box,
-    # and "contributors" in the not-forwarded box, for connecting lines
-    def _field_y(box_top, subtitle_present, idx):
-        header_h = HEADER_H + (22 if subtitle_present else 0)
-        return box_top + header_h + 22 + idx * FIELD_H - 6
-
-    idents_i = FORWARDED.index("list<Identifier> identifiers")
-    authors_i = FORWARDED.index("list<Author> authors")
-    contrib_i = NOT_FORWARDED.index("list<Author> contributors")
-
-    _line_to_sat("Identifier", center_x + BOX_W, _field_y(pad, True, idents_i))
-    _line_to_sat("Author", center_x + BOX_W, _field_y(pad, True, authors_i))
-    _line_to_sat("Author", center_x + BOX_W, _field_y(pad + fwd_h + gap_between, True, contrib_i), dashed=True)
-
+    _line(_field_row_y(center_y, IDX_AUTHORS) - 6, "Author", sat_heights[0])
+    _line(_field_row_y(center_y, IDX_CONTRIBUTORS) - 6, "Author", sat_heights[0])
+    _line(_field_row_y(center_y, IDX_IDENTIFIERS) - 6, "Identifier", sat_heights[1])
     parts += lines
 
-    parts.append(fwd_svg)
-    parts.append(dropped_svg)
+    center_labels = [
+        f"{txt}" + ("" if fwd else " [not in RDF]\u00b9") for txt, fwd in FIELDS
+    ]
+    center_svg, _ = _render_box(center_x, center_y, BOX_W, "CITATION_cff", center_labels, ACCENT, TINT)
+    # override colour per-field: forwarded rows stay ink, dropped rows go muted.
+    # _render_box always uses INK, so re-render field text on top in the
+    # right colour instead of re-deriving the geometry twice.
+    field_overlay = ""
+    fy = center_y + HEADER_H + 22
+    for (txt, fwd), label in zip(FIELDS, center_labels):
+        if not fwd:
+            field_overlay += (
+                f'<rect x="{center_x+1.5}" y="{fy-22}" width="{BOX_W-3}" height="{FIELD_H}" fill="{TINT}"/>'
+                f'<text x="{center_x+16}" y="{fy}" text-anchor="start" font-family="Fira Sans" '
+                f'font-weight="400" font-size="18" fill="{MUTED}">+ {esc(label)}</text>'
+            )
+        fy += FIELD_H
+    parts.append(center_svg)
+    parts.append(field_overlay)
 
-    for (title, fields), (_, sy0, hh) in zip(SATELLITES, sat_positions):
-        box_svg, _ = _render_box(right_x, sy0, BOX_W, title, fields, ACCENT, TINT)
+    for title, fields in SATELLITES:
+        box_svg, _ = _render_box(right_x, sat_y[title], BOX_W, title, fields, ACCENT, TINT)
         parts.append(box_svg)
 
-    footnote_y = pad + max(center_total_h, sat_total) + 46
+    footnote_y = content_bottom + 46
     parts.append(
         f'<text x="{pad}" y="{footnote_y}" text-anchor="start" font-family="Fira Sans" '
         f'font-weight="400" font-size="19" fill="{MUTED}">\u00b9 fdo-squirrel/crosswalks/citation_crosswalk_engine.py: '
