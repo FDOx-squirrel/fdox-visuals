@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
 <style>@font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Regular.ttf"); font-weight: 400; } @font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Bold.ttf"); font-weight: 700; }</style>
-<rect x="0" y="0" width="1600" height="1000" fill="#FFFFFF"/>
 <circle cx="1080" cy="430" r="320" fill="#A5BDCE" stroke="#004473" stroke-width="6"/>
 <circle cx="1080" cy="430" r="175" fill="#004473" stroke="#002F50" stroke-width="6"/>
 <text x="1080" y="416" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="70" fill="white" letter-spacing="4">I0I0</text>

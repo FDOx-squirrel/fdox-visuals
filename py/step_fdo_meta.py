@@ -6,7 +6,7 @@ three leader lines) matches the original reference image; colour and
 typography follow this repo's conventions instead.
 
 Produces:
-  img/fdox-fair-digital-object-meta-graphic.svg / .jpg
+  img/fdox-fair-digital-object-meta-graphic.svg / .png (transparent)
 
 Runnable standalone: `python py/step_fdo_meta.py`
 """
@@ -18,13 +18,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from visuals_utils import (  # noqa: E402
-    BG,
     FDO_ACCENT,
     IMG_DIR,
     INK,
     MUTED,
     ensure_dirs,
-    flatten_to_jpg,
     font_face_css,
     render_svg_to_png,
 )
@@ -56,13 +54,12 @@ CX, CY = 1080, 430
 OUTER_R = 320
 INNER_R = 175
 
-OVERSAMPLE = 2.5
+OVERSAMPLE = 3.5
 
 
 def _build_svg() -> str:
     p = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">']
     p.append(font_face_css())
-    p.append(f'<rect x="0" y="0" width="{W}" height="{H}" fill="{BG}"/>')
 
     p.append(f'<circle cx="{CX}" cy="{CY}" r="{OUTER_R}" fill="{RING_FILL}" stroke="{ACCENT}" stroke-width="6"/>')
     p.append(f'<circle cx="{CX}" cy="{CY}" r="{INNER_R}" fill="{ACCENT}" stroke="{ACCENT_STROKE}" stroke-width="6"/>')
@@ -112,13 +109,10 @@ def run(strict: bool = False) -> list[str]:
     svg_path = IMG_DIR / "fdox-fair-digital-object-meta-graphic.svg"
     svg_path.write_text(svg_text, encoding="utf-8")
     png_path = svg_path.with_suffix(".png")
-    jpg_path = svg_path.with_suffix(".jpg")
     render_svg_to_png(svg_path, png_path, int(W * OVERSAMPLE), int(H * OVERSAMPLE))
-    flatten_to_jpg(png_path, jpg_path)
-    png_path.unlink()
     log.append(
-        f"wrote {svg_path.relative_to(IMG_DIR.parent)} + .jpg "
-        f"({int(W*OVERSAMPLE)}x{int(H*OVERSAMPLE)}, accent {ACCENT})"
+        f"wrote {svg_path.relative_to(IMG_DIR.parent)} + .png "
+        f"({int(W*OVERSAMPLE)}x{int(H*OVERSAMPLE)}, transparent, accent {ACCENT})"
     )
 
     return log

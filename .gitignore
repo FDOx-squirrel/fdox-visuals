@@ -4,17 +4,9 @@ __pycache__/
 .venv/
 venv/
 
-# Intermediate rasterisation step for the banner graphic; step_pattern.py
-# deletes it itself after flattening to .jpg, but if a run is interrupted
-# a stray one can be left behind. The four icon .png files are final
-# products (transparent background) and are NOT matched by this — only the
-# banner's own intermediate is.
-img/fdox-four-step-pattern.png
-
 # Per-run report (terminal already shows the same lines; not a citable product)
 img/pipeline_report.txt
 
 # Editor/OS noise
 .DS_Store
 Thumbs.db
-PATCH-README.md

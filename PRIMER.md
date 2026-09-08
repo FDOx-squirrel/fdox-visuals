@@ -78,11 +78,8 @@ py/step_*.py  (reine Geometrie + Text, keine Rasterlogik)
      ▼  main.py orchestriert
 img/*.svg     (Quelle, versioniert)
      │
-     ▼  cairosvg (S2/S3, in-process)
-img/*.png     (Zwischenstufe bei Bedarf, oder Endprodukt bei Transparenz)
-     │
-     ▼  Pillow, auf Weiß geflattet
-img/*.jpg     (Endprodukt für Folien/Druck)
+     ▼  resvg-py, in-process, vendorte Fira-Sans-Dateien als font_files=
+img/*.png     (Endprodukt, transparenter Hintergrund, für Folien/Druck/Web)
 ```
 
 Eigenschaften, an denen sich ein Rebuild messen lassen muss:
@@ -90,7 +87,7 @@ Eigenschaften, an denen sich ein Rebuild messen lassen muss:
 - **Kein externes CLI-Tool.** `pip install -r requirements.txt` genügt;
   kein `rsvg-convert`, kein ImageMagick, kein Node.
 - **Deterministisch.** Zwei Läufe hintereinander erzeugen bytegleiche
-  `.svg`/`.jpg`/`.png` (geprüft per `md5sum`, S1).
+  `.svg`/`.png` (geprüft per `md5sum`, S1).
 - **Eine Palette, eine Quelle.** Farben und Schrift stehen einmal in
   `py/visuals_utils.py`; kein Skript trägt einen Hex-Code, der nicht von
   dort importiert ist.
@@ -122,6 +119,7 @@ Eigenschaften, an denen sich ein Rebuild messen lassen muss:
 | Repo-Name | `fdox-visuals`, **Vorschlag** — Flo legt das eigentliche GitHub-Repo an, Name kann beim Anlegen noch geändert werden | 2026-09-08, Vorschlag |
 | Ordner für Produkte | `img/` (nicht `dist/`) — Familienkonvention für Repos, deren Hauptprodukt Abbildungen sind | 2026-09-08 |
 | `img/` in Git? | ja, versioniert (wie `dist/` bei den anderen Repos) — die Bilder sind das citierbare Produkt, nicht nur Baustellenabfall | 2026-09-08, Vorschlag |
+| Ausgabeformat | **`.png`, transparenter Hintergrund** — ersetzt `.jpg` auf weißem Grund mit dezentem Dot-Grid-Muster; das Muster war auf Weiß gedacht, wurde beim Reinzoomen (Flos Screenshot) aber als sichtbare Punkte im Hintergrund wahrgenommen. Dot-Grid komplett entfernt statt nur den Hintergrund transparent zu machen — es hätte ohne definierten Untergrund keinen Sinn ergeben | 2026-09-08, ersetzt Beschluss vom selben Tag |
 
 ## A5. Was in welchem Chat hochgeladen wird
 
@@ -154,16 +152,18 @@ ohne dass `pattern` vorher gelaufen sein muss.
 
 ## S1 — Skeleton
 
-**Ziel:** `python main.py --list`/`--dry-run` laufen ohne `cairosvg`/`Pillow`
+**Ziel:** `python main.py --list`/`--dry-run` laufen ohne `resvg-py`/`Pillow`
 zu importieren; `python main.py` erzeugt beide Grafiken; zwei Läufe
 hintereinander sind bytegleich.
 
 **Uploads:** Standardbundle (A5).
 
 `py/visuals_utils.py` hält `STEPS` (die Familienpalette, Step 1 = `#004473`),
-`INK`/`MUTED`/`BG`, `font_face_css()`, `render_svg_to_png()`,
-`flatten_to_jpg()`. Jeder `step_*.py` importiert von dort, trägt selbst
-keinen Hex-Code für Ink/Muted/Background.
+`INK`/`MUTED`/`BG`, `font_face_css()`, `render_svg_to_png()` sowie
+`flatten_to_jpg()` (aktuell von keinem Schritt genutzt, seit beide Grafiken
+transparent bleiben — bewusst nicht entfernt, für den Tag, an dem ein
+künftiges Skript wirklich ein flaches JPG braucht). Jeder `step_*.py`
+importiert von dort, trägt selbst keinen Hex-Code für Ink/Muted/Background.
 
 **Abnahme:** ✅ erledigt — `--list` und `--dry-run` unter 0,1 s (kein
 schweren Renderer-Import), `python main.py` erzeugt alle sieben Dateien,
@@ -198,10 +198,10 @@ zu den vorher mit `cairosvg` erzeugten.
 
 ## S2 — Vier-Schritte-Muster-Banner + Icon-Badges
 
-**Ziel:** `img/fdox-four-step-pattern.svg`/`.jpg` (nur die vier Schritte,
-kein Header/Footer — Beschluss aus dem Ursprungschat) sowie vier
-freistehende `img/fdox-step-<n>-<slug>.svg`/`.png` mit transparentem
-Hintergrund.
+**Ziel:** `img/fdox-four-step-pattern.svg`/`.png` (nur die vier Schritte,
+kein Header/Footer — Beschluss aus dem Ursprungschat; transparenter
+Hintergrund) sowie vier freistehende `img/fdox-step-<n>-<slug>.svg`/`.png`
+mit transparentem Hintergrund.
 
 **Uploads:** —
 
@@ -215,13 +215,29 @@ verwendeten `#2451D6`.
 (`PIL.Image.mode == "RGBA"` geprüft), Banner-Titel/Footer tatsächlich
 abwesend (Beschluss aus dem vorherigen Chat, hier nur reproduziert).
 
+### Nachtrag 2026-09-08 — Dot-Grid-Hintergrund entfernt, Banner jetzt auch transparentes PNG
+
+Flo meldete (Screenshot, Zoom auf Step 2/3): das dezente Dot-Grid-Muster
+hinter dem Banner (5 % Deckkraft, für den weissen JPG-Hintergrund gedacht)
+war beim Reinzoomen als sichtbare Punkte wahrnehmbar. Statt nur den
+Hintergrund transparent zu machen (die Punkte hätten dann lose auf jeder
+beliebigen Folienfarbe geschwommen — ergibt ohne definierten Untergrund
+keinen Sinn), das `<pattern id="dotgrid">` komplett aus
+`_build_content_svg()` entfernt. Banner erzeugt jetzt `.png` statt `.jpg`
+(kein `flatten_to_jpg()`-Aufruf mehr für diesen Schritt), Auflösung dabei
+von `OVERSAMPLE=2` auf `3` angehoben (jetzt 11520×3252). Icon-Badges
+unverändert in der Struktur, nur `ICON_SCALE` von `4` auf `6` angehoben
+(jetzt 2436×2436 je Badge). Geprüft: Komposit auf Schachbrett-Muster
+(Pillow) zeigt sauberen Alphakanal, keine Restpunkte; zwei Läufe
+hintereinander weiterhin bytegleich, `git status --short` danach leer.
+
 ## S3 — FAIR-Digital-Object-Meta-Grafik
 
-**Ziel:** `img/fdox-fair-digital-object-meta-graphic.svg`/`.jpg` — dieselbe
-Komposition wie das hochgeladene Referenzbild (Titel links, verschachtelte
-Kreise rechts, drei Leader-Lines zu Data/Metadata/PID), umgefärbt auf
-`#004473` (Kern) und eine 65-%-Aufhellung davon (Ring, ersetzt das
-ursprüngliche Grau).
+**Ziel:** `img/fdox-fair-digital-object-meta-graphic.svg`/`.png`
+(transparenter Hintergrund) — dieselbe Komposition wie das hochgeladene
+Referenzbild (Titel links, verschachtelte Kreise rechts, drei Leader-Lines
+zu Data/Metadata/PID), umgefärbt auf `#004473` (Kern) und eine
+65-%-Aufhellung davon (Ring, ersetzt das ursprüngliche Grau).
 
 **Uploads:** —
 
@@ -233,19 +249,25 @@ Metadata im Ring-Band, PID exakt auf dem äusseren Rand (Radius = `OUTER_R`).
 Linien in der beabsichtigten Zone landen; Akzentfarbe im Log bestätigt
 (`accent #004473`).
 
+### Nachtrag 2026-09-08 — ebenfalls auf transparentes PNG umgestellt
+
+Gleicher Anlass wie bei S2 (Flos "alles als PNG mit transparentem
+Hintergrund"), auch wenn diese Grafik nie ein Dot-Grid hatte — nur der
+weisse `<rect>`-Hintergrund entfernt, `OVERSAMPLE` von `2.5` auf `3.5`
+angehoben (jetzt 5600×3500). `flatten_to_jpg()` bleibt ungenutzt in
+`visuals_utils.py` (siehe A2).
+
 ---
 
 # Teil D — Offene Punkte
 
-- **`img/*.png` der vier Icon-Badges bleiben Endprodukt** (transparenter
-  Hintergrund lässt sich nicht verlustfrei nach JPG konvertieren) — anders
-  als beim Banner, wo das PNG nur Zwischenstufe zum JPG ist und gelöscht
-  wird. Wenn eine transparente Variante des Banners selbst gebraucht wird,
-  ist das ein neuer Schritt (`.png` behalten statt löschen), nicht Teil von
-  S2.
 - **CI (`--strict` bei jedem Push)** noch nicht eingerichtet — analog zu
   `fdo-architecture`s offenem Punkt, hier aber noch nicht mal vorgeschlagen.
 - **Weitere Grafiken für den Vortrag** (z. B. eine reduzierte Fassung des
   `fdo-architecture`-Architekturdiagramms für Folie 8 des Talk-Konzepts)
   sind angekündigt ("Darein werden dann auch noch andere Skripte kommen"),
   aber noch kein eigener Schritt — wird S4, sobald konkret.
+- **`flatten_to_jpg()` ungenutzt seit S2/S3-Nachtrag 2026-09-08** — bleibt
+  als Werkzeug liegen statt entfernt zu werden; wird real erst, wenn ein
+  künftiger Schritt tatsächlich ein flaches JPG braucht (z. B. für ein
+  Zielsystem ohne Alphakanal-Unterstützung).

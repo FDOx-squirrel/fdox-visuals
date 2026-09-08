@@ -12,7 +12,7 @@ py/step_*.py   geometry + text (no rendering logic)
 img/*.svg      source, versioned
       │
       ▼  resvg-py (in-process, no rsvg-convert/ImageMagick/libcairo needed)
-img/*.jpg/png  final graphics for slides, papers, READMEs
+img/*.png      final graphics for slides, papers, READMEs — transparent background
 ```
 
 Two graphics currently live here:

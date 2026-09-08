@@ -2,10 +2,7 @@
 <style>@font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Regular.ttf"); font-weight: 400; } @font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Bold.ttf"); font-weight: 700; }</style>
 <defs>
 <linearGradient id="flow" gradientUnits="userSpaceOnUse" x1="835.0" y1="306" x2="3005.0" y2="306"><stop offset="0%" stop-color="#004473"/><stop offset="33%" stop-color="#0E9488"/><stop offset="67%" stop-color="#C2790C"/><stop offset="100%" stop-color="#8034C9"/></linearGradient>
-<pattern id="dotgrid" width="90" height="90" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="4" fill="#161B2E" opacity="0.05"/></pattern>
 </defs>
-<rect x="0" y="0" width="3840" height="1084" fill="#FFFFFF"/>
-<rect x="0" y="0" width="3840" height="1084" fill="url(#dotgrid)"/>
 <line x1="835.0" y1="306" x2="3005.0" y2="306" stroke="url(#flow)" stroke-width="10" stroke-linecap="round"/>
 <path d="M 1064.0,284 L 1116.0,306 L 1064.0,328" fill="none" stroke="white" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>
 <path d="M 1894.0,284 L 1946.0,306 L 1894.0,328" fill="none" stroke="white" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>

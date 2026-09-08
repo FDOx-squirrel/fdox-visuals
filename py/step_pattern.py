@@ -1,7 +1,7 @@
 """S2 — Four-step documentation pattern.
 
 Produces:
-  img/fdox-four-step-pattern.svg / .jpg   content-only banner, no header/footer
+  img/fdox-four-step-pattern.svg / .png   content-only banner, transparent
   img/fdox-step-<n>-<slug>.svg / .png     one badge per step, transparent background
 
 Runnable standalone: `python py/step_pattern.py`
@@ -14,14 +14,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from visuals_utils import (  # noqa: E402
-    BG,
     IMG_DIR,
     INK,
     MUTED,
     STEPS,
     ensure_dirs,
     esc,
-    flatten_to_jpg,
     font_face_css,
     render_svg_to_png,
     wrap_text,
@@ -43,8 +41,10 @@ DESC_Y0 = TITLE_Y0 + 80 * 2 + 46
 BOTTOM_MARGIN = 130
 
 # render scale: SVG is authored in the W x H design grid above, the raster
-# output is produced at OVERSAMPLE x that grid for a crisp high-res JPG
-OVERSAMPLE = 2
+# output is produced at OVERSAMPLE x that grid — high enough to stay crisp
+# at full-slide / print size while still being just one transparent PNG
+OVERSAMPLE = 3
+ICON_SCALE = 6
 
 
 def _node_icon(step_idx: int, color: str) -> str:
@@ -121,13 +121,7 @@ def _build_content_svg(desc_lines_per_step: list[list[str]]) -> tuple[str, int]:
         f'<linearGradient id="flow" gradientUnits="userSpaceOnUse" '
         f'x1="{x_first}" y1="{BADGE_CY}" x2="{x_last}" y2="{BADGE_CY}">{grad_stops}</linearGradient>'
     )
-    p.append(
-        '<pattern id="dotgrid" width="90" height="90" patternUnits="userSpaceOnUse">'
-        f'<circle cx="4" cy="4" r="4" fill="{INK}" opacity="0.05"/></pattern>'
-    )
     p.append("</defs>")
-    p.append(f'<rect x="0" y="0" width="{W}" height="{h}" fill="{BG}"/>')
-    p.append(f'<rect x="0" y="0" width="{W}" height="{h}" fill="url(#dotgrid)"/>')
     p.append(
         f'<line x1="{x_first}" y1="{BADGE_CY}" x2="{x_last}" y2="{BADGE_CY}" '
         f'stroke="url(#flow)" stroke-width="10" stroke-linecap="round"/>'
@@ -181,19 +175,19 @@ def run(strict: bool = False) -> list[str]:
     svg_path = IMG_DIR / "fdox-four-step-pattern.svg"
     svg_path.write_text(svg_text, encoding="utf-8")
     png_path = svg_path.with_suffix(".png")
-    jpg_path = svg_path.with_suffix(".jpg")
     render_svg_to_png(svg_path, png_path, W * OVERSAMPLE, h * OVERSAMPLE)
-    flatten_to_jpg(png_path, jpg_path)
-    png_path.unlink()  # intermediate only; .svg + .jpg are the deliverables
-    log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent)} + .jpg ({W*OVERSAMPLE}x{h*OVERSAMPLE})")
+    log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent)} + .png ({W*OVERSAMPLE}x{h*OVERSAMPLE}, transparent)")
 
     for i, step in enumerate(STEPS):
         svg_text, vb = _build_icon_svg(i, step)
         svg_path = IMG_DIR / f"fdox-step-{step['num']}-{step['id']}.svg"
         svg_path.write_text(svg_text, encoding="utf-8")
         png_path = svg_path.with_suffix(".png")
-        render_svg_to_png(svg_path, png_path, vb * 4, vb * 4)
-        log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent)} + .png ({vb*4}x{vb*4}, transparent)")
+        render_svg_to_png(svg_path, png_path, vb * ICON_SCALE, vb * ICON_SCALE)
+        log.append(
+            f"wrote {svg_path.relative_to(IMG_DIR.parent)} + .png "
+            f"({vb*ICON_SCALE}x{vb*ICON_SCALE}, transparent)"
+        )
 
     if warnings:
         for w in warnings:
