@@ -10,3 +10,4 @@ img/pipeline_report.txt
 # Editor/OS noise
 .DS_Store
 Thumbs.db
+PATCH-README.md
