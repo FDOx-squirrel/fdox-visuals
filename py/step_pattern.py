@@ -22,6 +22,7 @@ from visuals_utils import (  # noqa: E402
     esc,
     font_face_css,
     render_svg_to_png,
+    trim_transparent_border,
     wrap_text,
 )
 
@@ -41,10 +42,15 @@ DESC_Y0 = TITLE_Y0 + 80 * 2 + 46
 BOTTOM_MARGIN = 130
 
 # render scale: SVG is authored in the W x H design grid above, the raster
-# output is produced at OVERSAMPLE x that grid — high enough to stay crisp
-# at full-slide / print size while still being just one transparent PNG
-OVERSAMPLE = 3
-ICON_SCALE = 6
+# output is produced at OVERSAMPLE x that grid, then trimmed to content
+# (see trim_transparent_border). Kept modest on purpose: Google Slides
+# silently re-compresses/resamples any inserted image above 25 megapixels
+# (documented API limit) and in practice starts degrading quality well
+# before that — these values keep every final PNG's *content* area in the
+# low single-digit megapixels, comfortably under that ceiling, while still
+# rendering at several thousand pixels wide (sharp on any real screen).
+OVERSAMPLE = 1.5
+ICON_SCALE = 4
 
 
 def _node_icon(step_idx: int, color: str) -> str:
@@ -145,7 +151,7 @@ def _build_content_svg(desc_lines_per_step: list[list[str]]) -> tuple[str, int]:
 
 
 def _build_icon_svg(step_idx: int, step: dict) -> tuple[str, int]:
-    pad = 40
+    pad = 15
     left = -(BADGE_R + TAG_OFFSET) - pad
     top = -(BADGE_R + TAG_OFFSET) - pad
     right = BADGE_R + pad
@@ -175,18 +181,23 @@ def run(strict: bool = False) -> list[str]:
     svg_path = IMG_DIR / "fdox-four-step-pattern.svg"
     svg_path.write_text(svg_text, encoding="utf-8")
     png_path = svg_path.with_suffix(".png")
-    render_svg_to_png(svg_path, png_path, W * OVERSAMPLE, h * OVERSAMPLE)
-    log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent)} + .png ({W*OVERSAMPLE}x{h*OVERSAMPLE}, transparent)")
+    render_svg_to_png(svg_path, png_path, int(W * OVERSAMPLE), int(h * OVERSAMPLE))
+    final_w, final_h = trim_transparent_border(png_path, margin_px=10)
+    log.append(
+        f"wrote {svg_path.relative_to(IMG_DIR.parent)} + .png "
+        f"({final_w}x{final_h}, transparent, <=10px border)"
+    )
 
     for i, step in enumerate(STEPS):
         svg_text, vb = _build_icon_svg(i, step)
         svg_path = IMG_DIR / f"fdox-step-{step['num']}-{step['id']}.svg"
         svg_path.write_text(svg_text, encoding="utf-8")
         png_path = svg_path.with_suffix(".png")
-        render_svg_to_png(svg_path, png_path, vb * ICON_SCALE, vb * ICON_SCALE)
+        render_svg_to_png(svg_path, png_path, int(vb * ICON_SCALE), int(vb * ICON_SCALE))
+        final_w, final_h = trim_transparent_border(png_path, margin_px=10)
         log.append(
             f"wrote {svg_path.relative_to(IMG_DIR.parent)} + .png "
-            f"({vb*ICON_SCALE}x{vb*ICON_SCALE}, transparent)"
+            f"({final_w}x{final_h}, transparent, <=10px border)"
         )
 
     if warnings:

@@ -128,6 +128,33 @@ def render_svg_to_png(svg_path: Path, png_path: Path, width: int, height: int) -
     png_path.write_bytes(png_bytes)
 
 
+def trim_transparent_border(png_path: Path, margin_px: int = 10) -> tuple[int, int]:
+    """Crop a PNG to its non-transparent content, then pad back out to an
+    exact, small, uniform transparent border.
+
+    Works from the actual rendered alpha channel rather than a hand-
+    computed design-unit margin — a wide title in one step's text can
+    push the true content edge further out than the badge geometry alone
+    would suggest (confirmed by inspecting the real render: the fourth
+    step's title text extends past its own badge circle). Cropping pixels
+    can't clip content the way guessing a margin in SVG coordinates could.
+
+    Returns the final (width, height) for logging.
+    """
+    from PIL import Image  # lazy, same reasoning as render_svg_to_png
+
+    im = Image.open(png_path).convert("RGBA")
+    bbox = im.split()[-1].getbbox()  # bounding box of the alpha channel
+    if bbox is None:
+        return im.size  # fully transparent; nothing sensible to crop to
+    cropped = im.crop(bbox)
+    w, h = cropped.size
+    out = Image.new("RGBA", (w + 2 * margin_px, h + 2 * margin_px), (0, 0, 0, 0))
+    out.paste(cropped, (margin_px, margin_px))
+    out.save(png_path)
+    return out.size
+
+
 def flatten_to_jpg(png_path: Path, jpg_path: Path, quality: int = 95) -> None:
     """Flatten a (possibly transparent) PNG onto white and save as JPEG.
 

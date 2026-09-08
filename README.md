@@ -55,6 +55,12 @@ Typeface is [Fira Sans](https://github.com/mozilla/Fira) (Mozilla, SIL Open
 Font License 1.1), vendored under `fonts/` — a fresh clone renders
 identically without the font being installed on the machine that runs it.
 
+Every PNG is cropped to its content plus an exact 10px transparent border
+(`trim_transparent_border()`), and kept in the low single-digit megapixels
+— large enough to look sharp on any screen, small enough to stay well
+under Google Slides' 25-megapixel insert limit, which otherwise silently
+re-compresses (and visibly blurs) anything larger.
+
 ## License
 
 Code: MIT, see `LICENSE`. Please cite via `CITATION.cff`.

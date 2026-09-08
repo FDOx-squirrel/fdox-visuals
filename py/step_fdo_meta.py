@@ -25,6 +25,7 @@ from visuals_utils import (  # noqa: E402
     ensure_dirs,
     font_face_css,
     render_svg_to_png,
+    trim_transparent_border,
 )
 
 
@@ -54,7 +55,9 @@ CX, CY = 1080, 430
 OUTER_R = 320
 INNER_R = 175
 
-OVERSAMPLE = 3.5
+# See step_pattern.py's OVERSAMPLE comment: kept modest so the trimmed
+# content stays well under Google Slides' 25-megapixel insert limit.
+OVERSAMPLE = 2.5
 
 
 def _build_svg() -> str:
@@ -110,9 +113,10 @@ def run(strict: bool = False) -> list[str]:
     svg_path.write_text(svg_text, encoding="utf-8")
     png_path = svg_path.with_suffix(".png")
     render_svg_to_png(svg_path, png_path, int(W * OVERSAMPLE), int(H * OVERSAMPLE))
+    final_w, final_h = trim_transparent_border(png_path, margin_px=10)
     log.append(
         f"wrote {svg_path.relative_to(IMG_DIR.parent)} + .png "
-        f"({int(W*OVERSAMPLE)}x{int(H*OVERSAMPLE)}, transparent, accent {ACCENT})"
+        f"({final_w}x{final_h}, transparent, <=10px border, accent {ACCENT})"
     )
 
     return log

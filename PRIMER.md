@@ -69,6 +69,22 @@ ist der Ort, an dem künftige Vortrags-/Paper-Grafiken der Familie entstehen.
    SVG, das bleibt trotzdem drin — hilft beim Öffnen der `.svg`-Dateien in
    Inkscape/Browser, auch wenn der Python-Renderpfad nicht mehr darauf
    angewiesen ist).
+6. **Google Slides komprimiert eingefügte Bilder oberhalb von 25
+   Megapixeln zwangsweise** (offizielle Grenze laut Googles eigener
+   Slides-API-Dokumentation, `developers.google.com/workspace/slides/api`)
+   und degradiert nach Erfahrungsberichten (Google-Docs-Editors-Community)
+   auch deutlich darunter schon sichtbar — ein 16-MP-Testbild wurde dort
+   beim Einfügen auf ~3,2 MP heruntergerechnet. Flos ursprünglicher Banner
+   war 11520×3252 ≈ 37,5 MP, also klar über der harten Grenze — das war die
+   Ursache der gemeldeten Unschärfe, nicht ein Fehler in der Datei selbst.
+7. **Schritt 4s Titeltext reicht über den Icon-Kreis hinaus.** Am
+   Original-Banner (vor dem Auflösungs-Rückbau) per `PIL`-Bounding-Box
+   nachgemessen: der rechte Rand des sichtbaren Inhalts liegt näher am
+   Canvas-Rand, als es allein der Kreis von Step 4 erwarten ließe —
+   "Federated Knowledge"/"research infrastructures" ist breiter als der
+   Badge-Kreis. Deshalb schneidet `trim_transparent_border()` (S1) anhand
+   der tatsächlich gerenderten Pixel zu, nicht anhand einer geschätzten
+   Design-Koordinate.
 
 ## A2. Zielbild
 
@@ -120,6 +136,8 @@ Eigenschaften, an denen sich ein Rebuild messen lassen muss:
 | Ordner für Produkte | `img/` (nicht `dist/`) — Familienkonvention für Repos, deren Hauptprodukt Abbildungen sind | 2026-09-08 |
 | `img/` in Git? | ja, versioniert (wie `dist/` bei den anderen Repos) — die Bilder sind das citierbare Produkt, nicht nur Baustellenabfall | 2026-09-08, Vorschlag |
 | Ausgabeformat | **`.png`, transparenter Hintergrund** — ersetzt `.jpg` auf weißem Grund mit dezentem Dot-Grid-Muster; das Muster war auf Weiß gedacht, wurde beim Reinzoomen (Flos Screenshot) aber als sichtbare Punkte im Hintergrund wahrgenommen. Dot-Grid komplett entfernt statt nur den Hintergrund transparent zu machen — es hätte ohne definierten Untergrund keinen Sinn ergeben | 2026-09-08, ersetzt Beschluss vom selben Tag |
+| Auflösung | **Zurückgenommen** von "so hoch wie möglich" auf einen Zielbereich von ~2–6 Megapixel *Inhalt* (nach dem Trim) je Grafik — Google Slides komprimiert eingefügte Bilder oberhalb von 25 Megapixel zwangsweise (offizielle API-Grenze) und beginnt in der Praxis schon deutlich darunter sichtbar zu degradieren. `OVERSAMPLE`/`ICON_SCALE` entsprechend gesenkt (Banner 3→1,5; Icons 6→4; FDO-Meta-Grafik 3,5→2,5) | 2026-09-08, ersetzt Beschluss vom selben Tag |
+| Transparenter Rand | **maximal 10px** um jede Grafik, für alle sechs PNGs einheitlich — per `trim_transparent_border()` auf Pixelebene zugeschnitten (Alphakanal-Bounding-Box + fester Rand), nicht per geschätztem Design-Koordinaten-Abstand. Grund für den Pixel-Ansatz statt Geometrie-Rechnung: Schritt 4s Titeltext reicht nachweislich über den Icon-Kreis hinaus (siehe A1, neuer Befund) — eine Design-Koordinaten-Schätzung hätte das riskiert abzuschneiden | 2026-09-08 |
 
 ## A5. Was in welchem Chat hochgeladen wird
 
@@ -195,6 +213,45 @@ gegen `libc`/`libgcc_s`/`libpthread`/`libm` — keine `libcairo`, kein
 tatsächlich vollständig einkompiliert, nicht nur zufällig lauffähig wie
 `cairosvg` im Sandkasten. Alle sieben Dateien erneut erzeugt, bytegleich
 zu den vorher mit `cairosvg` erzeugten.
+
+### Nachtrag 2026-09-08 (2) — `trim_transparent_border()` ergänzt, Auflösung zurückgenommen
+
+Zwei Meldungen von Flo, ein gemeinsamer Fix: (a) Google Slides zeigte die
+Grafiken unscharf an (Ursache: 25-MP-Grenze der Slides-API, siehe A1
+Befund 6 — der alte Banner lag bei ~37,5 MP), (b) `fdox-fair-digital-object-meta-graphic.png`
+und `fdox-four-step-pattern.png` hatten deutlich mehr transparenten
+Rand als die vier Icon-Badges.
+
+`trim_transparent_border(png_path, margin_px=10)` neu in
+`visuals_utils.py`: öffnet das gerenderte PNG, ermittelt die Bounding-Box
+des Alphakanals (`Image.split()[-1].getbbox()`), schneidet zu, packt exakt
+`margin_px` transparente Pixel drumherum. Bewusst pixelbasiert statt über
+Design-Koordinaten geschätzt — siehe A1 Befund 7 (Schritt 4s Text reicht
+über den Icon-Kreis hinaus, eine geschätzte Marge hätte das riskiert
+abgeschnitten). Wird nach jedem `render_svg_to_png()`-Aufruf in S2 und S3
+aufgerufen.
+
+Gleichzeitig `OVERSAMPLE`/`ICON_SCALE` gesenkt (Details: A4-Zeile
+"Auflösung"), da nach dem Trim der *Inhalt* zählt, nicht die vorher große,
+leere Canvas — bei gleicher `OVERSAMPLE` wäre allein der Inhalt der
+Banner-Grafik schon bei ~21 MP gelegen.
+
+**Verifiziert:** `PIL`-Bounding-Box-Kontrolle auf allen sechs PNGs ergibt
+exakt `(10, 10, 10, 10)` (links/oben/rechts/unten); Pixel-genaue
+Alphakanal-Prüfung an allen vier Rändern der FDO-Meta-Grafik (nicht nur
+Sichtprüfung — eine erste Sichtprüfung auf einer herunterskalierten
+Vorschau sah fälschlich nach Beschnitt aus, siehe unten) zeigt einen
+sauberen Übergang von Inhalt zu vollständig transparent genau bei Pixel
+10. Alle sechs Dateien liegen zwischen 1,8 MP (Icons) und 5,7 MP (die
+beiden großen Grafiken) — weit unter der 25-MP-Grenze. Zwei Läufe
+hintereinander bytegleich, `git status --short` danach leer.
+
+**Nebenbefund:** eine herunterskalierte Vorschau (z. B. das
+`view`-Werkzeug beim Betrachten eines 3293×1728-Bildes) macht einen
+10px-Rand gegen fetten Text optisch fast unsichtbar — das sah beim ersten
+Hinsehen nach Beschnitt aus, war aber keiner. Bei so kleinen Rand-Werten
+lohnt sich die Pixel-Prüfung (`numpy`-Array auf die letzten/ersten N
+Zeilen/Spalten), nicht nur der visuelle Eindruck einer Vorschau.
 
 ## S2 — Vier-Schritte-Muster-Banner + Icon-Badges
 
