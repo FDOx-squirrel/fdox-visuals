@@ -1,0 +1,5 @@
+# Rendering: pure-Python SVG->PNG, no rsvg-convert/ImageMagick/Node needed.
+# Versions are loose (>=) — tested against the pinned-in-comment version,
+# no known fragile API surface, so a newer release should be fine.
+cairosvg>=2.7      # tested 2.9.1 — needs @font-face url() + gradientUnits=userSpaceOnUse support
+pillow>=10.0       # tested 12.1.1 — only RGBA-on-white JPEG flattening
