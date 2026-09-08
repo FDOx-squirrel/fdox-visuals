@@ -42,6 +42,9 @@ ROW_H = 108
 GAP = 26
 PANEL_PAD = 40
 PANEL_GAP = 140
+PANEL_TOP = 90     # y of every panel rect's top edge
+TOP_INSET = 150    # panel_top -> first row's vertical centre (clears the title text)
+BOTTOM_PAD = 40    # last row's bottom -> panel bottom
 
 # --- process column (7 rows, top to bottom, matches main.py's real order) ---
 PROCESS_ROWS = [
@@ -80,7 +83,10 @@ EDGES_TO_OUTPUT = [(2, 0), (3, 0), (4, 1), (5, 2), (6, 3)]
 
 
 def row_y(i: float) -> float:
-    return PANEL_PAD + 70 + i * (ROW_H + GAP)
+    """Absolute y-centre of process row i (already includes panel_top and
+    the title-band offset — call sites should NOT add panel_top again).
+    """
+    return PANEL_TOP + TOP_INSET + i * (ROW_H + GAP)
 
 
 def _wrap_lines(text: str) -> list[str]:
@@ -110,18 +116,15 @@ def _arrow(x1: float, y1: float, x2: float, y2: float) -> str:
 
 def _build_svg() -> tuple[str, float, float]:
     n_process = len(PROCESS_ROWS)
-    process_top = row_y(0) - ROW_H / 2
-    process_bottom = row_y(n_process - 1) + ROW_H / 2
-    panel_h = process_bottom - process_top + 2 * PANEL_PAD
+    last_bottom = row_y(n_process - 1) + ROW_H / 2
+    panel_h = (last_bottom - PANEL_TOP) + BOTTOM_PAD
 
     input_x = PANEL_PAD
     process_x = input_x + BOX_W + PANEL_GAP
     output_x = process_x + PROCESS_BOX_W + PANEL_GAP
 
     W = output_x + BOX_W + PANEL_PAD
-    H = panel_h + 140  # + panel title band
-
-    panel_top = 90
+    H = PANEL_TOP + panel_h + PANEL_PAD
 
     parts = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">']
     parts.append(font_face_css())
@@ -131,13 +134,13 @@ def _build_svg() -> tuple[str, float, float]:
     )
 
     def panel(x, title, accent, tint):
-        parts.append(
-            f'<rect x="{x-PANEL_PAD}" y="{panel_top}" width="{BOX_W+2*PANEL_PAD if x!=process_x else PROCESS_BOX_W+2*PANEL_PAD}" '
-            f'height="{panel_h}" rx="22" fill="{tint}" stroke="{accent}" stroke-width="3"/>'
-        )
         panel_w = (PROCESS_BOX_W if x == process_x else BOX_W) + 2 * PANEL_PAD
         parts.append(
-            f'<text x="{x-PANEL_PAD+panel_w/2}" y="{panel_top+48}" text-anchor="middle" '
+            f'<rect x="{x-PANEL_PAD}" y="{PANEL_TOP}" width="{panel_w}" '
+            f'height="{panel_h}" rx="22" fill="{tint}" stroke="{accent}" stroke-width="3"/>'
+        )
+        parts.append(
+            f'<text x="{x-PANEL_PAD+panel_w/2}" y="{PANEL_TOP+48}" text-anchor="middle" '
             f'font-family="Fira Sans" font-weight="700" font-size="34" fill="{accent}">{title}</text>'
         )
 
@@ -145,32 +148,30 @@ def _build_svg() -> tuple[str, float, float]:
     panel(process_x, "fdo-squirrel", PROCESS_ACCENT, PROCESS_TINT)
     panel(output_x, "Derived Outputs", OUTPUT_ACCENT, OUTPUT_TINT)
 
-    yoff = panel_top + 40
-
     # process boxes
     for i, label in enumerate(PROCESS_ROWS):
-        y = yoff + row_y(i) - ROW_H / 2
+        y = row_y(i) - ROW_H / 2
         parts.append(_box(process_x, y, PROCESS_BOX_W, ROW_H, "white", PROCESS_ACCENT, _wrap_lines(label)))
 
     # input boxes
     for i, (label, target) in enumerate(INPUT_BOXES):
-        y = yoff + row_y(target if target != 3 else 3) - ROW_H / 2
+        y = row_y(target) - ROW_H / 2
         if i == 1:  # CITATION.cff sits just below MD.cff, both -> ingest
             y += ROW_H + GAP
         parts.append(_box(input_x, y, BOX_W, ROW_H, "white", INPUT_ACCENT, _wrap_lines(label)))
 
     # output boxes
     for label, source in OUTPUT_BOXES:
-        y = yoff + row_y(source) - ROW_H / 2
+        y = row_y(source) - ROW_H / 2
         parts.append(_box(output_x, y, BOX_W, ROW_H, "white", OUTPUT_ACCENT, _wrap_lines(label)))
 
     # edges: input -> process
-    md_y = yoff + row_y(0) - ROW_H / 2 + ROW_H / 2
+    md_y = row_y(0)
     cff_y = md_y + ROW_H + GAP
-    data_y = yoff + row_y(3)
+    data_y = row_y(3)
     ingest_left = process_x
-    ingest_y = yoff + row_y(0)
-    roles_y = yoff + row_y(3)
+    ingest_y = row_y(0)
+    roles_y = row_y(3)
     parts.append(_arrow(input_x + BOX_W, md_y, ingest_left, ingest_y - 14))
     parts.append(_arrow(input_x + BOX_W, cff_y, ingest_left, ingest_y + 14))
     parts.append(_arrow(input_x + BOX_W, data_y, ingest_left, roles_y))
@@ -179,16 +180,16 @@ def _build_svg() -> tuple[str, float, float]:
     chain = EDGES_PROCESS_CHAIN + EDGES_TO_PROVENANCE + EDGES_PROCESS_TAIL
     cx = process_x + PROCESS_BOX_W / 2
     for a, b in chain:
-        ya = yoff + row_y(a) + ROW_H / 2
-        yb = yoff + row_y(b) - ROW_H / 2
+        ya = row_y(a) + ROW_H / 2
+        yb = row_y(b) - ROW_H / 2
         xa = cx - 40 if (a, b) in EDGES_TO_PROVENANCE else cx
         xb = cx + 40 if (a, b) in EDGES_TO_PROVENANCE else cx
         parts.append(_arrow(xa, ya, xb, yb))
 
     # process -> output
     for src, out_i in EDGES_TO_OUTPUT:
-        y_src = yoff + row_y(src)
-        y_out = yoff + row_y(OUTPUT_BOXES[out_i][1])
+        y_src = row_y(src)
+        y_out = row_y(OUTPUT_BOXES[out_i][1])
         parts.append(_arrow(process_x + PROCESS_BOX_W, y_src, output_x, y_out))
 
     parts.append("</svg>")

@@ -121,6 +121,38 @@ ist der Ort, an dem künftige Vortrags-/Paper-Grafiken der Familie entstehen.
    development_status}` — eine andere Struktur, nicht nur andere Felder.
    Drei Top-Level-Felder fehlen im Bild ganz: `contributors`,
    `related_resources`, `distributions`.
+10. **"Kacheln" am unteren Rand von `fdox-fdo-squirrel-architecture.png`
+    (gemeldet von Flo, 2026-09-08) — Rechenfehler in S4, nicht im
+    Rendering.** Die Panel-Hintergrundboxen wurden mit einer `panel_h`
+    berechnet, die den zusätzlichen `yoff`-Versatz der eigentlichen
+    Prozess-Boxen nicht mit einbezog — die letzte Box ("Bundle
+    finalisation") reichte dadurch rechnerisch 16 Design-Einheiten (≈ 29px
+    bei `1.8`-facher Renderauflösung) über den unteren Panel-Rand hinaus,
+    sichtbar als abgeschnittene Ecke/zweite Kontur unter dem eigentlichen
+    Panel. Fix: `row_y()` liefert jetzt direkt absolute Canvas-Koordinaten
+    (inkl. `PANEL_TOP`/Titel-Abstand), `panel_h` wird aus derselben
+    Funktion abgeleitet statt aus einer zweiten, leicht abweichenden
+    Rechnung — beide können dadurch nicht mehr auseinanderlaufen.
+11. **CITATION.cff ("minimum CFF") ist der externe CFF-1.2.0-Standard,
+    keine FDOx-eigene Erfindung — `fdo-squirrel` liest nur einen Ausschnitt
+    davon, und zwar einen kleineren, als die eigene Crosswalk-YAML nahelegt.**
+    `crosswalks/crosswalk.fdo-metadata.yaml` bildet 22 CFF-Felder auf RDF-
+    Prädikate ab. Aber `crosswalks/citation_crosswalk_engine.py`s
+    `_normalize_citation()` liest den echten `CITATION.cff`-Dict vorher auf
+    eine feste Allow-Liste herunter: nur `abstract`, `url`,
+    `repository-code`, `repository`, `license`, `keywords`, `identifiers`
+    (als `identifier_<scheme>`) und `authors` (aufgespalten in
+    `author_orcid[]`/`author_name[]`) kommen durch. Die übrigen 14
+    kartierten Felder — u. a. `title`, `version`, `date-released`, `doi`,
+    `contributors`, `cff-version` — werden von der Crosswalk-Schleife nie
+    gefunden (`citation.get(source_field)` liefert `None`) und erzeugen
+    **keine** Tripel, obwohl sie in der YAML stehen und im Beispiel-
+    `CITATION.cff` sogar ausgefüllt sind. Vermutlich unschädlich in der
+    Praxis (Titel/Version/Datum kommen fürs FDO ohnehin aus `MD.cff`), aber
+    ein `CITATION.cff`, das nur diese Felder ausfüllt, sieht im RDF nichts
+    davon. Nicht selbst gefixt (anderes Repo, A3) — nur im neuen Diagramm
+    sichtbar gemacht (S6), damit es nicht implizit als "funktioniert"
+    dargestellt wird.
 
 ## A2. Zielbild
 
@@ -197,6 +229,7 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S3 | FAIR-Digital-Object-Meta-Grafik | fdox-visuals | S1 | erledigt 2026-09-08 |
 | S4 | fdo-squirrel-Architekturdiagramm (korrigiert) | fdox-visuals | S1 | erledigt 2026-09-08 |
 | S5 | MD.cff-Schema-Klassendiagramm (neu, kein Vorbild-Skript) | fdox-visuals | S1 | erledigt 2026-09-08 |
+| S6 | CITATION.cff-Schema-Diagramm ("minimum CFF", neu) | fdox-visuals | S1 | erledigt 2026-09-08 |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -384,6 +417,16 @@ Vermutung); Sichtprüfung zeigt keine überlappenden Boxen oder
 abgeschnittenen Text; 3188×1841 vor Trim, danach exakt 10px Rand,
 5,87 MP (Slides-sicher).
 
+### Nachtrag 2026-09-08 (2) — "Kacheln" am unteren Rand behoben
+
+Siehe A1 Befund 10 für die Ursache. Fix bestätigt: unterer Rand der
+"Bundle finalisation"-Box liegt jetzt vollständig innerhalb ihres Panels
+(Crop-Zoom auf den unteren Bildstreifen vor/nach dem Fix verglichen).
+Nebenwirkung des Fixes: Canvas ist jetzt 1913 statt 1841px hoch (der Fix
+schafft mehr Bodenabstand, nicht weniger — die alte Zahl war zu knapp
+bemessen, nicht zu großzügig). Erneut deterministisch, `git status`
+danach leer.
+
 ## S5 — MD.cff-Schema-Klassendiagramm (neu)
 
 **Ziel:** `img/fdox-md-cff-schema.svg`/`.png` — UML-artiges
@@ -413,6 +456,33 @@ Sichtprüfung — bei 19px Schriftgröße rücken zwei Punkte optisch
 zusammen und sahen im ersten Screenshot wie ein einzelner Punkt aus).
 2394×2401 vor Trim, danach exakt 10px Rand, 5,75 MP.
 
+## S6 — CITATION.cff-Schema-Diagramm ("minimum CFF")
+
+**Ziel:** `img/fdox-citation-cff-schema.svg`/`.png` — anders als S5 keine
+FDOx-eigene Schema-Definition, sondern der externe CFF-1.2.0-Standard,
+so wie `fdo-squirrel` ihn tatsächlich liest (siehe A1 Befund 11).
+
+**Uploads:** Flos drittes Referenzbild ("CITATION_cff"-Klassendiagramm,
+ohne `md_cff_version`-Analogon, da CITATION.cff kein FDOx-Format ist);
+`fdo-squirrel` erneut geklont, diesmal `crosswalks/crosswalk.fdo-metadata.yaml`
+und `crosswalks/citation_crosswalk_engine.py` gegeneinander gelesen statt
+nur die YAML.
+
+Zwei zentrale Boxen statt einer: **"forwarded to RDF"** (8 Felder, voller
+Teal-Stil wie MD_cff) und **"mapped … not forwarded"** (14 Felder, grau,
+gestrichelter Rahmen) — der Unterschied selbst ist der eigentliche Inhalt
+der Grafik, nicht nur eine Feldliste. `Author`- und `Identifier`-Satelliten
+rechts, `contributors` (im "not forwarded"-Block) verbindet sich mit
+gestrichelter Linie zu `Author`, um zu zeigen: die Struktur existiert,
+der Datenfluss dorthin nicht. Fußnote im Bild selbst benennt Datei und
+Funktion (`_normalize_citation()`), damit die Aussage überprüfbar bleibt,
+ohne dass man diese PRIMER.md dafür lesen muss.
+
+**Abnahme:** ✅ erledigt — alle 22 Felder stammen aus `grep "from_term:
+cff:" crosswalks/crosswalk.fdo-metadata.yaml`, die 8/14-Aufteilung aus
+`_normalize_citation()`s tatsächlichem Rückgabe-Dict gegengeprüft (nicht
+geraten); 3405×1580 vor Trim, danach exakt 10px Rand, 5,38 MP.
+
 ---
 
 # Teil D — Offene Punkte
@@ -432,3 +502,17 @@ zusammen und sahen im ersten Screenshot wie ein einzelner Punkt aus).
   nur eine korrigierte Kopie in `fdox-visuals` erzeugt, nicht die
   Originaldatei in `fdo-squirrel` gepatcht. Das wäre ein eigener Chat in
   jenem Repo (anderes Repo pro Chat, A3).
+- **Große Idee, noch nicht mal skizziert, geschweige denn Schritt:**
+  CIIC 81 (und eine Holy Well, z. B. `freshford-st-lachtains-well-low-poly`)
+  echt durch `fdo-3d-packager` → `fdo-squirrel` schicken, und die
+  *Instanz*-Diagramme (Flos Folien 27–29: "MD.cff ausgefüllt",
+  "Files and Roles", "FDO Overview") direkt aus diesem echten Lauf
+  erzeugen statt wie S2–S6 als generische Schema-/Architektur-Grafiken.
+  Gehört, wenn umgesetzt, eher zu `fdo-squirrel`/`fdo-3d-packager` als zu
+  `fdox-visuals` — S6 (`Overview diagram`) tut das für die "FDO Overview"-
+  Variante bereits (`fdo_mermaid.py` + `render_mermaid_to_jpg`). "Files and
+  Roles" und "MD.cff ausgefüllt" haben noch keinen Generator. Separat
+  diskutiert, hier nur vermerkt, damit es nicht verloren geht.
+- **RDF-Triple-Visualisierungen (Flos Folien 30/31)** — ausdrücklich nicht
+  für `fdox-visuals` vorgesehen (Flos eigene Einschätzung), separates
+  Thema.

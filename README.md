@@ -31,6 +31,10 @@ Four graphics currently live here:
 - **`fdox-md-cff-schema`** — a class-diagram overview of the MD.cff
   metadata schema, built directly from
   `fdo-squirrel-spec/data/raw/MD.cff-schema.yaml`.
+- **`fdox-citation-cff-schema`** — the CITATION.cff ("minimum CFF") fields
+  `fdo-squirrel` actually reads, split into what its crosswalk forwards to
+  RDF and what it maps but silently drops (see `PRIMER.md` A1 for the
+  finding this surfaced).
 
 ## Usage
 

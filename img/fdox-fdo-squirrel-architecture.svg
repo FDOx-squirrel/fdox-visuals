@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1132.0" viewBox="0 0 1760 1132.0">
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1178.0" viewBox="0 0 1760 1178.0">
 <style>@font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Regular.ttf"); font-weight: 400; } @font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Bold.ttf"); font-weight: 700; }</style>
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5B6478"/></marker>
-<rect x="0" y="90" width="540" height="992.0" rx="22" fill="#E6ECF1" stroke="#004473" stroke-width="3"/>
+<rect x="0" y="90" width="540" height="1048.0" rx="22" fill="#E6ECF1" stroke="#004473" stroke-width="3"/>
 <text x="270.0" y="138" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="34" fill="#004473">FDO ZIP Package</text>
-<rect x="600" y="90" width="560" height="992.0" rx="22" fill="#E6F6F4" stroke="#0E9488" stroke-width="3"/>
+<rect x="600" y="90" width="560" height="1048.0" rx="22" fill="#E6F6F4" stroke="#0E9488" stroke-width="3"/>
 <text x="880.0" y="138" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="34" fill="#0E9488">fdo-squirrel</text>
-<rect x="1220" y="90" width="540" height="992.0" rx="22" fill="#F3E9FC" stroke="#8034C9" stroke-width="3"/>
+<rect x="1220" y="90" width="540" height="1048.0" rx="22" fill="#F3E9FC" stroke="#8034C9" stroke-width="3"/>
 <text x="1490.0" y="138" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="34" fill="#8034C9">Derived Outputs</text>
 <rect x="640" y="186.0" width="480" height="108" rx="14" fill="white" stroke="#0E9488" stroke-width="3.5"/><text x="880.0" y="250.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="27" fill="#161B2E">Metadata ingest</text>
 <rect x="640" y="320.0" width="480" height="108" rx="14" fill="white" stroke="#0E9488" stroke-width="3.5"/><text x="880.0" y="384.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="27" fill="#161B2E">Schema validation</text>
@@ -21,8 +21,8 @@
 <rect x="1260" y="722.0" width="460" height="108" rx="14" fill="white" stroke="#8034C9" stroke-width="3.5"/><text x="1490.0" y="769.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="27" fill="#161B2E">rdf_modelling_report</text><text x="1490.0" y="803.0" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="27" fill="#161B2E">JSON / HTML</text>
 <rect x="1260" y="856.0" width="460" height="108" rx="14" fill="white" stroke="#8034C9" stroke-width="3.5"/><text x="1490.0" y="903.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="27" fill="#161B2E">fdo_overview</text><text x="1490.0" y="937.0" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="27" fill="#161B2E">Mermaid + JPG</text>
 <rect x="1260" y="990.0" width="460" height="108" rx="14" fill="white" stroke="#8034C9" stroke-width="3.5"/><text x="1490.0" y="1037.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="27" fill="#161B2E">&lt;slug&gt;-fdo-bundle.zip</text><text x="1490.0" y="1071.0" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="27" fill="#161B2E">self-contained, republishable</text>
-<line x1="500" y1="240.0" x2="640" y2="226" stroke="#5B6478" stroke-width="3" marker-end="url(#arrow)"/>
-<line x1="500" y1="374.0" x2="640" y2="254" stroke="#5B6478" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="500" y1="240" x2="640" y2="226" stroke="#5B6478" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="500" y1="374" x2="640" y2="254" stroke="#5B6478" stroke-width="3" marker-end="url(#arrow)"/>
 <line x1="500" y1="642" x2="640" y2="642" stroke="#5B6478" stroke-width="3" marker-end="url(#arrow)"/>
 <line x1="880.0" y1="294.0" x2="880.0" y2="320.0" stroke="#5B6478" stroke-width="3" marker-end="url(#arrow)"/>
 <line x1="880.0" y1="428.0" x2="880.0" y2="454.0" stroke="#5B6478" stroke-width="3" marker-end="url(#arrow)"/>
