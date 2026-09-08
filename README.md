@@ -11,7 +11,7 @@ py/step_*.py   geometry + text (no rendering logic)
       ▼  main.py
 img/*.svg      source, versioned
       │
-      ▼  cairosvg (in-process, no rsvg-convert/ImageMagick needed)
+      ▼  resvg-py (in-process, no rsvg-convert/ImageMagick/libcairo needed)
 img/*.jpg/png  final graphics for slides, papers, READMEs
 ```
 

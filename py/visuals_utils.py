@@ -108,14 +108,24 @@ def font_face_css() -> str:
 
 
 def render_svg_to_png(svg_path: Path, png_path: Path, width: int, height: int) -> None:
-    import cairosvg  # lazy: keeps --list/--dry-run free of the import
+    """Rasterise via resvg (a single self-contained compiled wheel — no
+    system libcairo/rsvg/ImageMagick needed, which is exactly what broke
+    on Windows with the cairosvg-based first version of this repo: pip
+    installs the Python package fine, but cairosvg still needs a system
+    libcairo-2.dll that pip does not provide. resvg's wheel bundles the
+    (Rust, statically-linked) renderer itself, so `pip install` is really
+    the whole story.
+    """
+    import resvg_py  # lazy: keeps --list/--dry-run free of the import
 
-    cairosvg.svg2png(
-        url=str(svg_path),
-        write_to=str(png_path),
-        output_width=width,
-        output_height=height,
+    png_bytes = resvg_py.svg_to_bytes(
+        svg_path=str(svg_path),
+        width=width,
+        height=height,
+        font_files=[str(FONT_REGULAR), str(FONT_BOLD)],
+        skip_system_fonts=True,  # always our vendored files, never a same-named system font
     )
+    png_path.write_bytes(png_bytes)
 
 
 def flatten_to_jpg(png_path: Path, jpg_path: Path, quality: int = 95) -> None:

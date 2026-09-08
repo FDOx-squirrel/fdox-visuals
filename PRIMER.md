@@ -52,6 +52,23 @@ ist der Ort, an dem künftige Vortrags-/Paper-Grafiken der Familie entstehen.
    Referenz für die ganze Familie: Step 1 im Vier-Schritte-Schema und der
    Akzent der Meta-Grafik sind identisch `#004473`, damit beide Grafiken
    sichtbar zusammengehören.
+5. **`cairosvg` ist trotz `pip install` keine reine Python-Lösung —
+   Falschannahme aus S0/S1, korrigiert 2026-09-08.** `cairosvg` bindet an
+   eine System-`libcairo`; im Sandkasten war die zufällig vorhanden (kam
+   transitiv mit `librsvg2-bin` über `apt`, das für einen früheren,
+   unabhängigen Render-Versuch installiert worden war), auf Flos
+   Windows-Rechner fehlt sie komplett. Echter Fehlertext beim ersten Lauf
+   nach dem Commit: `no library called "cairo-2" was found` /
+   `cannot load library 'libcairo-2.dll'`. Ersetzt durch **`resvg-py`**
+   (Rust, `abi3`-Wheel, Renderer statisch mit einkompiliert — auch für
+   `win_amd64` auf PyPI vorhanden). Geprüft: identischer Bildinhalt zu
+   `cairosvg` bei allen drei bestehenden Grafiken (Sichtprüfung,
+   Gradient/Pattern/Font alle korrekt), Icon-Transparenz weiterhin
+   `RGBA`-Alpha `0` in der Ecke. `resvg-py` lädt die Schrift über den
+   expliziten `font_files=`-Parameter (nicht über das `@font-face`-CSS im
+   SVG, das bleibt trotzdem drin — hilft beim Öffnen der `.svg`-Dateien in
+   Inkscape/Browser, auch wenn der Python-Renderpfad nicht mehr darauf
+   angewiesen ist).
 
 ## A2. Zielbild
 
@@ -99,7 +116,7 @@ Eigenschaften, an denen sich ein Rebuild messen lassen muss:
 
 | Frage | Beschluss | seit |
 |---|---|---|
-| Rendering-Weg | `cairosvg` + `Pillow`, kein `rsvg-convert`/ImageMagick | 2026-09-08 |
+| Rendering-Weg | **`resvg-py`** (Rust-Wheel, Renderer statisch enthalten) — ersetzt `cairosvg`, das trotz `pip install` eine System-`libcairo` brauchte und auf Windows real fehlschlug (Befund A1.5) | 2026-09-08, ersetzt Beschluss vom selben Tag |
 | Schriftart | Fira Sans (Regular 400, Bold 700), vendored aus `github.com/mozilla/Fira`, SIL OFL 1.1 | 2026-09-08 |
 | FDOx-Blau | `#004473` (Pixel-Wert aus dem Referenzbild), Step 1 **und** FDO-Meta-Grafik teilen sich diesen Wert | 2026-09-08 |
 | Repo-Name | `fdox-visuals`, **Vorschlag** — Flo legt das eigentliche GitHub-Repo an, Name kann beim Anlegen noch geändert werden | 2026-09-08, Vorschlag |
@@ -149,8 +166,35 @@ hintereinander sind bytegleich.
 keinen Hex-Code für Ink/Muted/Background.
 
 **Abnahme:** ✅ erledigt — `--list` und `--dry-run` unter 0,1 s (kein
-`cairosvg`-Import), `python main.py` erzeugt alle sieben Dateien, zweiter
-Lauf `md5sum`-identisch zum ersten (siehe A1 Befund 1).
+schweren Renderer-Import), `python main.py` erzeugt alle sieben Dateien,
+zweiter Lauf `md5sum`-identisch zum ersten (siehe A1 Befund 1).
+
+### Nachtrag 2026-09-08 — cairosvg auf Flos Windows-Rechner gescheitert, ersetzt durch resvg-py
+
+Erster echter Lauf nach `git commit`/`push` auf Windows:
+
+```
+ERROR: no library called "cairo-2" was found
+...
+cannot load library 'libcairo-2.dll': error 0x7e. [...] did not manage to
+locate a library called 'libcairo-2.dll'
+```
+
+Ursache: `cairosvg` ist zwar ein `pip`-Paket, bindet zur Laufzeit aber an
+eine System-`libcairo` (`ctypes.util.find_library`). Im Sandkasten lief es
+nur, weil `librsvg2-bin` (für einen früheren, unabhängigen Versuch per
+`apt` installiert) `libcairo2` als transitive Abhängigkeit mitgebracht
+hatte — auf einer sauberen Windows-Installation ist davon nichts vorhanden.
+Die A2-Eigenschaft "kein externes CLI-Tool nötig" war damit nur zufällig
+erfüllt, nicht durch `cairosvg` selbst.
+
+Fix: `resvg-py` (siehe A1 Befund 5). Verifiziert per `ldd` gegen die
+kompilierte Erweiterung (`resvg_py.abi3.so`): sie linkt ausschließlich
+gegen `libc`/`libgcc_s`/`libpthread`/`libm` — keine `libcairo`, kein
+`pango`, kein `fontconfig`, nichts Grafikbezogenes. Der Renderer ist
+tatsächlich vollständig einkompiliert, nicht nur zufällig lauffähig wie
+`cairosvg` im Sandkasten. Alle sieben Dateien erneut erzeugt, bytegleich
+zu den vorher mit `cairosvg` erzeugten.
 
 ## S2 — Vier-Schritte-Muster-Banner + Icon-Badges
 
