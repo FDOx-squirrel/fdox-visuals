@@ -10,7 +10,7 @@
     python main.py --strict         warnings become errors (this is what CI runs)
 
 Step modules are imported lazily so `--list` and `--dry-run` stay instant
-and free of cairosvg/Pillow.
+and free of resvg-py/Pillow.
 """
 
 from __future__ import annotations
@@ -28,6 +28,8 @@ sys.path.insert(0, str(ROOT / "py"))
 STEPS = [
     ("pattern", "Four-step documentation pattern banner + 4 icon badges", "step_pattern"),
     ("fdo-meta", "FAIR Digital Object meta-graphic (Data/Metadata/PID)", "step_fdo_meta"),
+    ("architecture", "fdo-squirrel architecture diagram", "step_architecture"),
+    ("md-cff-schema", "MD.cff schema class diagram", "step_md_cff_schema"),
 ]
 
 

@@ -86,6 +86,42 @@ ist der Ort, an dem künftige Vortrags-/Paper-Grafiken der Familie entstehen.
    der tatsächlich gerenderten Pixel zu, nicht anhand einer geschätzten
    Design-Koordinate.
 
+7. **Schritt 4s Titeltext reicht über den Icon-Kreis hinaus.** Am
+   Original-Banner (vor dem Auflösungs-Rückbau) per `PIL`-Bounding-Box
+   nachgemessen: der rechte Rand des sichtbaren Inhalts liegt näher am
+   Canvas-Rand, als es allein der Kreis von Step 4 erwarten ließe —
+   "Federated Knowledge"/"research infrastructures" ist breiter als der
+   Badge-Kreis. Deshalb schneidet `trim_transparent_border()` (S1) anhand
+   der tatsächlich gerenderten Pixel zu, nicht anhand einer geschätzten
+   Design-Koordinate.
+8. **`fdo-squirrel/architecture.mermaid` (+ `architecture.png`) existiert,
+   ist aber veraltet — geprüft 2026-09-08 gegen den echten `main.py`.**
+   Deckt drei Pipeline-Stufen nicht ab, die im aktuellen Code laufen:
+   Schema-Validierung (`validate_against_schema`, direkt nach dem Laden),
+   die Mermaid→JPG-Übersichtsgrafik (`FDOMermaidGenerator` +
+   `render_mermaid_to_jpg`, schreibt `fdo_overview.mermaid`/`.jpg`), und
+   die Bundle-Finalisierung (`build_finished_bundle`, schreibt
+   `<slug>-fdo-bundle.zip`). Das Diagramm zeigt nur Ingest → Crosswalk →
+   Provenance → TTL/Report, wie es offenbar vor Einführung dieser drei
+   Stufen aussah. Kein anderes Repo der Familie hat eine aktuellere
+   Fassung (`fdo-3d-packager`, `fdo-architecture`,
+   `fdo-squirrel-registry`, `fdo-git-packager` durchsucht — nichts
+   gefunden).
+9. **Kein Generator-Skript für ein MD.cff-Klassendiagramm irgendwo in der
+   Familie gefunden** (gleiche Suche wie Befund 8). Das von Flo
+   hochgeladene Referenzbild ist zudem **inhaltlich veraltet** gegen das
+   echte, aktuelle `fdo-squirrel-spec/data/raw/MD.cff-schema.yaml`
+   (geprüft 2026-09-08): `md_cff_version` fehlt als Attribut komplett
+   (ist aber `required`); `version` und `date_created` sind im Bild als
+   `required` markiert, im echten Schema aber optional; `publishers` hat
+   `minItems: 1`, müsste also 1..\* statt 0..\* sein; `Technique` ist im
+   Bild `method`/`hardware`/`images_count`/`software`/`steps` (flach),
+   im echten Schema aber `acquisition{method,hardware,images_count}` +
+   `processing` + `programming_languages[]` + `repository{type,url,
+   development_status}` — eine andere Struktur, nicht nur andere Felder.
+   Drei Top-Level-Felder fehlen im Bild ganz: `contributors`,
+   `related_resources`, `distributions`.
+
 ## A2. Zielbild
 
 ```
@@ -159,10 +195,12 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S1 | Skeleton: `main.py`, `py/visuals_utils.py`, `requirements.txt`, Lizenz | fdox-visuals | S0 | erledigt 2026-09-08 |
 | S2 | Vier-Schritte-Muster-Banner + 4 Icon-Badges | fdox-visuals | S1 | erledigt 2026-09-08 |
 | S3 | FAIR-Digital-Object-Meta-Grafik | fdox-visuals | S1 | erledigt 2026-09-08 |
+| S4 | fdo-squirrel-Architekturdiagramm (korrigiert) | fdox-visuals | S1 | erledigt 2026-09-08 |
+| S5 | MD.cff-Schema-Klassendiagramm (neu, kein Vorbild-Skript) | fdox-visuals | S1 | erledigt 2026-09-08 |
 
-S2 und S3 sind unabhängig voneinander (beide hängen nur von S1 ab) und
-können in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft
-ohne dass `pattern` vorher gelaufen sein muss.
+S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
+in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
+dass `pattern` vorher gelaufen sein muss.
 
 ---
 
@@ -316,15 +354,81 @@ angehoben (jetzt 5600×3500). `flatten_to_jpg()` bleibt ungenutzt in
 
 ---
 
+## S4 — fdo-squirrel-Architekturdiagramm (korrigiert)
+
+**Ziel:** `img/fdox-fdo-squirrel-architecture.svg`/`.png` — dieselbe
+3-Panel-Struktur wie `fdo-squirrel/architecture.mermaid`
+(FDO-ZIP-Package → fdo-squirrel → Derived Outputs), im Familienstil neu
+gezeichnet und um die drei fehlenden Pipeline-Stufen ergänzt (siehe A1
+Befund 8): Schema-Validierung, Mermaid→JPG-Übersichtsgrafik,
+Bundle-Finalisierung.
+
+**Uploads:** die beiden von Flo hochgeladenen Referenzbilder (Architektur
++ MD.cff-Klassendiagramm); `fdo-squirrel` frisch geklont für die
+Gegenprüfung gegen `main.py`.
+
+Panel-Akzente aus der Vier-Schritte-Familie wiederverwendet statt neue
+Farben erfunden: Eingabe = Step-1-Blau, Verarbeitung = Step-2-Teal,
+Ausgabe = Step-4-Violett (Step-3-Gold bewusst ausgelassen, das ist
+"Linking to Community Hubs" vorbehalten). Sieben Verarbeitungsschritte
+statt vorher vier, in der tatsächlichen Reihenfolge aus `main()`:
+Metadata ingest → Schema validation → Crosswalk & Mapping Rules →
+Provenance tracking (zusammen mit Role classification) → Overview
+diagram → Bundle finalisation. Vier Ausgaben statt vorher zwei:
+`fdo-metadata.ttl`, `rdf_modelling_report`, `fdo_overview`,
+`<slug>-fdo-bundle.zip`.
+
+**Abnahme:** ✅ erledigt — jede Box/jeder Pfeil entspricht einem realen
+`import`/Funktionsaufruf in `fdo-squirrel/main.py` (nicht nur eine
+Vermutung); Sichtprüfung zeigt keine überlappenden Boxen oder
+abgeschnittenen Text; 3188×1841 vor Trim, danach exakt 10px Rand,
+5,87 MP (Slides-sicher).
+
+## S5 — MD.cff-Schema-Klassendiagramm (neu)
+
+**Ziel:** `img/fdox-md-cff-schema.svg`/`.png` — UML-artiges
+Klassendiagramm der zentralen `MD_cff`-Klasse mit allen 13 verwandten
+Strukturen aus `fdo-squirrel-spec/data/raw/MD.cff-schema.yaml`, korrekt
+gegen das Schema geprüft (siehe A1 Befund 9 für die konkreten Abweichungen
+zum alten, hochgeladenen Bild).
+
+**Uploads:** `fdo-squirrel-spec` frisch geklont, `data/raw/MD.cff-schema.yaml`
+Feld für Feld gelesen (nicht nur die `required`-Liste, auch jedes `$defs`-
+Unterschema).
+
+Zwei Spalten links/rechts der zentralen `MD_cff`-Box (7 links, 6 rechts),
+Kardinalität als Label an der Linie, `FDO_Class_Vocab` weiterhin mit
+gestrichelter Linie (Typ-Constraint statt Enthält-Beziehung — das war im
+Originalbild schon richtig und wurde beibehalten). Verschachtelte
+Unterobjekte (z. B. `HeritageObject.object_type`, `Technique.acquisition`)
+werden als einzelne `object`-Attribute gelistet statt weiter aufgeklappt —
+gleiche Abstraktionstiefe wie im ursprünglichen Referenzbild, damit das
+Diagramm lesbar bleibt.
+
+**Abnahme:** ✅ erledigt — alle 13 Satelliten-Klassen samt Feldern und
+Pflicht-Markierungen stammen wörtlich aus dem Schema (kein Feld erfunden,
+keins ausgelassen außer den bewusst nicht aufgeklappten Unterobjekten);
+`1..*` bei Publishers per `grep` auf die SVG-Quelle bestätigt (nicht nur
+Sichtprüfung — bei 19px Schriftgröße rücken zwei Punkte optisch
+zusammen und sahen im ersten Screenshot wie ein einzelner Punkt aus).
+2394×2401 vor Trim, danach exakt 10px Rand, 5,75 MP.
+
+---
+
 # Teil D — Offene Punkte
 
 - **CI (`--strict` bei jedem Push)** noch nicht eingerichtet — analog zu
   `fdo-architecture`s offenem Punkt, hier aber noch nicht mal vorgeschlagen.
-- **Weitere Grafiken für den Vortrag** (z. B. eine reduzierte Fassung des
-  `fdo-architecture`-Architekturdiagramms für Folie 8 des Talk-Konzepts)
-  sind angekündigt ("Darein werden dann auch noch andere Skripte kommen"),
-  aber noch kein eigener Schritt — wird S4, sobald konkret.
+- **Reduzierte Fassung des `fdo-architecture`-Familiendiagramms für Folie 8
+  des Talk-Konzepts** — anderes Vorhaben als S4 (das hier ist
+  `fdo-squirrel`s interne Pipeline, Folie 8 braucht die Repo-Familie
+  `fdo-squirrel → fdo-squirrel-registry → fdox-squirrel-n4o-collection`)
+  — weiterhin offen, noch kein Schritt.
 - **`flatten_to_jpg()` ungenutzt seit S2/S3-Nachtrag 2026-09-08** — bleibt
   als Werkzeug liegen statt entfernt zu werden; wird real erst, wenn ein
   künftiger Schritt tatsächlich ein flaches JPG braucht (z. B. für ein
   Zielsystem ohne Alphakanal-Unterstützung).
+- **`fdo-squirrel/architecture.mermaid` selbst bleibt veraltet** — S4 hat
+  nur eine korrigierte Kopie in `fdox-visuals` erzeugt, nicht die
+  Originaldatei in `fdo-squirrel` gepatcht. Das wäre ein eigener Chat in
+  jenem Repo (anderes Repo pro Chat, A3).

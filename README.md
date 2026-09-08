@@ -15,7 +15,7 @@ img/*.svg      source, versioned
 img/*.png      final graphics for slides, papers, READMEs — transparent background
 ```
 
-Two graphics currently live here:
+Four graphics currently live here:
 
 - **`fdox-four-step-pattern`** — the four-step FDOx documentation pattern
   (FDO Encapsulation → Semantic Metadata & Paradata Modelling → Linking to
@@ -23,6 +23,14 @@ Two graphics currently live here:
   and as four standalone transparent icon badges.
 - **`fdox-fair-digital-object-meta-graphic`** — the classic "Data /
   Metadata / PID" FAIR Digital Object diagram, in the FDOx house palette.
+- **`fdox-fdo-squirrel-architecture`** — how `fdo-squirrel` turns an FDO
+  ZIP package into RDF: kept in sync with the actual current pipeline in
+  `fdo-squirrel/main.py`, including the steps its own
+  `architecture.mermaid` doesn't show yet (schema validation, the
+  Mermaid→JPG overview, bundle finalisation).
+- **`fdox-md-cff-schema`** — a class-diagram overview of the MD.cff
+  metadata schema, built directly from
+  `fdo-squirrel-spec/data/raw/MD.cff-schema.yaml`.
 
 ## Usage
 
@@ -32,12 +40,12 @@ python main.py
 ```
 
 ```cmd
-python main.py --list              show the two steps
-python main.py --only fdo-meta     rebuild one graphic
-python main.py --from pattern      this step and everything after
-python main.py --skip fdo-meta     everything but this
-python main.py --dry-run           print the plan, run nothing
-python main.py --strict            warnings become errors (what CI would run)
+python main.py --list                    show the four steps
+python main.py --only fdo-meta            rebuild one graphic
+python main.py --from architecture        this step and everything after
+python main.py --skip md-cff-schema       everything but this
+python main.py --dry-run                  print the plan, run nothing
+python main.py --strict                   warnings become errors (what CI would run)
 ```
 
 Running it twice produces byte-identical output; `git status` stays clean
