@@ -34,6 +34,7 @@ STEPS = [
     ("citation-cff-schema", "CITATION.cff schema diagram", "step_citation_cff_schema"),
     ("talk-process", "Talk slides: the four-step pattern, one real slide each", "step_talk_process"),
     ("talk-purpose", "Talk slides: the four-outcome pattern, one real slide each", "step_talk_purpose"),
+    ("talk-closing", "Talk closing slide: all eight badges as a ring around the FDO sphere (2 variants)", "step_talk_closing"),
 ]
 
 

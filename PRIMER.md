@@ -260,6 +260,7 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S7 | FDOx-Zweck-Banner ("What does FDOx do?") + 4 Icon-Badges | fdox-visuals | S1 | erledigt 2026-09-09 |
 | S8 | Talk-Prozess-Folien: die vier Schritte, je eine reale Folie | fdox-visuals | S1, S2 | erledigt 2026-09-09 |
 | S9 | Talk-Zweck-Folien: die vier Ergebnisse, je eine reale Folie | fdox-visuals | S1, S7 | erledigt 2026-09-09 |
+| S10 | Abschlussfolie: acht Badges als Ring um die FDO-Kugel, 2 Varianten | fdox-visuals | S1, S2, S3, S7 | erledigt 2026-09-10 |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -807,6 +808,66 @@ Text/Kreisen, geprüft mit `PIL.ImageChops.difference` + Schwellwert 10/255
 pro Kanal, keine Inhalts-/Layout-Differenz). Determinismus erneut geprüft
 (zwei Läufe, `md5sum` identisch), volle Pipeline weiterhin fehlerfrei,
 keine der sechs bestehenden Grafiken (S0–S7) verändert.
+
+---
+
+## S10 — Abschlussfolie ("All in All — Best Documentation Practice")
+
+**Ziel:** `img/fdox-talk-closing-a-sphere.svg`/`.png` und
+`img/fdox-talk-closing-b-hubs.svg`/`.png` — die letzte Folie des Vortrags
+(Motto von Flo vorgegeben, nicht im Bild selbst gesetzt, siehe S8s
+Titel-Konvention). Zwei Varianten zur Auswahl, beide alle acht Step-/
+Zweck-Badges aus S2/S7 als Ring um S3s FDO-Kugel, abwechselnd
+Step→Zweck→Step→Zweck (Nachbarn sind Ursache→Wirkung) statt als
+4×4-Tabelle — Flo: "ist das nicht ein bisschen langweilig? es geht ja um
+das Knowledge Graph Ecosystem" — die Folie selbst ist jetzt ein kleiner
+Graph, keine Tabelle über einen.
+
+**Uploads:** —, aus einer separaten Konversation übernommen, dort beide
+Varianten nebeneinander gezeigt und freigegeben ("beide Bilder").
+
+**Variante A:** Ring + Kugel, sonst nichts — schließt den Bogen zurück zu
+Folie A (die erste FDO-Kugel im ganzen Vortrag).
+
+**Variante B:** derselbe Ring (um 140px nach rechts verschoben, damit links
+Platz frei bleibt), plus drei reale externe Hubs (Wikidata, OpenStreetMap,
+NFDI4Objects) außerhalb des Rings, mit echten Ziel-Knoten verdrahtet:
+OpenStreetMap → "Linking to Hubs", Wikidata → "Interoperable",
+NFDI4Objects → "Integrable" — dieselben drei Systeme, die Folien C/D/G des
+Vortrags bereits real verwendet haben (`dct:spatial`/`dct:subject`,
+Registry-Harvest), hier als Aussage "das ist schon Teil der echten
+LOD-Cloud" statt nur behauptet.
+
+**Icon-Wiederverwendung:** Die vier Step-Glyphen sind `_node_icon()`,
+direkt aus `step_pattern` importiert (`BADGE_R` ebenfalls, für den
+korrekten Skalierungsfaktor — der erste Entwurf hatte hier eine falsche
+Konstante und verzerrte die Icons deutlich zu groß, siehe unten). Die vier
+Zweck-Glyphen sind, wie schon bei S9 dokumentiert, lokal nachgebaut statt
+importiert (`step_purpose.py`s `ICON_S` ist eine Modul- keine
+Funktionskonstante, siehe S9-Eintrag und Teil D) — derselbe offene
+Aufräumpunkt, jetzt an drei Stellen (S9, S10) relevant statt an einer.
+Die Kugel selbst liest `OUTER_R`/`INNER_R`/`ACCENT_STROKE`/`RING_FILL`
+direkt aus `step_fdo_meta` und skaliert sie proportional herunter — kein
+zweiter Satz Radien.
+
+**Titel gekürzt, aus S2/S7s eigenen Daten abgeleitet, nicht neu erfunden:**
+`_STEP_TITLE_OVERRIDE`/`_PURPOSE_TITLE_OVERRIDE` kürzen S2s zweizeilige
+Titel bzw. S7s "Semantically Queryable" auf je eine kurze Zeile (Platzgrund:
+~150px Bogenlänge pro Knoten statt einer ganzen Banner-Spalte) — derselbe
+Wortlaut, nur kürzer, keine neuen Bezeichnungen.
+
+**Abnahme:** ✅ erledigt — frischer Klon, `python main.py --only
+talk-closing --strict` läuft fehlerfrei, danach vollständiger `python
+main.py --strict` (alle neun Schritte) ebenfalls fehlerfrei, keine zuvor
+bestehende Grafik verändert. Zwei Läufe hintereinander bytegleich
+(`md5sum` beider PNGs). Beide Varianten mit den in der Ursprungskonversation
+freigegebenen Referenzbildern verglichen (Sichtprüfung). Ein Skalierungs-
+Fehler dabei gefunden und gefixt: die Step-Icons wurden zunächst mit
+`scale(node_r/72)` statt `scale(node_r/BADGE_R)` gezeichnet — `_node_icon()`
+ist für `BADGE_R=150` (S2s volle Badge-Größe) gezeichnet, nicht für den
+72px-Ring-Radius dieser Folie; mit dem falschen Faktor kamen die Glyphen
+über 2× zu groß aus dem Knoten heraus. 3500×2000 pro Folie, weißer
+Hintergrund, `PIL.Image.mode == "RGB"` geprüft.
 
 ---
 
