@@ -66,6 +66,13 @@ STEPS = [
 
 FDO_ACCENT = STEPS[0]["color"]  # #004473 — reused by the FDO meta-graphic
 
+# Two lightened tints of FDO_ACCENT, for graphics that use a single flat
+# brand colour rather than the four-step rainbow above (S7 purpose banner:
+# icon-circle gradient + connector chevrons). Derived once here rather than
+# repeated as literals in the step module (A3: one palette, one source).
+FDO_ACCENT_LIGHT = "#116099"
+FDO_ACCENT_SOFT = "#4E8FBE"
+
 
 def ensure_dirs() -> None:
     IMG_DIR.mkdir(parents=True, exist_ok=True)

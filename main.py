@@ -27,6 +27,7 @@ sys.path.insert(0, str(ROOT / "py"))
 # (id, description, module name under py/)
 STEPS = [
     ("pattern", "Four-step documentation pattern banner + 4 icon badges", "step_pattern"),
+    ("purpose", "FDOx purpose banner ('What does FDOx do?') + 4 icon badges", "step_purpose"),
     ("fdo-meta", "FAIR Digital Object meta-graphic (Data/Metadata/PID)", "step_fdo_meta"),
     ("architecture", "fdo-squirrel architecture diagram", "step_architecture"),
     ("md-cff-schema", "MD.cff schema class diagram", "step_md_cff_schema"),

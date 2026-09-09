@@ -257,6 +257,7 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S4 | fdo-squirrel-Architekturdiagramm (korrigiert) | fdox-visuals | S1 | erledigt 2026-09-08 |
 | S5 | MD.cff-Schema-Klassendiagramm (neu, kein Vorbild-Skript) | fdox-visuals | S1 | erledigt 2026-09-08 |
 | S6 | CITATION.cff-Schema-Diagramm ("minimum CFF", neu) | fdox-visuals | S1 | erledigt 2026-09-08 |
+| S7 | FDOx-Zweck-Banner ("What does FDOx do?") + 4 Icon-Badges | fdox-visuals | S1 | erledigt 2026-09-09 |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -547,6 +548,48 @@ die A1 Befund 13 beschreibt. Verifiziert: `authors`/`contributors` laufen
 jetzt in einem gemeinsamen Punkt auf `Author` zusammen (keine Kreuzung
 mehr, nur ein gemeinsamer Endpunkt), `identifiers`→`Identifier` läuft
 separat und kreuzt nichts. 2507×1403, 10px Rand, 3,52 MP, deterministisch.
+
+## S7 — FDOx-Zweck-Banner ("What does FDOx do?")
+
+**Ziel:** `img/fdox-purpose-pattern.svg`/`.png` (nur die vier Eigenschaften,
+kein Header/Footer, transparenter Hintergrund — dieselbe A4-Konvention wie
+S2) sowie vier freistehende `img/fdox-purpose-<n>-<slug>.svg`/`.png`,
+ebenfalls transparent.
+
+**Uploads:** —, aus einer separaten Konversation übernommen (Flo hatte dort
+bereits eine erste Fassung inkl. Header/Footer als Vorlage abgenommen —
+"top!" — und danach die Kopfzeile/Fußzeile entfernt sowie die vier Icons
+zusätzlich einzeln angefordert).
+
+Bewusste Ergänzung zu S2, nicht dessen Ersatz: S2 benennt die vier
+*Pipeline-Schritte* (Encapsulation → … → Federation), S7 die vier
+resultierenden *Eigenschaften* eines veröffentlichten FDOx-Artefakts
+(FAIR & Citable → Semantically Queryable → Interoperable → Integrable) —
+dieselbe Geschichte, einmal als Prozess, einmal als Ergebnis. Deshalb
+bewusst **eine** Farbe (`FDO_ACCENT`, geteilt mit Step 1) statt S2s
+Vier-Farben-Regenbogen: S7 ist eine durchgehende Aussage über eine Art von
+Objekt, keine vier verschiedenen Stationen. Zwei Aufhellungen davon
+(`FDO_ACCENT_LIGHT` fürs Icon-Kreis-Gradient, `FDO_ACCENT_SOFT` für die
+Pfeil-Chevrons zwischen den Spalten) wurden dafür einmalig in
+`py/visuals_utils.py` ergänzt statt als Literal in `step_purpose.py` zu
+stehen (A3).
+
+Icon-Vokabular bewusst eigenständig (Dokument-Häkchen / RDF-Dreieck /
+Hub-mit-vier-Speichen / drei verlinkte Cluster) statt S2s Knoten-Graph-
+Icons wiederzuverwenden — die beiden Banner erzählen zwar dieselbe
+Geschichte, sollen aber nicht wie zwei Varianten *derselben* Grafik
+aussehen. Beschreibungstexte laufen durch dasselbe `wrap_text()` wie in
+S2, keine Zeilenumbrüche von Hand gesetzt.
+
+**Abnahme:** ✅ erledigt — frischer Klon, `python main.py --only purpose
+--strict` läuft fehlerfrei, danach vollständiger `python main.py --strict`
+(alle sieben Schritte) ebenfalls fehlerfrei und die fünf bereits
+bestehenden Grafiken unverändert in Auflösung/Größe. Zwei Läufe
+hintereinander bytegleich (`md5sum` aller zehn neuen Dateien), `git status
+--short` zeigt danach nur die erwarteten neuen/geänderten Pfade. Banner
+5000×1220 vor Trim (`OVERSAMPLE=2.5`) → 4355×1009 nach 10px Rand, 4,39 MP;
+jedes Icon 1170×1170 nach Trim (`ICON_SCALE=5.6`), 1,37 MP,
+`PIL.Image.mode == "RGBA"` geprüft.
 
 ---
 
