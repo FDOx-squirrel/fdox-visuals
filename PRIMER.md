@@ -258,6 +258,8 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S5 | MD.cff-Schema-Klassendiagramm (neu, kein Vorbild-Skript) | fdox-visuals | S1 | erledigt 2026-09-08 |
 | S6 | CITATION.cff-Schema-Diagramm ("minimum CFF", neu) | fdox-visuals | S1 | erledigt 2026-09-08 |
 | S7 | FDOx-Zweck-Banner ("What does FDOx do?") + 4 Icon-Badges | fdox-visuals | S1 | erledigt 2026-09-09 |
+| S8 | Talk-Prozess-Folien: die vier Schritte, je eine reale Folie | fdox-visuals | S1, S2 | erledigt 2026-09-09 |
+| S9 | Talk-Zweck-Folien: die vier Ergebnisse, je eine reale Folie | fdox-visuals | S1, S7 | erledigt 2026-09-09 |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -593,6 +595,162 @@ jedes Icon 1170×1170 nach Trim (`ICON_SCALE=5.6`), 1,37 MP,
 
 ---
 
+## S8 — Talk-Prozess-Folien (die vier Schritte, je eine reale Folie)
+
+**Ziel:** `img/fdox-talk-step{1..4}-*.png`/`.svg` — Begleiter zu S2s Banner,
+aber pro Schritt eine volle 7:4-Foliengrafik statt Icon+Kurzbeschreibung,
+mit echten Daten aus der Familie statt Abstraktion. Entstanden für den
+10-Minuten-Vortrag "From Smartphone 3D to Federated Knowledge Graphs"
+(FAIR 3D Heritage Conference, Mainz, 14.–16.09.2026), dort Teil "Part 5"
+des Foliensatzes — konkret die Antwort auf Reviewer 4401s Kritik ("semantic
+modelling zu generisch beschrieben, am Fallbeispiel konkretisieren").
+
+**Uploads/Quelle:** aus einer separaten Konversation übernommen (mehrere
+Iterationsrunden dort, "top!"/"besser"/"passt" als jeweilige Abnahme pro
+Folie). Reale Werte stammen aus CIIC 81s echter `fdo-metadata.ttl`
+(Zenodo-DOI `10.5281/zenodo.18724635`), aus einem echten Screenshot der
+`fdo-squirrel-registry`-SPARQL-Seite (Query 3) und aus einem echten
+Screenshot der Registry-Startseite (Release 2026-09-03, 8 Quellen, 7.793
+Tripel) — keine dieser Zahlen ist erfunden oder geschätzt.
+
+**Drei der vier Folien komponieren einen echten Screenshot/ein echtes
+Foto** unter `img/source/` (Sketchfab-Seite von "Freshford: St Lachtain's
+Well", die Registry-Startseite, CIIC 81s Vorschau-Render) **auf ein
+gerendertes SVG-Grundbild** statt sie zu zeichnen — der eine Fall, den
+`patch-zip-delivery`s eigene "Generated files"-Regel vorsieht: ein
+Artefakt, das ein Skript grundsätzlich nicht selbst herstellen kann (kein
+Browser, keine Kamera), wird als Daten mitgeliefert statt regeneriert.
+Schritt 2s Folie ist reines SVG, kein Composite.
+
+**Weißer statt transparenter Hintergrund, bewusst gegen A4.** Diese vier
+Grafiken sind als *einziges* Bild auf einer Google-Slides-Folie gedacht,
+nicht als Baustein, der auf anderem Inhalt sitzt — ein transparenter
+Hintergrund hätte hier keinen Zweck, und ein Composite aus einem
+gerenderten SVG und einem eingefügten Foto kann ohnehin nicht sauber
+transparent bleiben. `visuals_utils.BG` (`#FFFFFF`) existierte als
+Konstante bereits, war aber bislang ungenutzt (kein Schritt vor S8 wollte
+einen weißen Hintergrund) — hier zum ersten Mal tatsächlich gebraucht.
+
+**Icon-Badge fix, Inhalt zentriert sich darum — nicht umgekehrt.** Erste
+Fassungen positionierten die Icon-Badge und den Inhalt getrennt von Hand;
+zwei Nachträge in der Ursprungskonversation ("die Symbole ragen in die
+Grafik"/"da sind die Symbole im Bild") zeigten, dass von Hand gewählte
+Ränder bei unterschiedlich hohem Inhalt (mal ein Foto, mal ein Baum aus
+Boxen) unterschiedlich knapp ausfallen. Fix, hier von Anfang an eingebaut:
+`_render_balanced()` rendert einmal bei Verschiebung (0,0), misst per
+`visuals_utils.measure_content_margins()` die tatsächlichen Pixelränder
+**mit ausgespartem Badge-Bereich**, rechnet daraus die Verschiebung aus,
+die Links/Rechts- bzw. Oben/Unten-Rand angleicht, und rendert damit final
+neu — dieselbe Disziplin, die `trim_transparent_border()` schon für S2/S7
+anwendet (A1 Befund 7: am echten gerenderten Alphakanal messen, nicht an
+einer geschätzten Design-Koordinate), nur hier auf einem opaken statt
+transparenten Bild und ohne zuzuschneiden, nur zu verschieben.
+
+**Icon-Glyphen wiederverwendet, nicht neu gezeichnet.** `_node_icon()` wird
+direkt aus `step_pattern` importiert (`from step_pattern import
+_node_icon`) statt die SVG-Pfade der vier Schritt-Icons ein zweites Mal
+abzutippen — A3 ("ein Palette, eine Quelle") gilt für Zeichenfunktionen
+genauso wie für Farbwerte. Badge-Kreis, Eckfähnchen und Nummer sind hier
+lokal nachgebaut (`_icon_svg()`), weil S8s Badges oben links statt
+mittig sitzen und einen anderen Kreisradius/Eckfähnchen-Versatz brauchen
+als S2s Banner-Badges — nur der Icon-*Inhalt* (die Linien/Punkte
+innerhalb des Kreises) ist geteilt, nicht die ganze Badge-Komposition.
+
+**Neue generische Zeichenhelfer in `visuals_utils.py`** (`arrow_line`,
+`elbow_path`, `edge_label`, `label_box`, `paste_raster`,
+`measure_content_margins`): reine String-Formatierer bzw. (bei
+`paste_raster`) ein schlanker PIL-Aufruf, kein zusätzlicher schwerer
+Import auf Modulebene — `--list`/`--dry-run` bleiben so schnell wie A2 es
+verlangt. `edge_label()` dreht ein fett unterlegtes Label passend zum
+Linienwinkel und legt einen weißen Rahmen dahinter, `label_box()` ist eine
+verallgemeinerte Fassung der Boxen aus S4/S5/S6, `paste_raster()` fasst
+das Skalieren+Einfügen eines Quellbilds in eine Zeile.
+
+**Abnahme:** ✅ erledigt — frischer Klon, `python main.py --only
+talk-process --strict` läuft fehlerfrei, danach vollständiger `python
+main.py --strict` (alle acht Schritte) ebenfalls fehlerfrei und alle
+zuvor bestehenden Grafiken laut `git status --short` unverändert. Zwei
+Läufe von `step_talk_process.py` hintereinander bytegleich (`md5sum`
+aller vier PNGs). Alle vier Folien mit den zuvor in der separaten
+Konversation ausgelieferten Referenzbildern verglichen (Sichtprüfung,
+Layout/Werte/Beschriftungen identisch). 3500×2000 pro Folie (7:4 bei
+`OVERSAMPLE=2`), weißer Hintergrund, `PIL.Image.mode == "RGB"` geprüft.
+
+## S9 — Talk-Zweck-Folien (die vier Ergebnisse, je eine reale Folie)
+
+**Ziel:** `img/fdox-talk-purpose{1..4}-*.png`/`.svg` — Begleiter zu S7s
+Banner, analog zu S8: eine volle 7:4-Foliengrafik pro Ergebnis
+("FAIR & Citable" … "Integrable"), mit echten Zahlen aus der Registry statt
+Icon+Kurzbeschreibung. Gleicher Vortrag, gleiche Foliensatz-"Part 5" wie
+S8, die zweite Hälfte davon.
+
+**Uploads/Quelle:** dieselbe separate Konversation wie S8, direkt im
+Anschluss. Reale Werte: die echten Lizenz-Zählungen aus dem
+Registry-Filter (`CC-BY-4.0` ×3, `CC-BY-SA-4.0` ×2, `CC-BY-NC-SA-4.0` ×1),
+CIIC 81s echte `CITATION.cff`-Felder, die echte SPARQL-Query 3 samt 16
+echten Ergebniszeilen (hier auf 4 Objekte × 2 Dateien verdichtet), sechs
+reale Registry-Objekte mit ihren echten OSM-/Wikidata-/SquirrelBase-Links
+samt der tatsächlich verwendeten RDF-Prädikate (`dct:spatial`,
+`dct:subject`/`dct:type`) — bei SquirrelBase bewusst **nur** die reale
+Item-ID ohne Prädikat-Behauptung, weil dieses Prädikat aus der TTL nicht
+bestätigt werden konnte (kein Raten, A1-Geist).
+
+**Anders als S8: komplett screenshot-frei.** Zwei frühe Fassungen (Folie
+"F"/"H" der Ursprungskonversation) komponierten wie S8 einen SPARQL- bzw.
+Registry-Screenshot; Flos Feedback ("da müssen wir uns insgesamt was
+anderes überlegen… vielleicht doch eine eigene Grafik, die den Reviewern
+gerecht wird" bzw. "lieber die abstrakte Grafik der Registry") ersetzte
+beide durch reines SVG — die Query-Box ist hier handgezeichneter,
+syntax-eingefärbter Code (`CODE_BG`/`CODE_TEXT`/`CODE_KEYWORD`, lokal in
+diesem Modul, da nirgendwo sonst in der Familie gebraucht), die Registry
+ist ein abstraktes DCAT-Zylinder-Icon statt eines Fotos der echten Seite.
+Damit hat `img/source/` für S9 keinen Bedarf — nur S8 braucht es.
+
+**Sechs statt vier Schritt-Icons: das Zweck-Badge ist hier lokal
+nachgebaut, nicht importiert.** `step_purpose.py`s `_badge_markup()`
+positioniert das Eckfähnchen oben *rechts* vom Icon-Kreis (Banner-Layout:
+Icon zuerst, Fähnchen ragt in die Lücke zum nächsten Icon); S9 braucht es
+oben *links* (Ecke der Folie). Die vier Icon-*Inhalte* (`_badge_icon_1..4`)
+sind trotzdem wörtlich dieselben Pfade/Linien wie in `step_purpose.py`s
+`_icon_document`/`_icon_triples`/`_icon_hub`/`_icon_network` — kopiert statt
+importiert, weil `step_purpose.py`s Fassungen fest an `ICON_S = ICON_R/78`
+gekoppelt sind (Modul-Konstante, nicht Parameter) und ein Import hier eine
+zweite, abweichende `ICON_R` erzwungen hätte. Vermerkt als Nachtrag statt
+stillschweigend belassen: eine spätere Aufräum-Runde könnte `ICON_S` als
+Parameter statt Modulkonstante in `step_purpose.py` führen, dann ließe
+sich auch dieser Rest echter Duplikation auflösen (siehe Teil D).
+
+**Baum-Konnektoren rechtwinklig, nicht diagonal** (Zweck 2 und 4, Flo:
+"die linien überkreuzen sich"/"lieber die edges senkrecht… sonst überdeckt
+das alles"): jeweils ein senkrechter Stamm von der Wurzel zu einem
+horizontalen Bus, dann senkrechte Stiche in jedes Kind. Bei Zweck 4s
+zweistöckigem Katalogbaum liegt der Stamm zur zweiten Reihe exakt in der
+realen horizontalen Lücke zwischen den Boxen der ersten Reihe (860–920px
+im Entwurfsraster) statt durch eine Box hindurch.
+
+**Kanten-Beschriftungen fett, am Linienwinkel ausgerichtet, mit weißem
+Rahmen** (Zweck 3, Flo: "größer und… mit weißem Puffer drumherum und
+fett"): lokale `_edge_label()`, ausnahmsweise nicht aus `visuals_utils`
+importiert — die Version dort (`edge_label()`, aus S8 hervorgegangen) ist
+seitengültig identisch, aber S9 war fertig gebaut, bevor der Wert dieser
+Wiederverwendung klar war; als offener Aufräumpunkt vermerkt (Teil D).
+
+**Abnahme:** ✅ erledigt — frischer Klon, `python main.py --only
+talk-purpose --strict` läuft fehlerfrei, vollständiger `python main.py
+--strict` (alle acht Schritte) ebenfalls fehlerfrei, keine zuvor
+bestehende Grafik verändert. Zwei Läufe hintereinander bytegleich
+(`md5sum` aller vier PNGs). Mit den in der Ursprungskonversation
+ausgelieferten Referenzbildern verglichen (Sichtprüfung). Ein
+Layout-Fehler dabei gefunden und gefixt, der im Referenzbild nicht
+auffiel, weil dort andere Zeilenumbrüche zufällig genug Abstand ließen:
+"Freshford: St Lachtain's Well"s zweizeiliger Name kollidierte mit der
+"dcat:Dataset"-Bildunterschrift direkt darunter (nur 2px Abstand bei
+ursprünglicher Boxhöhe 62) — Boxhöhe auf 70 angehoben, Zeilenabstand bei
+mehrzeiligen Namen auf 21 statt 26 verkürzt. 3500×2000 pro Folie, weißer
+Hintergrund, `PIL.Image.mode == "RGB"` geprüft.
+
+---
+
 # Teil D — Offene Punkte
 
 - **CI (`--strict` bei jedem Push)** noch nicht eingerichtet — analog zu
@@ -610,17 +768,31 @@ jedes Icon 1170×1170 nach Trim (`ICON_SCALE=5.6`), 1,37 MP,
   nur eine korrigierte Kopie in `fdox-visuals` erzeugt, nicht die
   Originaldatei in `fdo-squirrel` gepatcht. Das wäre ein eigener Chat in
   jenem Repo (anderes Repo pro Chat, A3).
-- **Große Idee, noch nicht mal skizziert, geschweige denn Schritt:**
-  CIIC 81 (und eine Holy Well, z. B. `freshford-st-lachtains-well-low-poly`)
-  echt durch `fdo-3d-packager` → `fdo-squirrel` schicken, und die
-  *Instanz*-Diagramme (Flos Folien 27–29: "MD.cff ausgefüllt",
-  "Files and Roles", "FDO Overview") direkt aus diesem echten Lauf
-  erzeugen statt wie S2–S6 als generische Schema-/Architektur-Grafiken.
-  Gehört, wenn umgesetzt, eher zu `fdo-squirrel`/`fdo-3d-packager` als zu
-  `fdox-visuals` — S6 (`Overview diagram`) tut das für die "FDO Overview"-
-  Variante bereits (`fdo_mermaid.py` + `render_mermaid_to_jpg`). "Files and
-  Roles" und "MD.cff ausgefüllt" haben noch keinen Generator. Separat
-  diskutiert, hier nur vermerkt, damit es nicht verloren geht.
-- **RDF-Triple-Visualisierungen (Flos Folien 30/31)** — ausdrücklich nicht
-  für `fdox-visuals` vorgesehen (Flos eigene Einschätzung), separates
-  Thema.
+- **Große Idee, ursprünglich hier vermerkt, inzwischen anderswo passiert
+  und von S8/S9 konsumiert, nicht produziert:** CIIC 81 und eine Holy Well
+  (`freshford-st-lachtains-well-low-poly`) echt durch `fdo-3d-packager` →
+  `fdo-squirrel` schicken. Das ist zwischenzeitlich in separaten Chats in
+  jenen beiden Repos tatsächlich passiert (CIIC 81s echte DOI
+  `10.5281/zenodo.18724635`, echte Registry-Aufnahme); S8/S9 lesen die
+  Ergebnisse davon (Screenshots, TTL-Werte), erzeugen sie aber nicht
+  selbst — die *Instanz*-Diagramme selbst ("MD.cff ausgefüllt", "Files and
+  Roles", "FDO Overview", Flos Folien 27–29) haben weiterhin keinen
+  Generator hier oder in `fdo-squirrel`, das bleibt offen, nur nicht mehr
+  "noch nicht mal skizziert".
+- **RDF-Triple-Visualisierungen (Flos Folien 30/31) weiterhin nicht
+  vorgesehen — S9 Zweck 2 ist kein Gegenbeispiel.** S9s SPARQL-Ergebnis-
+  Baum zeigt die vier/acht Knoten *einer konkreten, live gestellten*
+  Query, nicht Tripel aus dem Graphen allgemein; kein RDF-Browser, kein
+  Ersatz für Folie 30/31s eigentliches Thema. Hier nur vermerkt, damit die
+  Abgrenzung beim nächsten Chat nicht neu hergeleitet werden muss.
+- **`step_purpose.py`s `ICON_S = ICON_R/78` ist eine Modulkonstante, kein
+  Parameter** — S9 musste deshalb die vier Zweck-Icon-Zeichenfunktionen
+  kopieren statt zu importieren (siehe S9-Eintrag). Cleanup, kein Bug: hier
+  vermerkt, damit ein künftiger `step_purpose.py`-Umbau (`ICON_S` als
+  Funktionsparameter statt Modulkonstante) das erledigen kann und S9 dann
+  auf den Import umgestellt werden kann.
+- **S9s `_edge_label()` dupliziert `visuals_utils.edge_label()` seitengleich**
+  — S8 hat die Version in `visuals_utils.py` verallgemeinert, S9 war zu dem
+  Zeitpunkt schon fertig und wurde nicht mehr nachgezogen. Nächster Anlass
+  zum Anfassen von `step_talk_purpose.py`: `_edge_label()` entfernen, Import
+  aus `visuals_utils` stattdessen.

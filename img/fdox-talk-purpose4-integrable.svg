@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1750" height="1000" viewBox="0 0 1750 1000">
+<rect x="0" y="0" width="1750" height="1000" fill="white"/>
+<style>@font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Regular.ttf"); font-weight: 400; } @font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Bold.ttf"); font-weight: 700; }</style>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#116099"/></marker>
+<defs><linearGradient id="talkPurposeGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#116099"/><stop offset="100%" stop-color="#004473"/></linearGradient></defs>
+<g transform="translate(150,130) scale(0.6)"><circle cx="0" cy="0" r="100" fill="url(#talkPurposeGrad)"/><circle cx="0" cy="0" r="100" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.35"/><line x1="-51.3" y1="-35.9" x2="53.8" y2="-25.6" stroke="#FFFFFF" stroke-width="4.5"/><line x1="53.8" y1="-25.6" x2="-7.7" y2="56.4" stroke="#FFFFFF" stroke-width="4.5"/><line x1="-7.7" y1="56.4" x2="-51.3" y2="-35.9" stroke="#FFFFFF" stroke-width="4.5"/><circle cx="-51.3" cy="-35.9" r="20.5" fill="none" stroke="#FFFFFF" stroke-width="4.5"/><circle cx="-51.3" cy="-35.9" r="6.4" fill="#FFFFFF"/><circle cx="53.8" cy="-25.6" r="20.5" fill="none" stroke="#FFFFFF" stroke-width="4.5"/><circle cx="53.8" cy="-25.6" r="6.4" fill="#FFFFFF"/><circle cx="-7.7" cy="56.4" r="20.5" fill="none" stroke="#FFFFFF" stroke-width="4.5"/><circle cx="-7.7" cy="56.4" r="6.4" fill="#FFFFFF"/><circle cx="72" cy="-72" r="30" fill="#FFFFFF" stroke="#004473" stroke-width="3.5"/><text x="72" y="-62" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="29" fill="#004473">4</text></g>
+<g transform="translate(-15,60)">
+<rect x="265" y="70" width="230" height="150" fill="#004473"/>
+<ellipse cx="380" cy="220" rx="115" ry="30" fill="#116099"/>
+<ellipse cx="380" cy="70" rx="115" ry="30" fill="#004473" stroke="#E6ECF1" stroke-width="2"/>
+<text x="380" y="153.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="30" fill="white">DCAT</text>
+<text x="380" y="290" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="22" fill="#161B2E">FDOx Registry</text>
+<text x="380" y="316" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">Release 2026-09-03 · 7,793 triples</text>
+<line x1="495" y1="145.0" x2="525" y2="145.0" stroke="#116099" stroke-width="2.5"/>
+<line x1="525" y1="145.0" x2="525" y2="175.0" stroke="#116099" stroke-width="2.5"/>
+<line x1="525" y1="175.0" x2="1587.5" y2="175.0" stroke="#116099" stroke-width="2.5"/>
+<rect x="660" y="130" width="175" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.2"/>
+<text x="747.5" y="169.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="#004473">bundle</text>
+<text x="747.5" y="195.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="#004473">(Turtle)</text>
+<rect x="870" y="130" width="175" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.2"/>
+<text x="957.5" y="169.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="#004473">index</text>
+<text x="957.5" y="195.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="#004473">(JSON)</text>
+<rect x="1080" y="130" width="175" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.2"/>
+<text x="1167.5" y="169.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="#004473">CRM</text>
+<text x="1167.5" y="195.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="#004473">crosswalk</text>
+<rect x="1290" y="130" width="175" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.2"/>
+<text x="1377.5" y="182.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="#004473">SPARQL</text>
+<rect x="1500" y="130" width="175" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.2"/>
+<text x="1587.5" y="169.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="#004473">quality</text>
+<text x="1587.5" y="195.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="#004473">report</text>
+<text x="660" y="254" font-family="Fira Sans" font-weight="400" font-size="18" fill="#5B6478">5 real, machine-readable exits — not just N4O-specific</text>
+<rect x="725" y="380" width="300" height="90" rx="14" fill="#004473"/>
+<text x="875.0" y="418" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="23" fill="white">dcat:Catalog</text>
+<text x="875.0" y="445" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="17" fill="#E6ECF1">FDOx Registry — 7,793 triples</text>
+<line x1="875.0" y1="470" x2="875.0" y2="515" stroke="#116099" stroke-width="2" opacity="0.8"/>
+<line x1="260.0" y1="515" x2="1520.0" y2="515" stroke="#116099" stroke-width="2" opacity="0.8"/>
+<line x1="260.0" y1="515" x2="260.0" y2="560" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="680.0" y1="515" x2="680.0" y2="560" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="1100.0" y1="515" x2="1100.0" y2="560" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="1520.0" y1="515" x2="1520.0" y2="560" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="875.0" y1="515" x2="890" y2="515" stroke="#116099" stroke-width="2" opacity="0.8"/>
+<line x1="890" y1="515" x2="890" y2="700" stroke="#116099" stroke-width="2" opacity="0.8"/>
+<line x1="260.0" y1="700" x2="1520.0" y2="700" stroke="#116099" stroke-width="2" opacity="0.8"/>
+<line x1="260.0" y1="700" x2="260.0" y2="730" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="680.0" y1="700" x2="680.0" y2="730" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="1100.0" y1="700" x2="1100.0" y2="730" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="1520.0" y1="700" x2="1520.0" y2="730" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="80" y="560" width="360" height="110" rx="10" fill="#E6ECF1" stroke="#004473" stroke-width="2"/>
+<text x="98" y="598" font-family="Fira Sans" font-weight="700" font-size="18" fill="#161B2E">CO074-148---- (CIIC 81)</text>
+<text x="98" y="628" font-family="Fira Sans" font-weight="400" font-size="16" fill="#5B6478">dcat:CatalogRecord → dcat:Dataset</text>
+<rect x="500" y="560" width="360" height="110" rx="10" fill="#E6ECF1" stroke="#004473" stroke-width="2"/>
+<text x="518" y="598" font-family="Fira Sans" font-weight="700" font-size="18" fill="#161B2E">CHUIS/1</text>
+<text x="518" y="628" font-family="Fira Sans" font-weight="400" font-size="16" fill="#5B6478">dcat:CatalogRecord → dcat:Dataset</text>
+<rect x="920" y="560" width="360" height="110" rx="10" fill="#E6ECF1" stroke="#004473" stroke-width="2"/>
+<text x="938" y="598" font-family="Fira Sans" font-weight="700" font-size="18" fill="#161B2E">GEARS/1</text>
+<text x="938" y="628" font-family="Fira Sans" font-weight="400" font-size="16" fill="#5B6478">dcat:CatalogRecord → dcat:Dataset</text>
+<rect x="1340" y="560" width="360" height="110" rx="10" fill="#E6ECF1" stroke="#004473" stroke-width="2"/>
+<text x="1358" y="598" font-family="Fira Sans" font-weight="700" font-size="18" fill="#161B2E">Beuys-Stele B 1036</text>
+<text x="1358" y="628" font-family="Fira Sans" font-weight="400" font-size="16" fill="#5B6478">dcat:CatalogRecord → dcat:Dataset</text>
+<rect x="80" y="730" width="360" height="110" rx="10" fill="#E6ECF1" stroke="#004473" stroke-width="2"/>
+<text x="98" y="768" font-family="Fira Sans" font-weight="700" font-size="18" fill="#161B2E">Steinmännchen / Antholzer See</text>
+<text x="98" y="798" font-family="Fira Sans" font-weight="400" font-size="16" fill="#5B6478">dcat:CatalogRecord → dcat:Dataset</text>
+<rect x="500" y="730" width="360" height="110" rx="10" fill="#E6ECF1" stroke="#004473" stroke-width="2"/>
+<text x="518" y="768" font-family="Fira Sans" font-weight="700" font-size="18" fill="#161B2E">Freshford: St Lachtain's Well</text>
+<text x="518" y="798" font-family="Fira Sans" font-weight="400" font-size="16" fill="#5B6478">dcat:CatalogRecord → dcat:Dataset</text>
+<rect x="920" y="730" width="360" height="110" rx="10" fill="#E6ECF1" stroke="#004473" stroke-width="2"/>
+<text x="938" y="768" font-family="Fira Sans" font-weight="700" font-size="18" fill="#161B2E">o3d-epidoc-extractor</text>
+<text x="938" y="798" font-family="Fira Sans" font-weight="400" font-size="16" fill="#5B6478">dcat:CatalogRecord → dcat:Dataset</text>
+<rect x="1340" y="730" width="360" height="110" rx="10" fill="#E6ECF1" stroke="#004473" stroke-width="2"/>
+<text x="1358" y="768" font-family="Fira Sans" font-weight="700" font-size="18" fill="#161B2E">ogham-analysis</text>
+<text x="1358" y="798" font-family="Fira Sans" font-weight="400" font-size="16" fill="#5B6478">dcat:CatalogRecord → dcat:Dataset</text>
+</g></svg>

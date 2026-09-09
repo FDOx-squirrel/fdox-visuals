@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1750" height="1000" viewBox="0 0 1750 1000">
+<rect x="0" y="0" width="1750" height="1000" fill="white"/>
+<style>@font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Regular.ttf"); font-weight: 400; } @font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Bold.ttf"); font-weight: 700; }</style>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5B6478"/></marker>
+
+<g transform="translate(175,165) scale(0.56)"><circle cx="0" cy="0" r="150" fill="#E6ECF1" stroke="#004473" stroke-width="7"/><circle cx="0" cy="0" r="72" fill="none" stroke="#004473" stroke-width="6" stroke-dasharray="4 14" stroke-linecap="round"/><circle cx="0" cy="0" r="24" fill="#004473"/><rect x="-176" y="-176" width="132" height="132" rx="26" fill="#004473"/><text x="-110.0" y="-74.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="104" fill="white">1</text></g>
+<g transform="translate(-4,-36)">
+<rect x="54" y="294" width="472" height="362" rx="10" fill="none" stroke="#004473" stroke-width="4"/>
+<rect x="60" y="300" width="460" height="350" fill="#EEEEEE"/>
+<text x="60" y="684" font-family="Fira Sans" font-weight="700" font-size="22" fill="#161B2E">Sketchfab</text>
+<text x="60" y="710" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">Freshford: St Lachtain’s Well · by b-unicycling, via Sketchfab</text>
+<line x1="535" y1="500.0" x2="605" y2="500.0" stroke="#5B6478" stroke-width="4" marker-end="url(#arrow)"/>
+<text x="986.0" y="250" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="24" fill="#004473">fdo-3d-packager v1.0.0</text>
+<rect x="620" y="270.0" width="220" height="140" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/><text x="730.0" y="333.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="26" fill="#161B2E">fetch</text><text x="730.0" y="363.0" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="#161B2E">Sketchfab API / local files</text>
+<rect x="876" y="270.0" width="220" height="140" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/><text x="986.0" y="333.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="26" fill="#161B2E">convert</text><text x="986.0" y="363.0" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="#161B2E">Blender → OBJ + textures</text>
+<rect x="1132" y="270.0" width="220" height="140" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/><text x="1242.0" y="333.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="26" fill="#161B2E">nexus</text><text x="1242.0" y="363.0" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="#161B2E">multiresolution build</text>
+<rect x="620" y="590.0" width="220" height="140" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/><text x="730.0" y="653.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="26" fill="#161B2E">mdcff</text><text x="730.0" y="683.0" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="#161B2E">MD.cff + CITATION.cff</text>
+<rect x="876" y="590.0" width="220" height="140" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/><text x="986.0" y="653.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="26" fill="#161B2E">bundle</text><text x="986.0" y="683.0" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="#161B2E">3DHOP viewer + ZIP</text>
+<rect x="1132" y="590.0" width="220" height="140" rx="14" fill="#004473" stroke="#004473" stroke-width="3.5"/><text x="1242.0" y="653.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="26" fill="white">build_fdo</text><text x="1242.0" y="683.0" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="white">→ fdo-squirrel</text>
+<line x1="840" y1="340" x2="876" y2="340" stroke="#5B6478" stroke-width="4" marker-end="url(#arrow)"/>
+<line x1="1096" y1="340" x2="1132" y2="340" stroke="#5B6478" stroke-width="4" marker-end="url(#arrow)"/>
+<polyline points="1242.0,410.0 1242.0,445.0 730.0,555.0 730.0,590.0" fill="none" stroke="#5B6478" stroke-width="4" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<line x1="840" y1="660" x2="876" y2="660" stroke="#5B6478" stroke-width="4" marker-end="url(#arrow)"/>
+<line x1="1096" y1="660" x2="1132" y2="660" stroke="#5B6478" stroke-width="4" marker-end="url(#arrow)"/>
+<line x1="1367" y1="660" x2="1400" y2="660" stroke="#5B6478" stroke-width="4" marker-end="url(#arrow)"/>
+<g transform="translate(1560,630) scale(0.453125)"><circle cx="0" cy="0" r="320" fill="#A5BDCE" stroke="#004473" stroke-width="6"/><circle cx="0" cy="0" r="175" fill="#004473" stroke="#002F50" stroke-width="6"/><text x="0" y="-14" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="70" fill="white" letter-spacing="4">I0I0</text><text x="0" y="70" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="70" fill="white" letter-spacing="4">0I0I</text></g>
+<text x="1560" y="815" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="22" fill="#161B2E">FDO bundle</text>
+<text x="1560" y="841" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">32 files · deterministic</text>
+</g></svg>

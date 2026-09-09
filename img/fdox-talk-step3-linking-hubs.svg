@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1750" height="1000" viewBox="0 0 1750 1000">
+<rect x="0" y="0" width="1750" height="1000" fill="white"/>
+<style>@font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Regular.ttf"); font-weight: 400; } @font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Bold.ttf"); font-weight: 700; }</style>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5B6478"/></marker>
+
+<g transform="translate(175,165) scale(0.56)"><circle cx="0" cy="0" r="150" fill="#FCF1E1" stroke="#C2790C" stroke-width="7"/><line x1="0" y1="18" x2="-88" y2="-38" stroke="#C2790C" stroke-width="6" stroke-linecap="round"/><line x1="0" y1="18" x2="88" y2="-38" stroke="#C2790C" stroke-width="6" stroke-linecap="round"/><circle cx="-88" cy="-38" r="18" fill="white" stroke="#C2790C" stroke-width="6"/><circle cx="88" cy="-38" r="18" fill="white" stroke="#C2790C" stroke-width="6"/><circle cx="0" cy="18" r="24" fill="#C2790C"/><rect x="-176" y="-176" width="132" height="132" rx="26" fill="#C2790C"/><text x="-110.0" y="-74.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="104" fill="white">3</text></g>
+<g transform="translate(31,4)">
+<line x1="770" y1="500" x2="990" y2="150" stroke="#C2790C" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+<line x1="770" y1="500" x2="990" y2="290" stroke="#C2790C" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+<line x1="770" y1="500" x2="990" y2="430" stroke="#C2790C" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+<line x1="770" y1="500" x2="990" y2="570" stroke="#C2790C" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+<line x1="770" y1="500" x2="990" y2="710" stroke="#C2790C" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+<line x1="770" y1="500" x2="990" y2="850" stroke="#C2790C" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+<circle cx="560" cy="500" r="210" fill="#EEEEEE"/>
+<circle cx="560" cy="500" r="214" fill="none" stroke="#C2790C" stroke-width="5"/>
+<text x="560" y="754" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="24" fill="#161B2E">CIIC 81</text>
+<text x="560" y="780" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">10.5281/zenodo.18724635</text>
+<circle cx="990" cy="150" r="12" fill="#C2790C"/>
+<text x="1014" y="142" font-family="Fira Sans" font-weight="700" font-size="23" fill="#161B2E">Wikidata</text>
+<text x="1014" y="168" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">wd:Q2016147 — Inscribed Ogham stone</text>
+<circle cx="990" cy="290" r="12" fill="#C2790C"/>
+<text x="1014" y="282" font-family="Fira Sans" font-weight="700" font-size="23" fill="#161B2E">Wikidata</text>
+<text x="1014" y="308" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">wd:Q22731 — Stone</text>
+<circle cx="990" cy="430" r="12" fill="#C2790C"/>
+<text x="1014" y="422" font-family="Fira Sans" font-weight="700" font-size="23" fill="#161B2E">Wikidata</text>
+<text x="1014" y="448" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">wd:Q121592049 — UCC Stone Corridor</text>
+<circle cx="990" cy="570" r="12" fill="#C2790C"/>
+<text x="1014" y="562" font-family="Fira Sans" font-weight="700" font-size="23" fill="#161B2E">OpenStreetMap</text>
+<text x="1014" y="588" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">node/11071361392</text>
+<circle cx="990" cy="710" r="12" fill="#C2790C"/>
+<text x="1014" y="702" font-family="Fira Sans" font-weight="700" font-size="23" fill="#161B2E">ChronOntology</text>
+<text x="1014" y="728" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">period aChcHZdlBhkt — 300–699 CE</text>
+<circle cx="990" cy="850" r="12" fill="#C2790C"/>
+<text x="1014" y="842" font-family="Fira Sans" font-weight="700" font-size="23" fill="#161B2E">Sketchfab</text>
+<text x="1014" y="868" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">Source: CIIC 81 / UCC 4</text>
+</g></svg>

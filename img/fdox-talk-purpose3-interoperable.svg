@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1750" height="1000" viewBox="0 0 1750 1000">
+<rect x="0" y="0" width="1750" height="1000" fill="white"/>
+<style>@font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Regular.ttf"); font-weight: 400; } @font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Bold.ttf"); font-weight: 700; }</style>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#116099"/></marker>
+<defs><linearGradient id="talkPurposeGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#116099"/><stop offset="100%" stop-color="#004473"/></linearGradient></defs>
+<g transform="translate(150,120) scale(0.55)"><circle cx="0" cy="0" r="100" fill="url(#talkPurposeGrad)"/><circle cx="0" cy="0" r="100" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.35"/><line x1="0" y1="0" x2="0" y2="-66.7" stroke="#FFFFFF" stroke-width="5.1"/><line x1="0" y1="0" x2="66.7" y2="0" stroke="#FFFFFF" stroke-width="5.1"/><line x1="0" y1="0" x2="0" y2="66.7" stroke="#FFFFFF" stroke-width="5.1"/><line x1="0" y1="0" x2="-66.7" y2="0" stroke="#FFFFFF" stroke-width="5.1"/><circle cx="0" cy="-66.7" r="11.5" fill="#FFFFFF"/><circle cx="66.7" cy="0" r="11.5" fill="#FFFFFF"/><circle cx="0" cy="66.7" r="11.5" fill="#FFFFFF"/><circle cx="-66.7" cy="0" r="11.5" fill="#FFFFFF"/><circle cx="0" cy="0" r="15.4" fill="#FFFFFF"/><circle cx="72" cy="-72" r="30" fill="#FFFFFF" stroke="#004473" stroke-width="3.5"/><text x="72" y="-62" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="29" fill="#004473">3</text></g>
+<g transform="translate(22,-4)">
+<text x="80" y="215" font-family="Fira Sans" font-weight="700" font-size="24" fill="#5B6478">6 real registry objects</text>
+<text x="1500" y="45" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="24" fill="#004473">three real, shared hubs</text>
+<rect x="80" y="250" width="500" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.5"/>
+<text x="100" y="286" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">CO074-148---- (CIIC 81)</text>
+<text x="100" y="315" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM node/11071361392</text>
+<rect x="80" y="378" width="500" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.5"/>
+<text x="100" y="414" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">GEARS/1</text>
+<text x="100" y="443" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM node/11966441102</text>
+<rect x="80" y="506" width="500" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.5"/>
+<text x="100" y="542" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">Steinmännchen / Antholzer See</text>
+<text x="100" y="571" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM relation/14599988</text>
+<rect x="80" y="634" width="500" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.5"/>
+<text x="100" y="670" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">Beuys-Stele B 1036</text>
+<text x="100" y="699" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM node/3647679932</text>
+<rect x="80" y="762" width="500" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.5"/>
+<text x="100" y="798" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">CHUIS/1</text>
+<text x="100" y="827" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM node/11966430251</text>
+<rect x="80" y="890" width="500" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.5"/>
+<text x="100" y="926" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">Freshford: St Lachtain's Well</text>
+<text x="100" y="955" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">wd:Q121840779</text>
+<line x1="580" y1="295.0" x2="1377" y2="190" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(755.3,271.9) rotate(-7.5)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
+<line x1="580" y1="295.0" x2="1377" y2="500" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(930.7,385.2) rotate(14.4)"><rect x="-101.2" y="-16.5" width="202.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:subject/type</text></g>
+<line x1="580" y1="423.0" x2="1377" y2="190" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(755.3,371.7) rotate(-16.3)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
+<line x1="580" y1="551.0" x2="1377" y2="190" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(755.3,471.6) rotate(-24.4)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
+<line x1="580" y1="551.0" x2="1377" y2="810" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(930.7,665.0) rotate(18.0)"><rect x="-27.1" y="-16.5" width="54.2" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">Q60</text></g>
+<line x1="580" y1="679.0" x2="1377" y2="190" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(755.3,571.4) rotate(-31.5)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
+<line x1="580" y1="679.0" x2="1377" y2="810" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(930.7,736.6) rotate(9.3)"><rect x="-27.1" y="-16.5" width="54.2" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">Q56</text></g>
+<line x1="580" y1="807.0" x2="1377" y2="190" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(755.3,671.3) rotate(-37.7)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
+<line x1="580" y1="935.0" x2="1377" y2="500" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(755.3,839.3) rotate(-28.6)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:subject</text></g>
+<circle cx="1500" cy="190" r="115" fill="#004473"/>
+<text x="1500" y="186" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="22" fill="white">OpenStreetMap</text>
+<text x="1500" y="214" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="#E6ECF1">5 real links</text>
+<circle cx="1500" cy="500" r="115" fill="#004473"/>
+<text x="1500" y="496" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="22" fill="white">Wikidata</text>
+<text x="1500" y="524" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="#E6ECF1">2 real links</text>
+<circle cx="1500" cy="810" r="115" fill="#004473"/>
+<text x="1500" y="806" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="22" fill="white">SquirrelBase</text>
+<text x="1500" y="834" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="#E6ECF1">2 real links</text>
+</g></svg>
