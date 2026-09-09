@@ -4,7 +4,7 @@
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#116099"/></marker>
 <defs><linearGradient id="talkPurposeGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#116099"/><stop offset="100%" stop-color="#004473"/></linearGradient></defs>
 <g transform="translate(150,110) scale(0.5)"><circle cx="0" cy="0" r="100" fill="url(#talkPurposeGrad)"/><circle cx="0" cy="0" r="100" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.35"/><line x1="0" y1="-59" x2="-59" y2="41" stroke="#FFFFFF" stroke-width="5.1"/><line x1="0" y1="-59" x2="59" y2="41" stroke="#FFFFFF" stroke-width="5.1"/><line x1="-59" y1="41" x2="59" y2="41" stroke="#FFFFFF" stroke-width="5.1" stroke-dasharray="2 7" stroke-linecap="round"/><circle cx="0" cy="-59" r="14.1" fill="#FFFFFF"/><circle cx="-59" cy="41" r="14.1" fill="#FFFFFF"/><circle cx="59" cy="41" r="14.1" fill="#FFFFFF"/><circle cx="72" cy="-72" r="30" fill="#FFFFFF" stroke="#004473" stroke-width="3.5"/><text x="72" y="-62" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="29" fill="#004473">2</text></g>
-<g transform="translate(0,28)">
+<g transform="translate(0,0)">
 <rect x="260" y="55" width="1430" height="446" rx="14" fill="#161B2E"/>
 <text x="294" y="95" font-family="Fira Sans" font-size="23"><tspan font-weight="700" fill="#6FC3E8">SELECT </tspan><tspan font-weight="400" fill="#D8DEE9">?title ?path ?mediaType ?bytes ?role</tspan></text>
 <text x="294" y="128" font-family="Fira Sans" font-size="23"><tspan font-weight="700" fill="#6FC3E8">WHERE {</tspan></text>
@@ -23,52 +23,51 @@
 <text x="875.0" y="605" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="22" fill="white">FDOx Registry (dcat:Catalog)</text>
 <text x="875.0" y="629" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="16" fill="#E6ECF1">all ?fdo results are dcat:Dataset members here</text>
 <line x1="875.0" y1="651" x2="218.75" y2="706" stroke="#116099" stroke-width="2.2" marker-end="url(#arrow)" opacity="0.75"/>
-<rect x="15.0" y="706" width="407.5" height="70" rx="10" fill="#116099"/>
-<text x="218.75" y="747.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="17" fill="white">CO074-148----</text>
-<text x="218.75" y="770" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#E6ECF1">dcat:Dataset</text>
-<line x1="218.75" y1="776" x2="113.375" y2="821" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
-<rect x="15.0" y="821" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
-<text x="113.375" y="847" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">model.obj</text>
-<text x="113.375" y="869" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">430 MB</text>
-<line x1="218.75" y1="776" x2="324.125" y2="821" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
-<rect x="225.75" y="821" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
-<text x="324.125" y="847" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">model.nxs</text>
-<text x="324.125" y="869" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">173 MB</text>
+<rect x="15.0" y="706" width="407.5" height="62" rx="10" fill="#116099"/>
+<text x="218.75" y="733" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="17" fill="white">CO074-148----</text>
+<text x="218.75" y="754" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#E6ECF1">dcat:Dataset</text>
+<line x1="218.75" y1="768" x2="113.375" y2="813" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
+<rect x="15.0" y="813" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
+<text x="113.375" y="839" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">model.obj</text>
+<text x="113.375" y="861" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">430 MB</text>
+<line x1="218.75" y1="768" x2="324.125" y2="813" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
+<rect x="225.75" y="813" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
+<text x="324.125" y="839" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">model.nxs</text>
+<text x="324.125" y="861" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">173 MB</text>
 <line x1="875.0" y1="651" x2="656.25" y2="706" stroke="#116099" stroke-width="2.2" marker-end="url(#arrow)" opacity="0.75"/>
-<rect x="452.5" y="706" width="407.5" height="70" rx="10" fill="#116099"/>
-<text x="656.25" y="747.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="17" fill="white">CHUIS/1</text>
-<text x="656.25" y="770" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#E6ECF1">dcat:Dataset</text>
-<line x1="656.25" y1="776" x2="550.875" y2="821" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
-<rect x="452.5" y="821" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
-<text x="550.875" y="847" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">CHUIS_1.ply</text>
-<text x="550.875" y="869" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">91 MB</text>
-<line x1="656.25" y1="776" x2="761.625" y2="821" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
-<rect x="663.25" y="821" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
-<text x="761.625" y="847" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">CHUIS_1.nxs</text>
-<text x="761.625" y="869" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">74 MB</text>
+<rect x="452.5" y="706" width="407.5" height="62" rx="10" fill="#116099"/>
+<text x="656.25" y="733" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="17" fill="white">CHUIS/1</text>
+<text x="656.25" y="754" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#E6ECF1">dcat:Dataset</text>
+<line x1="656.25" y1="768" x2="550.875" y2="813" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
+<rect x="452.5" y="813" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
+<text x="550.875" y="839" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">CHUIS_1.ply</text>
+<text x="550.875" y="861" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">91 MB</text>
+<line x1="656.25" y1="768" x2="761.625" y2="813" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
+<rect x="663.25" y="813" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
+<text x="761.625" y="839" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">CHUIS_1.nxs</text>
+<text x="761.625" y="861" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">74 MB</text>
 <line x1="875.0" y1="651" x2="1093.75" y2="706" stroke="#116099" stroke-width="2.2" marker-end="url(#arrow)" opacity="0.75"/>
-<rect x="890.0" y="706" width="407.5" height="70" rx="10" fill="#116099"/>
-<text x="1093.75" y="747.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="17" fill="white">GEARS/1</text>
-<text x="1093.75" y="770" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#E6ECF1">dcat:Dataset</text>
-<line x1="1093.75" y1="776" x2="988.375" y2="821" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
-<rect x="890.0" y="821" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
-<text x="988.375" y="847" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">GEARS_1.ply</text>
-<text x="988.375" y="869" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">49 MB</text>
-<line x1="1093.75" y1="776" x2="1199.125" y2="821" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
-<rect x="1100.75" y="821" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
-<text x="1199.125" y="847" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">...gaers1.glb</text>
-<text x="1199.125" y="869" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">31 MB</text>
+<rect x="890.0" y="706" width="407.5" height="62" rx="10" fill="#116099"/>
+<text x="1093.75" y="733" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="17" fill="white">GEARS/1</text>
+<text x="1093.75" y="754" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#E6ECF1">dcat:Dataset</text>
+<line x1="1093.75" y1="768" x2="988.375" y2="813" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
+<rect x="890.0" y="813" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
+<text x="988.375" y="839" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">GEARS_1.ply</text>
+<text x="988.375" y="861" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">49 MB</text>
+<line x1="1093.75" y1="768" x2="1199.125" y2="813" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
+<rect x="1100.75" y="813" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
+<text x="1199.125" y="839" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">...gaers1.glb</text>
+<text x="1199.125" y="861" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">31 MB</text>
 <line x1="875.0" y1="651" x2="1531.25" y2="706" stroke="#116099" stroke-width="2.2" marker-end="url(#arrow)" opacity="0.75"/>
-<rect x="1327.5" y="706" width="407.5" height="70" rx="10" fill="#116099"/>
-<text x="1531.25" y="736.5" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="17" fill="white">Freshford:</text>
-<text x="1531.25" y="757.5" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="17" fill="white">St Lachtain's Well</text>
-<text x="1531.25" y="770" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#E6ECF1">dcat:Dataset</text>
-<line x1="1531.25" y1="776" x2="1425.875" y2="821" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
-<rect x="1327.5" y="821" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
-<text x="1425.875" y="847" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">model.nxs</text>
-<text x="1425.875" y="869" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">7 MB</text>
-<line x1="1531.25" y1="776" x2="1636.625" y2="821" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
-<rect x="1538.25" y="821" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
-<text x="1636.625" y="847" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">model.obj</text>
-<text x="1636.625" y="869" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">1 MB</text>
+<rect x="1327.5" y="706" width="407.5" height="62" rx="10" fill="#116099"/>
+<text x="1531.25" y="733" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="17" fill="white">Freshford: St Lac...</text>
+<text x="1531.25" y="754" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#E6ECF1">dcat:Dataset</text>
+<line x1="1531.25" y1="768" x2="1425.875" y2="813" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
+<rect x="1327.5" y="813" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
+<text x="1425.875" y="839" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">model.nxs</text>
+<text x="1425.875" y="861" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">7 MB</text>
+<line x1="1531.25" y1="768" x2="1636.625" y2="813" stroke="#116099" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
+<rect x="1538.25" y="813" width="196.75" height="66" rx="8" fill="#E6ECF1" stroke="#116099" stroke-width="1.8"/>
+<text x="1636.625" y="839" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="14" fill="#161B2E">model.obj</text>
+<text x="1636.625" y="861" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="13" fill="#5B6478">1 MB</text>
 </g></svg>

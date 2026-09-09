@@ -4,7 +4,7 @@
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5B6478"/></marker>
 
 <g transform="translate(175,120) scale(0.48)"><circle cx="0" cy="0" r="150" fill="#E6F6F4" stroke="#0E9488" stroke-width="7"/><line x1="0" y1="6" x2="-56" y2="-42" stroke="#0E9488" stroke-width="6" stroke-linecap="round"/><line x1="0" y1="6" x2="56" y2="-42" stroke="#0E9488" stroke-width="6" stroke-linecap="round"/><circle cx="-56" cy="-42" r="15" fill="white" stroke="#0E9488" stroke-width="6"/><circle cx="56" cy="-42" r="15" fill="white" stroke="#0E9488" stroke-width="6"/><circle cx="0" cy="6" r="24" fill="#0E9488"/><rect x="-176" y="-176" width="132" height="132" rx="26" fill="#0E9488"/><text x="-110.0" y="-74.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="104" fill="white">2</text></g>
-<g transform="translate(1,-64)">
+<g transform="translate(0,0)">
 <text x="320" y="207" font-family="Fira Sans" font-weight="700" font-size="24" fill="#5B6478">CIIC 81 — real MD.cff / TTL values</text>
 <text x="1140" y="207" font-family="Fira Sans" font-weight="700" font-size="24" fill="#0E9488">CIDOC CRM anchor</text>
 <rect x="55" y="235" width="585" height="125" rx="12" fill="#E6F6F4" stroke="#0E9488" stroke-width="2.5"/>

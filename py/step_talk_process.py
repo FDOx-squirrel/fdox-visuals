@@ -45,7 +45,6 @@ from visuals_utils import (  # noqa: E402
     esc,
     font_face_css,
     label_box,
-    measure_content_margins,
     paste_raster,
     render_svg_to_png,
 )
@@ -77,12 +76,6 @@ def _icon_svg(step_idx: int, scale: float, cx: float = ICON_CX, cy: float = ICON
     )
     out += "</g>"
     return out
-
-
-def _icon_exclude_box(scale: float) -> tuple[int, int, int, int]:
-    r = (ICON_R_DESIGN + 26) * scale * OVERSAMPLE
-    cx, cy = ICON_CX * OVERSAMPLE, ICON_CY * OVERSAMPLE
-    return (int(cx - r), int(cy - r), int(cx + r), int(cy + r))
 
 
 def _svg_open(defs: str = "") -> list[str]:
@@ -355,28 +348,24 @@ _STEP4_RASTER = dict(x=40, y=245, w=687, h=680, asset="talk-registry-screenshot.
 
 # ------------------------------------------------------------------------
 
-def _render_balanced(name: str, build_fn, icon_idx: int, icon_scale: float, icon_cy: float,
-                      raster_specs: list[dict]) -> tuple[int, int]:
-    """Two-pass render: build at (0,0), measure how far the true content
-    (icon excluded) sits from centred, rebuild shifted by exactly that
-    much. Measuring the actual rendered pixels rather than hand-picking a
-    shift is the same discipline PRIMER already applies to trim_transparent_
-    border (A1 finding 7) -- guessing a margin in design units misses
-    content a wide title/photo can push further out than expected.
+def _render_fixed(name: str, build_fn, hshift: int, vshift: int, raster_specs: list[dict]) -> tuple[int, int]:
+    """Render at an exact, pre-approved (hshift, vshift).
+
+    S8 originally computed this shift dynamically (render once at (0,0),
+    measure the true content margins with the badge excluded, rebuild
+    centred) -- the same discipline PRIMER already applies to
+    trim_transparent_border (A1 finding 7). That measurement is *symmetric*
+    margin-balancing, though, and two of Flo's four approved slides are
+    deliberately *not* symmetric (step 1: "muss weiter runter... das ist zu
+    sehr am Symbol", i.e. more clearance below the badge than a pure
+    left/right-and-top/bottom balance would give). Ship exactly the values
+    Flo approved instead of an approximation of them -- see PRIMER S8
+    Nachtrag. `visuals_utils.measure_content_margins()` stays available for
+    the next slide this family adds, where there won't yet be an approved
+    reference to match.
     """
     svg_path = IMG_DIR / f"{name}.svg"
     png_path = svg_path.with_suffix(".png")
-
-    svg_path.write_text(build_fn(0, 0), encoding="utf-8")
-    render_svg_to_png(svg_path, png_path, W * OVERSAMPLE, H * OVERSAMPLE)
-
-    r_px = (150 + 26) * icon_scale * OVERSAMPLE  # badge radius + corner-tag offset, in rendered px
-    cx_px, cy_px = ICON_CX * OVERSAMPLE, icon_cy * OVERSAMPLE
-    exclude = (int(cx_px - r_px), int(cy_px - r_px), int(cx_px + r_px), int(cy_px + r_px))
-    left, right, top, bottom = measure_content_margins(png_path, exclude)
-
-    hshift = round(((right - left) / 2) / OVERSAMPLE)
-    vshift = round(((bottom - top) / 2) / OVERSAMPLE)
 
     svg_path.write_text(build_fn(hshift, vshift), encoding="utf-8")
     render_svg_to_png(svg_path, png_path, W * OVERSAMPLE, H * OVERSAMPLE)
@@ -406,18 +395,18 @@ def run(strict: bool = False) -> list[str]:
         log.append(f"WARNING: {msg}")
 
     jobs = [
-        ("fdox-talk-step1-fdo-encapsulation", _build_step1, 0, 0.56, 165,
+        ("fdox-talk-step1-fdo-encapsulation", _build_step1, -4, 20,
          [] if missing else [_STEP1_RASTER]),
-        ("fdox-talk-step2-semantic-metadata", _build_step2, 1, 0.48, 120, []),
-        ("fdox-talk-step3-linking-hubs", _build_step3, 2, 0.56, 165,
+        ("fdox-talk-step2-semantic-metadata", _build_step2, 0, 0, []),
+        ("fdox-talk-step3-linking-hubs", _build_step3, 32, 4,
          [] if missing else [dict(x=560-210, y=500-210, w=420, h=420,
                                    asset="talk-ciic81-preview.png", circular=True)]),
-        ("fdox-talk-step4-federated-kg", _build_step4, 3, 0.5, 130,
+        ("fdox-talk-step4-federated-kg", _build_step4, 0, 0,
          [] if missing else [_STEP4_RASTER]),
     ]
 
-    for name, build_fn, icon_idx, icon_scale, icon_cy, rasters in jobs:
-        w, h = _render_balanced(name, build_fn, icon_idx, icon_scale, icon_cy, rasters)
+    for name, build_fn, hshift, vshift, rasters in jobs:
+        w, h = _render_fixed(name, build_fn, hshift, vshift, rasters)
         log.append(f"wrote img/{name}.svg + .png ({w}x{h}, white background)")
 
     return log

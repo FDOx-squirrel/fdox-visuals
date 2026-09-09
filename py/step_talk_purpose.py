@@ -39,7 +39,6 @@ from visuals_utils import (  # noqa: E402
     ensure_dirs,
     esc,
     font_face_css,
-    measure_content_margins,
     render_svg_to_png,
 )
 
@@ -138,12 +137,6 @@ def _icon_svg(num: int, cy: float, scale: float = 0.6) -> str:
     out += (f'<text x="72" y="-62" text-anchor="middle" font-family="Fira Sans" font-weight="700" '
             f'font-size="29" fill="{ACCENT}">{num}</text></g>')
     return out
-
-
-def _icon_exclude_box(cy: float, scale: float) -> tuple[int, int, int, int]:
-    r = 100 * scale * OVERSAMPLE
-    cx_px, cy_px = ICON_CX * OVERSAMPLE, cy * OVERSAMPLE
-    return (int(cx_px - r), int(cy_px - r * 1.4), int(cx_px + r * 1.4), int(cy_px + r))
 
 
 def _svg_open() -> list[str]:
@@ -269,12 +262,6 @@ _QUERY_FDOS = [
     ("GEARS/1", [("GEARS_1.ply", "49 MB"), ("...gaers1.glb", "31 MB")]),
     ("Freshford: St Lachtain's Well", [("model.nxs", "7 MB"), ("model.obj", "1 MB")]),
 ]
-_QUERY_NAME_LINES = {
-    "CO074-148----": ["CO074-148----"],
-    "CHUIS/1": ["CHUIS/1"],
-    "GEARS/1": ["GEARS/1"],
-    "Freshford: St Lachtain's Well": ["Freshford:", "St Lachtain's Well"],
-}
 CODE_BG, CODE_TEXT, CODE_KEYWORD = "#161B2E", "#D8DEE9", "#6FC3E8"
 
 
@@ -310,7 +297,7 @@ def _build_purpose2(hshift: int, vshift: int) -> str:
 
     n = len(_QUERY_FDOS)
     slot_w = W / n
-    fdo_y, fdo_h = tree_top + root_h + 55, 70
+    fdo_y, fdo_h = tree_top + root_h + 55, 62
     file_y, file_h = fdo_y + fdo_h + 45, 66
     for i, (name, files) in enumerate(_QUERY_FDOS):
         slot_x = i * slot_w
@@ -320,13 +307,10 @@ def _build_purpose2(hshift: int, vshift: int) -> str:
         p.append(f'<line x1="{root_cx}" y1="{tree_top+root_h}" x2="{fdo_cx}" y2="{fdo_y}" stroke="{ACCENT_LIGHT}" '
                   f'stroke-width="2.2" marker-end="url(#arrow)" opacity="0.75"/>')
         p.append(f'<rect x="{fdo_x}" y="{fdo_y}" width="{fdo_w}" height="{fdo_h}" rx="10" fill="{ACCENT_LIGHT}"/>')
-        lines = _QUERY_NAME_LINES[name]
-        line_gap = 21 if len(lines) > 1 else 26
-        start_y = fdo_y + fdo_h / 2 - (len(lines) - 1) * line_gap / 2 + 6
-        for j, line in enumerate(lines):
-            p.append(f'<text x="{fdo_cx}" y="{start_y+j*line_gap}" text-anchor="middle" font-family="Fira Sans" '
-                      f'font-weight="700" font-size="17" fill="white">{esc(line)}</text>')
-        p.append(f'<text x="{fdo_cx}" y="{fdo_y+fdo_h-6}" text-anchor="middle" font-family="Fira Sans" font-weight="400" '
+        label = name if len(name) <= 20 else name[:17] + "..."
+        p.append(f'<text x="{fdo_cx}" y="{fdo_y+27}" text-anchor="middle" font-family="Fira Sans" '
+                  f'font-weight="700" font-size="17" fill="white">{esc(label)}</text>')
+        p.append(f'<text x="{fdo_cx}" y="{fdo_y+48}" text-anchor="middle" font-family="Fira Sans" font-weight="400" '
                   f'font-size="13" fill="{TINT}">dcat:Dataset</text>')
 
         file_w = (fdo_w - 14) / 2
@@ -528,19 +512,12 @@ def _build_purpose4(hshift: int, vshift: int) -> str:
 
 # ------------------------------------------------------------------------
 
-def _render_balanced(name: str, build_fn, badge_num: int, badge_cy: float, badge_scale: float) -> tuple[int, int]:
-    """Same two-pass discipline as S8's _render_balanced -- see that
-    module's docstring."""
+def _render_fixed(name: str, build_fn, hshift: int, vshift: int) -> tuple[int, int]:
+    """Render at an exact, pre-approved (hshift, vshift) -- see S8's
+    `_render_fixed()` docstring for why this replaced a dynamic symmetric-
+    margin measurement."""
     svg_path = IMG_DIR / f"{name}.svg"
     png_path = svg_path.with_suffix(".png")
-
-    svg_path.write_text(build_fn(0, 0), encoding="utf-8")
-    render_svg_to_png(svg_path, png_path, W * OVERSAMPLE, H * OVERSAMPLE)
-
-    exclude = _icon_exclude_box(badge_cy, badge_scale)
-    left, right, top, bottom = measure_content_margins(png_path, exclude)
-    hshift = round(((right - left) / 2) / OVERSAMPLE)
-    vshift = round(((bottom - top) / 2) / OVERSAMPLE)
 
     svg_path.write_text(build_fn(hshift, vshift), encoding="utf-8")
     render_svg_to_png(svg_path, png_path, W * OVERSAMPLE, H * OVERSAMPLE)
@@ -555,13 +532,13 @@ def run(strict: bool = False) -> list[str]:
     log: list[str] = []
 
     jobs = [
-        ("fdox-talk-purpose1-fair-citable", _build_purpose1, 1, 145, 0.62),
-        ("fdox-talk-purpose2-semantically-queryable", _build_purpose2, 2, 110, 0.5),
-        ("fdox-talk-purpose3-interoperable", _build_purpose3, 3, 120, 0.55),
-        ("fdox-talk-purpose4-integrable", _build_purpose4, 4, 130, 0.6),
+        ("fdox-talk-purpose1-fair-citable", _build_purpose1, 36, 0),
+        ("fdox-talk-purpose2-semantically-queryable", _build_purpose2, 0, 0),
+        ("fdox-talk-purpose3-interoperable", _build_purpose3, 23, 0),
+        ("fdox-talk-purpose4-integrable", _build_purpose4, -15, 60),
     ]
-    for name, build_fn, num, cy, scale in jobs:
-        w, h = _render_balanced(name, build_fn, num, cy, scale)
+    for name, build_fn, hshift, vshift in jobs:
+        w, h = _render_fixed(name, build_fn, hshift, vshift)
         log.append(f"wrote img/{name}.svg + .png ({w}x{h}, white background)")
 
     return log

@@ -749,6 +749,46 @@ ursprünglicher Boxhöhe 62) — Boxhöhe auf 70 angehoben, Zeilenabstand bei
 mehrzeiligen Namen auf 21 statt 26 verkürzt. 3500×2000 pro Folie, weißer
 Hintergrund, `PIL.Image.mode == "RGB"` geprüft.
 
+### Nachtrag 2026-09-09 — Abnahme oben war zu früh: Abweichung von den freigegebenen Referenzbildern
+
+Flo hatte die Referenzbilder (die dieser Chat portiert) schon vorher aus
+einem separaten Sandkasten-Chat freigegeben ("top!"/"besser"/"passt", S8-
+Eintrag). Ein lokaler Lauf gegen den echten Klon zeigte danach zwei
+Abweichungen, die die obige Abnahme nicht abgedeckt hatte:
+
+1. **S8, Step 1/2/4:** die Icon-Badge saß spürbar näher am Inhalt als in
+   den freigegebenen Bildern. Ursache: `_render_balanced()` (beide Module)
+   maß den tatsächlichen Inhalt und zentrierte ihn *symmetrisch* um die
+   Badge — bei drei der vier Prozess-Folien war die freigegebene Position
+   aber bewusst *nicht* symmetrisch (Step 1 explizit: "muss weiter runter…
+   das ist zu sehr am Symbol"). Eine automatische Rand-Balance kann eine
+   subjektive Korrektur dieser Art nicht treffen, sie rechnet ja gerade das
+   Gegenteil aus. Fix: `_render_balanced()` durch `_render_fixed()`
+   ersetzt, das die acht `(hshift, vshift)`-Werte aus den noch vorhandenen
+   Sandkasten-Bau-Skripten übernimmt (nicht neu berechnet) — siehe
+   `PATCH-README.md` des entsprechenden Korrektur-Patches für die exakten
+   Zahlen. `visuals_utils.measure_content_margins()` bleibt als Werkzeug
+   liegen (bislang ungenutzt seit diesem Nachtrag, analog zu
+   `flatten_to_jpg()`, Teil D) für eine künftige Folie ohne bereits
+   freigegebenes Referenzbild.
+2. **S9, Zweck 2:** Die oben stehende Abnahme beschreibt einen "gefundenen
+   und gefixten" Layout-Fehler (zweizeiliger Name kollidierte mit
+   `dcat:Dataset`) — die Korrektur war aber selbst die Abweichung. Das
+   freigegebene Referenzbild schneidet lange Namen auf eine Zeile ab
+   (`"Freshford: St Lac..."`), zeigt sie nicht zweizeilig. Der zweizeilige
+   Umbau wurde beim Portieren eingeführt, ohne dass Flo danach gefragt
+   hatte, und erst dadurch entstand der eng wirkende Abstand zu
+   `dcat:Dataset`, den Flo dann zu Recht bemängelte. Fix: zurückgebaut auf
+   Ein-Zeilen-Kürzung, Boxhöhe zurück auf 62.
+
+Nach dem Fix: `fdox-talk-purpose2-semantically-queryable.png` ist
+bytegleich mit Flos freigegebenem Referenzbild; die anderen sieben Folien
+weichen um unter 1 % der Pixel ab (Sub-Pixel-Kantenglättung an
+Text/Kreisen, geprüft mit `PIL.ImageChops.difference` + Schwellwert 10/255
+pro Kanal, keine Inhalts-/Layout-Differenz). Determinismus erneut geprüft
+(zwei Läufe, `md5sum` identisch), volle Pipeline weiterhin fehlerfrei,
+keine der sechs bestehenden Grafiken (S0–S7) verändert.
+
 ---
 
 # Teil D — Offene Punkte

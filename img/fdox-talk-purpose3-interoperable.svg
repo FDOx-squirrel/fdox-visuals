@@ -4,7 +4,7 @@
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#116099"/></marker>
 <defs><linearGradient id="talkPurposeGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#116099"/><stop offset="100%" stop-color="#004473"/></linearGradient></defs>
 <g transform="translate(150,120) scale(0.55)"><circle cx="0" cy="0" r="100" fill="url(#talkPurposeGrad)"/><circle cx="0" cy="0" r="100" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.35"/><line x1="0" y1="0" x2="0" y2="-66.7" stroke="#FFFFFF" stroke-width="5.1"/><line x1="0" y1="0" x2="66.7" y2="0" stroke="#FFFFFF" stroke-width="5.1"/><line x1="0" y1="0" x2="0" y2="66.7" stroke="#FFFFFF" stroke-width="5.1"/><line x1="0" y1="0" x2="-66.7" y2="0" stroke="#FFFFFF" stroke-width="5.1"/><circle cx="0" cy="-66.7" r="11.5" fill="#FFFFFF"/><circle cx="66.7" cy="0" r="11.5" fill="#FFFFFF"/><circle cx="0" cy="66.7" r="11.5" fill="#FFFFFF"/><circle cx="-66.7" cy="0" r="11.5" fill="#FFFFFF"/><circle cx="0" cy="0" r="15.4" fill="#FFFFFF"/><circle cx="72" cy="-72" r="30" fill="#FFFFFF" stroke="#004473" stroke-width="3.5"/><text x="72" y="-62" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="29" fill="#004473">3</text></g>
-<g transform="translate(22,-4)">
+<g transform="translate(23,0)">
 <text x="80" y="215" font-family="Fira Sans" font-weight="700" font-size="24" fill="#5B6478">6 real registry objects</text>
 <text x="1500" y="45" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="24" fill="#004473">three real, shared hubs</text>
 <rect x="80" y="250" width="500" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.5"/>

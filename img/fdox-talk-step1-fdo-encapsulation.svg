@@ -4,7 +4,7 @@
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5B6478"/></marker>
 
 <g transform="translate(175,165) scale(0.56)"><circle cx="0" cy="0" r="150" fill="#E6ECF1" stroke="#004473" stroke-width="7"/><circle cx="0" cy="0" r="72" fill="none" stroke="#004473" stroke-width="6" stroke-dasharray="4 14" stroke-linecap="round"/><circle cx="0" cy="0" r="24" fill="#004473"/><rect x="-176" y="-176" width="132" height="132" rx="26" fill="#004473"/><text x="-110.0" y="-74.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="104" fill="white">1</text></g>
-<g transform="translate(-4,-36)">
+<g transform="translate(-4,20)">
 <rect x="54" y="294" width="472" height="362" rx="10" fill="none" stroke="#004473" stroke-width="4"/>
 <rect x="60" y="300" width="460" height="350" fill="#EEEEEE"/>
 <text x="60" y="684" font-family="Fira Sans" font-weight="700" font-size="22" fill="#161B2E">Sketchfab</text>

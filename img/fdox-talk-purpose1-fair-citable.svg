@@ -4,7 +4,7 @@
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#116099"/></marker>
 <defs><linearGradient id="talkPurposeGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#116099"/><stop offset="100%" stop-color="#004473"/></linearGradient></defs>
 <g transform="translate(150,145) scale(0.62)"><circle cx="0" cy="0" r="100" fill="url(#talkPurposeGrad)"/><circle cx="0" cy="0" r="100" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.35"/><path d="M -43.6 -53.8 h 64.1 l 23.1 23.1 v 84.6 h -87.2 z" fill="none" stroke="#FFFFFF" stroke-width="6.4" stroke-linejoin="round"/><path d="M 20.5 -53.8 v 23.1 h 23.1 z" fill="#FFFFFF" opacity="0.85"/><line x1="-28.2" y1="-20.5" x2="25.6" y2="-20.5" stroke="#FFFFFF" stroke-width="5.1" stroke-linecap="round"/><line x1="-28.2" y1="-5.1" x2="25.6" y2="-5.1" stroke="#FFFFFF" stroke-width="5.1" stroke-linecap="round"/><path d="M -28.2 12.8 l 11.5 11.5 l 21.8 -21.8" fill="none" stroke="#FFFFFF" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="72" cy="-72" r="30" fill="#FFFFFF" stroke="#004473" stroke-width="3.5"/><text x="72" y="-62" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="29" fill="#004473">1</text></g>
-<g transform="translate(35,-3)">
+<g transform="translate(36,0)">
 <rect x="60" y="260" width="900" height="430" rx="16" fill="#E6ECF1" stroke="#004473" stroke-width="3"/>
 <text x="100" y="312" font-family="Fira Sans" font-weight="700" font-size="26" fill="#004473">CITATION.cff — CIIC 81 (real)</text>
 <text x="100" y="352" font-family="Fira Sans" font-weight="700" font-size="20" fill="#161B2E">title</text>

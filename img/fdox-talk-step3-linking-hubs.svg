@@ -4,7 +4,7 @@
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5B6478"/></marker>
 
 <g transform="translate(175,165) scale(0.56)"><circle cx="0" cy="0" r="150" fill="#FCF1E1" stroke="#C2790C" stroke-width="7"/><line x1="0" y1="18" x2="-88" y2="-38" stroke="#C2790C" stroke-width="6" stroke-linecap="round"/><line x1="0" y1="18" x2="88" y2="-38" stroke="#C2790C" stroke-width="6" stroke-linecap="round"/><circle cx="-88" cy="-38" r="18" fill="white" stroke="#C2790C" stroke-width="6"/><circle cx="88" cy="-38" r="18" fill="white" stroke="#C2790C" stroke-width="6"/><circle cx="0" cy="18" r="24" fill="#C2790C"/><rect x="-176" y="-176" width="132" height="132" rx="26" fill="#C2790C"/><text x="-110.0" y="-74.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="104" fill="white">3</text></g>
-<g transform="translate(31,4)">
+<g transform="translate(32,4)">
 <line x1="770" y1="500" x2="990" y2="150" stroke="#C2790C" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
 <line x1="770" y1="500" x2="990" y2="290" stroke="#C2790C" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
 <line x1="770" y1="500" x2="990" y2="430" stroke="#C2790C" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
