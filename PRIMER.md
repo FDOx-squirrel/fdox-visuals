@@ -415,6 +415,25 @@ weisse `<rect>`-Hintergrund entfernt, `OVERSAMPLE` von `2.5` auf `3.5`
 angehoben (jetzt 5600×3500). `flatten_to_jpg()` bleibt ungenutzt in
 `visuals_utils.py` (siehe A2).
 
+### Nachtrag 2026-09-10 — `img/fdox-fdo-sphere.svg`/`.png`: die Kugel allein
+
+Flo: "kannst du aus `fdox-fair-digital-object-meta-graphic` noch die
+'FDOx Kugel' rechts ohne den Text links als alleinige Symbolgrafik
+erstellen?" — `_build_sphere_svg()` zeichnet dieselben zwei Kreise mit
+denselben Modulkonstanten (`OUTER_R`, `INNER_R`, `ACCENT`,
+`ACCENT_STROKE`, `RING_FILL`) noch einmal auf ein eigenes, quadratisches
+`viewBox`, ohne Titeltext und ohne die drei Leader-Lines/Labels — kein
+zweiter Satz Radien/Farben daneben (A3). `run()` schreibt jetzt zwei
+Dateipaare statt eines; das bestehende
+`fdox-fair-digital-object-meta-graphic.png` bleibt dabei unverändert
+(gegen einen frischen Klon bytegleich geprüft).
+
+**Abnahme:** ✅ erledigt — `python main.py --only fdo-meta --strict` läuft
+fehlerfrei und schreibt beide Paare; zwei Läufe hintereinander bytegleich
+(`md5sum`); `fdox-fair-digital-object-meta-graphic.png` gegen einen
+frischen Klon per `cmp` als unverändert bestätigt. Kugel-PNG 1636×1636
+nach Trim, transparenter Hintergrund, `PIL.Image.mode == "RGBA"` geprüft.
+
 ---
 
 ## S4 — fdo-squirrel-Architekturdiagramm (korrigiert)

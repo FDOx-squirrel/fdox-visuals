@@ -7,6 +7,9 @@ typography follow this repo's conventions instead.
 
 Produces:
   img/fdox-fair-digital-object-meta-graphic.svg / .png (transparent)
+  img/fdox-fdo-sphere.svg / .png (transparent) -- the nested-circle glyph
+    alone, no title/leader-lines/labels, for use as a standalone FDO symbol
+    (Flo, 2026-09-10: "die FDOx Kugel... als alleinige Symbolgrafik")
 
 Runnable standalone: `python py/step_fdo_meta.py`
 """
@@ -104,6 +107,31 @@ def _build_svg() -> str:
     return "\n".join(p)
 
 
+def _build_sphere_svg() -> str:
+    """Just the nested-circle glyph -- no title, no Data/Metadata/PID
+    leader lines -- reusing the exact same geometry/colours as
+    `_build_svg()`'s circles (A3: one source, not a second set of
+    radii/colours hand-copied alongside it).
+    """
+    pad = 20
+    size = OUTER_R * 2 + pad * 2
+    c = OUTER_R + pad
+    p = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 {size} {size}">']
+    p.append(font_face_css())
+    p.append(f'<circle cx="{c}" cy="{c}" r="{OUTER_R}" fill="{RING_FILL}" stroke="{ACCENT}" stroke-width="6"/>')
+    p.append(f'<circle cx="{c}" cy="{c}" r="{INNER_R}" fill="{ACCENT}" stroke="{ACCENT_STROKE}" stroke-width="6"/>')
+    p.append(
+        f'<text x="{c}" y="{c-14}" text-anchor="middle" font-family="Fira Sans" '
+        f'font-weight="700" font-size="70" fill="white" letter-spacing="4">I0I0</text>'
+    )
+    p.append(
+        f'<text x="{c}" y="{c+70}" text-anchor="middle" font-family="Fira Sans" '
+        f'font-weight="700" font-size="70" fill="white" letter-spacing="4">0I0I</text>'
+    )
+    p.append("</svg>")
+    return "\n".join(p), size
+
+
 def run(strict: bool = False) -> list[str]:
     ensure_dirs()
     log: list[str] = []
@@ -113,6 +141,17 @@ def run(strict: bool = False) -> list[str]:
     svg_path.write_text(svg_text, encoding="utf-8")
     png_path = svg_path.with_suffix(".png")
     render_svg_to_png(svg_path, png_path, int(W * OVERSAMPLE), int(H * OVERSAMPLE))
+    final_w, final_h = trim_transparent_border(png_path, margin_px=10)
+    log.append(
+        f"wrote {svg_path.relative_to(IMG_DIR.parent)} + .png "
+        f"({final_w}x{final_h}, transparent, <=10px border, accent {ACCENT})"
+    )
+
+    sphere_svg, sphere_size = _build_sphere_svg()
+    svg_path = IMG_DIR / "fdox-fdo-sphere.svg"
+    svg_path.write_text(sphere_svg, encoding="utf-8")
+    png_path = svg_path.with_suffix(".png")
+    render_svg_to_png(svg_path, png_path, int(sphere_size * OVERSAMPLE), int(sphere_size * OVERSAMPLE))
     final_w, final_h = trim_transparent_border(png_path, margin_px=10)
     log.append(
         f"wrote {svg_path.relative_to(IMG_DIR.parent)} + .png "

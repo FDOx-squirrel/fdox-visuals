@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="680" viewBox="0 0 680 680">
+<style>@font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Regular.ttf"); font-weight: 400; } @font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Bold.ttf"); font-weight: 700; }</style>
+<circle cx="340" cy="340" r="320" fill="#A5BDCE" stroke="#004473" stroke-width="6"/>
+<circle cx="340" cy="340" r="175" fill="#004473" stroke="#002F50" stroke-width="6"/>
+<text x="340" y="326" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="70" fill="white" letter-spacing="4">I0I0</text>
+<text x="340" y="410" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="70" fill="white" letter-spacing="4">0I0I</text>
+</svg>

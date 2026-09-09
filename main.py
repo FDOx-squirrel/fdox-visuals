@@ -28,7 +28,7 @@ sys.path.insert(0, str(ROOT / "py"))
 STEPS = [
     ("pattern", "Four-step documentation pattern banner + 4 icon badges", "step_pattern"),
     ("purpose", "FDOx purpose banner ('What does FDOx do?') + 4 icon badges", "step_purpose"),
-    ("fdo-meta", "FAIR Digital Object meta-graphic (Data/Metadata/PID)", "step_fdo_meta"),
+    ("fdo-meta", "FAIR Digital Object meta-graphic (Data/Metadata/PID) + standalone sphere", "step_fdo_meta"),
     ("architecture", "fdo-squirrel architecture diagram", "step_architecture"),
     ("md-cff-schema", "MD.cff schema class diagram", "step_md_cff_schema"),
     ("citation-cff-schema", "CITATION.cff schema diagram", "step_citation_cff_schema"),
