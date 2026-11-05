@@ -46,6 +46,7 @@ from visuals_utils import (  # noqa: E402
     FDO_ACCENT_LIGHT,
     FDO_ACCENT_SOFT,
     IMG_DIR,
+    img_path,
     INK,
     MUTED,
     STEPS,
@@ -705,29 +706,29 @@ def run(strict: bool = False) -> list[str]:
             warnings.append(f'description for step {s["num"]} wraps to {len(lines)} lines (design assumes <=3)')
 
     svg_text, h = _build_banner_svg(desc_lines)
-    svg_path = IMG_DIR / "fdox-git-packager-four-steps.svg"
+    svg_path = img_path("fdox-git-packager-four-steps.svg")
     svg_path.write_text(svg_text, encoding="utf-8")
     png_path = svg_path.with_suffix(".png")
     render_svg_to_png(svg_path, png_path, int(W * OVERSAMPLE), int(h * OVERSAMPLE))
     fw, fh = trim_transparent_border(png_path, margin_px=10)
-    log.append(f"wrote img/{svg_path.name} + .png ({fw}x{fh}, transparent, <=10px border)")
+    log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent).as_posix()} + .png ({fw}x{fh}, transparent, <=10px border)")
 
     for i, step in enumerate(BANNER_STEPS):
         svg_text, vb = _build_badge_svg(i)
-        svg_path = IMG_DIR / f"fdox-git-packager-step-{step['num']}-{step['slug']}.svg"
+        svg_path = img_path(f"fdox-git-packager-step-{step['num']}-{step['slug']}.svg")
         svg_path.write_text(svg_text, encoding="utf-8")
         png_path = svg_path.with_suffix(".png")
         render_svg_to_png(svg_path, png_path, int(vb * ICON_SCALE), int(vb * ICON_SCALE))
         fw, fh = trim_transparent_border(png_path, margin_px=10)
-        log.append(f"wrote img/{svg_path.name} + .png ({fw}x{fh}, transparent, <=10px border)")
+        log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent).as_posix()} + .png ({fw}x{fh}, transparent, <=10px border)")
 
     for name, build_fn in SLIDES:
-        svg_path = IMG_DIR / f"{name}.svg"
+        svg_path = img_path(f"{name}.svg")
         svg_path.write_text(build_fn(), encoding="utf-8")
         png_path = svg_path.with_suffix(".png")
         render_svg_to_png(svg_path, png_path, SW * SLIDE_OVERSAMPLE, SH * SLIDE_OVERSAMPLE)
         _to_rgb(png_path)
-        log.append(f"wrote img/{name}.svg + .png ({SW*SLIDE_OVERSAMPLE}x{SH*SLIDE_OVERSAMPLE}, white background)")
+        log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent).as_posix()} + .png ({SW*SLIDE_OVERSAMPLE}x{SH*SLIDE_OVERSAMPLE}, white background)")
 
     if warnings:
         for w in warnings:

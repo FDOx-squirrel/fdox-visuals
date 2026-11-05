@@ -23,6 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from visuals_utils import (  # noqa: E402
     FDO_ACCENT,
     IMG_DIR,
+    img_path,
     INK,
     MUTED,
     ensure_dirs,
@@ -137,7 +138,7 @@ def run(strict: bool = False) -> list[str]:
     log: list[str] = []
 
     svg_text = _build_svg()
-    svg_path = IMG_DIR / "fdox-fair-digital-object-meta-graphic.svg"
+    svg_path = img_path("fdox-fair-digital-object-meta-graphic.svg")
     svg_path.write_text(svg_text, encoding="utf-8")
     png_path = svg_path.with_suffix(".png")
     render_svg_to_png(svg_path, png_path, int(W * OVERSAMPLE), int(H * OVERSAMPLE))
@@ -148,7 +149,7 @@ def run(strict: bool = False) -> list[str]:
     )
 
     sphere_svg, sphere_size = _build_sphere_svg()
-    svg_path = IMG_DIR / "fdox-fdo-sphere.svg"
+    svg_path = img_path("fdox-fdo-sphere.svg")
     svg_path.write_text(sphere_svg, encoding="utf-8")
     png_path = svg_path.with_suffix(".png")
     render_svg_to_png(svg_path, png_path, int(sphere_size * OVERSAMPLE), int(sphere_size * OVERSAMPLE))

@@ -15,6 +15,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from visuals_utils import (  # noqa: E402
     IMG_DIR,
+    img_path,
     INK,
     MUTED,
     STEPS,
@@ -178,7 +179,7 @@ def run(strict: bool = False) -> list[str]:
             warnings.append(f'description for "{s["id"]}" wraps to {len(lines)} lines (design assumes <=3)')
 
     svg_text, h = _build_content_svg(desc_lines_per_step)
-    svg_path = IMG_DIR / "fdox-four-step-pattern.svg"
+    svg_path = img_path("fdox-four-step-pattern.svg")
     svg_path.write_text(svg_text, encoding="utf-8")
     png_path = svg_path.with_suffix(".png")
     render_svg_to_png(svg_path, png_path, int(W * OVERSAMPLE), int(h * OVERSAMPLE))
@@ -190,7 +191,7 @@ def run(strict: bool = False) -> list[str]:
 
     for i, step in enumerate(STEPS):
         svg_text, vb = _build_icon_svg(i, step)
-        svg_path = IMG_DIR / f"fdox-step-{step['num']}-{step['id']}.svg"
+        svg_path = img_path(f"fdox-step-{step['num']}-{step['id']}.svg")
         svg_path.write_text(svg_text, encoding="utf-8")
         png_path = svg_path.with_suffix(".png")
         render_svg_to_png(svg_path, png_path, int(vb * ICON_SCALE), int(vb * ICON_SCALE))

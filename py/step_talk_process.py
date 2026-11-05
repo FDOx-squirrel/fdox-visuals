@@ -33,6 +33,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from visuals_utils import (  # noqa: E402
     IMG_DIR,
+    img_path,
     INK,
     MUTED,
     ROOT,
@@ -364,7 +365,7 @@ def _render_fixed(name: str, build_fn, hshift: int, vshift: int, raster_specs: l
     the next slide this family adds, where there won't yet be an approved
     reference to match.
     """
-    svg_path = IMG_DIR / f"{name}.svg"
+    svg_path = img_path(f"{name}.svg")
     png_path = svg_path.with_suffix(".png")
 
     svg_path.write_text(build_fn(hshift, vshift), encoding="utf-8")
@@ -407,7 +408,7 @@ def run(strict: bool = False) -> list[str]:
 
     for name, build_fn, hshift, vshift, rasters in jobs:
         w, h = _render_fixed(name, build_fn, hshift, vshift, rasters)
-        log.append(f"wrote img/{name}.svg + .png ({w}x{h}, white background)")
+        log.append(f"wrote {img_path(f"{name}.svg").relative_to(IMG_DIR.parent).as_posix()} + .png ({w}x{h}, white background)")
 
     return log
 

@@ -56,6 +56,7 @@ from visuals_utils import (  # noqa: E402
     FDO_ACCENT_LIGHT,
     FDO_ACCENT_SOFT,
     IMG_DIR,
+    img_path,
     INK,
     MUTED,
     STEPS,
@@ -372,12 +373,12 @@ def run(strict: bool = False) -> list[str]:
     ensure_dirs()
     log: list[str] = []
     for name, build_fn in SLIDES:
-        svg_path = IMG_DIR / f"{name}.svg"
+        svg_path = img_path(f"{name}.svg")
         svg_path.write_text(build_fn(), encoding="utf-8")
         png_path = svg_path.with_suffix(".png")
         render_svg_to_png(svg_path, png_path, W * OVERSAMPLE, H * OVERSAMPLE)
         _to_rgb(png_path)
-        log.append(f"wrote img/{name}.svg + .png ({W*OVERSAMPLE}x{H*OVERSAMPLE}, white background)")
+        log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent).as_posix()} + .png ({W*OVERSAMPLE}x{H*OVERSAMPLE}, white background)")
     return log
 
 

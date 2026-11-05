@@ -32,6 +32,7 @@ from visuals_utils import (  # noqa: E402
     FDO_ACCENT,
     FDO_ACCENT_LIGHT,
     IMG_DIR,
+    img_path,
     INK,
     MUTED,
     arrow_line,
@@ -516,7 +517,7 @@ def _render_fixed(name: str, build_fn, hshift: int, vshift: int) -> tuple[int, i
     """Render at an exact, pre-approved (hshift, vshift) -- see S8's
     `_render_fixed()` docstring for why this replaced a dynamic symmetric-
     margin measurement."""
-    svg_path = IMG_DIR / f"{name}.svg"
+    svg_path = img_path(f"{name}.svg")
     png_path = svg_path.with_suffix(".png")
 
     svg_path.write_text(build_fn(hshift, vshift), encoding="utf-8")
@@ -539,7 +540,7 @@ def run(strict: bool = False) -> list[str]:
     ]
     for name, build_fn, hshift, vshift in jobs:
         w, h = _render_fixed(name, build_fn, hshift, vshift)
-        log.append(f"wrote img/{name}.svg + .png ({w}x{h}, white background)")
+        log.append(f"wrote {img_path(f"{name}.svg").relative_to(IMG_DIR.parent).as_posix()} + .png ({w}x{h}, white background)")
 
     return log
 

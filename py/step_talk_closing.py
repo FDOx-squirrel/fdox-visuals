@@ -31,6 +31,7 @@ from visuals_utils import (  # noqa: E402
     FDO_ACCENT,
     FDO_ACCENT_LIGHT,
     IMG_DIR,
+    img_path,
     INK,
     STEPS,
     ensure_dirs,
@@ -230,14 +231,14 @@ def run(strict: bool = False) -> list[str]:
         ("fdox-talk-closing-a-sphere", _build_variant_a),
         ("fdox-talk-closing-b-hubs", _build_variant_b),
     ]:
-        svg_path = IMG_DIR / f"{name}.svg"
+        svg_path = img_path(f"{name}.svg")
         svg_path.write_text(build_fn(), encoding="utf-8")
         png_path = svg_path.with_suffix(".png")
         render_svg_to_png(svg_path, png_path, W * OVERSAMPLE, H * OVERSAMPLE)
         from PIL import Image
         with Image.open(png_path) as im:
             w, h = im.size
-        log.append(f"wrote img/{name}.svg + .png ({w}x{h}, white background)")
+        log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent).as_posix()} + .png ({w}x{h}, white background)")
 
     return log
 

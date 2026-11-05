@@ -38,6 +38,7 @@ STEPS = [
     ("git-packager", "fdo-git-packager concept: four-step banner + GitHub Actions swimlane slide", "step_git_packager"),
     ("federation", "finished 3D and software FDOs in the federated KG ecosystem: three talk slides", "step_federation"),
     ("ogham-graph", "real graph pictures of Ogham 3D FDOs and the software that works on them: three talk slides", "step_ogham_graph"),
+    ("site", "GitHub Pages site (docs/): overview and one page per category, built from img/", "step_site"),
 ]
 
 

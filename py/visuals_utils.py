@@ -16,10 +16,53 @@ FONT_REGULAR = FONTS_DIR / "FiraSans-Regular.ttf"
 FONT_BOLD = FONTS_DIR / "FiraSans-Bold.ttf"
 FONT_FAMILY = "Fira Sans"
 
-# Every generated SVG lives directly under img/, so the relative path back
-# to fonts/ is always the same. If a step ever writes its SVG somewhere
-# else, this constant has to move with it.
-_FONT_REL_PREFIX = "../fonts"
+# Every generated SVG lives in img/<category>/ (one level below img/), so the
+# relative path back to fonts/ is always the same. If a step ever writes its
+# SVG somewhere else, this constant has to move with it.
+_FONT_REL_PREFIX = "../../fonts"
+
+# Topic folders under img/. The order is the order of the site (S14). A
+# graphic belongs to the first category whose prefix its file stem starts
+# with, so longer, more specific prefixes come first.
+CATEGORIES = [
+    {"slug": "pattern", "title": "The four-step pattern and its purpose",
+     "desc": "Banners and badges for the four FDO steps and the four purposes.",
+     "prefixes": ["fdox-four-step-pattern", "fdox-step-", "fdox-purpose-"]},
+    {"slug": "schemas", "title": "Schemas, architecture and meta graphic",
+     "desc": "The MD.cff and CITATION.cff schemas, the FDO-Squirrel architecture and the FDO meta graphic.",
+     "prefixes": ["fdox-md-cff-schema", "fdox-citation-cff-schema", "fdox-fdo-squirrel-architecture",
+                  "fdox-fair-digital-object-meta-graphic", "fdox-fdo-sphere"]},
+    {"slug": "talk-process", "title": "Talk slides: the process",
+     "desc": "One slide for each of the four steps.", "prefixes": ["fdox-talk-step"]},
+    {"slug": "talk-purpose", "title": "Talk slides: the purpose",
+     "desc": "One slide for each of the four purposes.", "prefixes": ["fdox-talk-purpose"]},
+    {"slug": "talk-closing", "title": "Talk slides: closing",
+     "desc": "The closing slides on the FDO sphere and the community hubs.", "prefixes": ["fdox-talk-closing"]},
+    {"slug": "git-packager", "title": "fdo-git-packager",
+     "desc": "Concept graphics for packaging a Git repository as an FDO.",
+     "prefixes": ["fdox-git-packager-", "fdox-talk-git-packager-"]},
+    {"slug": "federation", "title": "Federated knowledge graph ecosystem",
+     "desc": "Finished 3D and software FDOs in the registry and the N4O collection.",
+     "prefixes": ["fdox-talk-federation-"]},
+    {"slug": "ogham-graph", "title": "Ogham graph pictures",
+     "desc": "Graph pictures of Ogham stones, their 3D FDOs and the software that uses them.",
+     "prefixes": ["fdox-talk-ogham-graph-"]},
+]
+
+
+def category_of(stem: str) -> str:
+    """Folder slug (under img/) for a graphic's file stem."""
+    for cat in CATEGORIES:
+        if any(stem.startswith(p) for p in cat["prefixes"]):
+            return cat["slug"]
+    raise KeyError(f"no category for graphic {stem!r}; add its prefix to CATEGORIES")
+
+
+def img_path(filename: str) -> Path:
+    """Output path of a graphic: img/<category>/<filename>; creates the folder."""
+    folder = IMG_DIR / category_of(Path(filename).stem)
+    folder.mkdir(parents=True, exist_ok=True)
+    return folder / filename
 
 INK = "#161B2E"
 MUTED = "#5B6478"
@@ -65,6 +108,7 @@ STEPS = [
 ]
 
 FDO_ACCENT = STEPS[0]["color"]  # #004473 — reused by the FDO meta-graphic
+FDO_TINT = STEPS[0]["tint"]  # #E6ECF1 — page tint of the site (S14)
 
 # Two lightened tints of FDO_ACCENT, for graphics that use a single flat
 # brand colour rather than the four-step rainbow above (S7 purpose banner:

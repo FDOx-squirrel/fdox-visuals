@@ -26,6 +26,7 @@ from visuals_utils import (  # noqa: E402
     FDO_ACCENT_LIGHT,
     FDO_ACCENT_SOFT,
     IMG_DIR,
+    img_path,
     INK,
     MUTED,
     ensure_dirs,
@@ -245,7 +246,7 @@ def run(strict: bool = False) -> list[str]:
             warnings.append(f'description for "{item["id"]}" wraps to {len(lines)} lines (design assumes <=3)')
 
     svg_text, h = _build_content_svg(desc_lines_per_item)
-    svg_path = IMG_DIR / "fdox-purpose-pattern.svg"
+    svg_path = img_path("fdox-purpose-pattern.svg")
     svg_path.write_text(svg_text, encoding="utf-8")
     png_path = svg_path.with_suffix(".png")
     render_svg_to_png(svg_path, png_path, int(W * OVERSAMPLE), int(h * OVERSAMPLE))
@@ -257,7 +258,7 @@ def run(strict: bool = False) -> list[str]:
 
     for i, item in enumerate(PROPERTIES):
         svg_text, vb = _build_icon_svg(i, item)
-        svg_path = IMG_DIR / f"fdox-purpose-{item['num']}-{item['id']}.svg"
+        svg_path = img_path(f"fdox-purpose-{item['num']}-{item['id']}.svg")
         svg_path.write_text(svg_text, encoding="utf-8")
         png_path = svg_path.with_suffix(".png")
         render_svg_to_png(svg_path, png_path, int(vb * ICON_SCALE), int(vb * ICON_SCALE))

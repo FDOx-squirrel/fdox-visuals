@@ -20,6 +20,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from visuals_utils import (  # noqa: E402
     IMG_DIR,
+    img_path,
     INK,
     MUTED,
     ensure_dirs,
@@ -187,7 +188,7 @@ def run(strict: bool = False) -> list[str]:
     log: list[str] = []
 
     svg_text, w, h = _build_svg()
-    svg_path = IMG_DIR / "fdox-md-cff-schema.svg"
+    svg_path = img_path("fdox-md-cff-schema.svg")
     svg_path.write_text(svg_text, encoding="utf-8")
     png_path = svg_path.with_suffix(".png")
     render_svg_to_png(svg_path, png_path, int(w * 1.6), int(h * 1.6))

@@ -232,6 +232,8 @@ Eigenschaften, an denen sich ein Rebuild messen lassen muss:
 | `img/` in Git? | ja, versioniert (wie `dist/` bei den anderen Repos) — die Bilder sind das citierbare Produkt, nicht nur Baustellenabfall | 2026-09-08, Vorschlag |
 | Ausgabeformat | **`.png`, transparenter Hintergrund** — ersetzt `.jpg` auf weißem Grund mit dezentem Dot-Grid-Muster; das Muster war auf Weiß gedacht, wurde beim Reinzoomen (Flos Screenshot) aber als sichtbare Punkte im Hintergrund wahrgenommen. Dot-Grid komplett entfernt statt nur den Hintergrund transparent zu machen — es hätte ohne definierten Untergrund keinen Sinn ergeben | 2026-09-08, ersetzt Beschluss vom selben Tag |
 | Auflösung | **Zurückgenommen** von "so hoch wie möglich" auf einen Zielbereich von ~2–6 Megapixel *Inhalt* (nach dem Trim) je Grafik — Google Slides komprimiert eingefügte Bilder oberhalb von 25 Megapixel zwangsweise (offizielle API-Grenze) und beginnt in der Praxis schon deutlich darunter sichtbar zu degradieren. `OVERSAMPLE`/`ICON_SCALE` entsprechend gesenkt (Banner 3→1,5; Icons 6→4; FDO-Meta-Grafik 3,5→2,5) | 2026-09-08, ersetzt Beschluss vom selben Tag |
+| Ordner in `img/` | **acht Themenordner**: `pattern`, `schemas`, `talk-process`, `talk-purpose`, `talk-closing`, `git-packager`, `federation`, `ogham-graph`; Zuordnung über den Dateinamen (`CATEGORIES` in `visuals_utils.py`); SVGs verweisen deshalb mit `../../fonts` auf die Schrift. `img/source/` bleibt | 2026-11-05 |
+| Website | GitHub Pages aus `main`/`docs`, statisches HTML (kein Jekyll-Build, `.nojekyll`), Layout des Skills `figure-pages-site` mit Akzent FDOx-Blau; S11–S13 öffentlich mit Hinweis "Draft, as of 2026-11-05" | 2026-11-05 |
 | Transparenter Rand | **maximal 10px** um jede Grafik, für alle sechs PNGs einheitlich — per `trim_transparent_border()` auf Pixelebene zugeschnitten (Alphakanal-Bounding-Box + fester Rand), nicht per geschätztem Design-Koordinaten-Abstand. Grund für den Pixel-Ansatz statt Geometrie-Rechnung: Schritt 4s Titeltext reicht nachweislich über den Icon-Kreis hinaus (siehe A1, neuer Befund) — eine Design-Koordinaten-Schätzung hätte das riskiert abzuschneiden | 2026-09-08 |
 
 ## A5. Was in welchem Chat hochgeladen wird
@@ -264,6 +266,7 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S11 | `fdo-git-packager` (Konzept): Banner, vier Schritt-Folien, vier Badges, GitHub-Actions-Swimlane (reales Beispiel SPARQLing Unicorn) | fdox-visuals | S1, S2, S8 | Entwurf 2026-11-05, wartet auf Abnahme |
 | S12 | Fertige 3D-/Software-FDOs im Federated-KG-Ökosystem: drei Folien (Weg, Katalog, geteilte Konzepte) | fdox-visuals | S1, S11 | Entwurf 2026-11-05, wartet auf Abnahme |
 | S13 | Echte Graphbilder: Ogham-3D-FDOs, Software, Registry als Graph (drei Folien) | fdox-visuals | S1, S12 | Entwurf 2026-11-05, wartet auf Abnahme |
+| S14 | Themenordner `img/<kategorie>/` und GitHub-Pages-Seite `docs/` (Skill figure-pages-site, FDOx-Blau) | fdox-visuals | S1–S13 | Entwurf 2026-11-05, wartet auf Abnahme |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -1010,6 +1013,35 @@ aus Gründen der Lesbarkeit weggelassen und in der Fußzeile genannt.
 **Offen:** Flos Sichtabnahme; Entscheidung, ob eine explizite Kante
 Software→Objekt in `fdo-squirrel` modelliert werden soll.
 
+## S14 — Themenordner und GitHub-Pages-Seite
+
+**Ziel:** die Grafiken nach Thema in `img/<kategorie>/` sortieren und als
+Seite veröffentlichen (Wunsch von Flo, 2026-11-05; Antworten: 8 Ordner nach
+Thema, FDOx-Blau, S11–S13 öffentlich mit Entwurf-Hinweis).
+
+**Umbau.** `visuals_utils.py` führt `CATEGORIES` (Slug, Titel, Beschreibung,
+Dateinamen-Präfixe), `category_of(stem)` und `img_path(filename)`; alle
+Steps schreiben über `img_path(...)`. `_FONT_REL_PREFIX` ist jetzt
+`../../fonts`. Geprüft: Neubau liefert PNGs byte-gleich zum Altstand
+(Sandbox-Vergleich), SVGs unterscheiden sich nur im Font-Pfad.
+
+**Seite.** `py/site_kit.py` (Stylesheet, Navigation, Seitenrahmen, Schrift
+nach `docs/assets/`), `py/site_meta.py` (Bildunterschriften, Quellenzeilen,
+Entwurf-Status, Kurznamen), `py/step_site.py` (läuft als letzter Schritt
+`site`). Erzeugt `docs/index.html`, `docs/visuals/<kategorie>.html` und
+kopiert PNG/SVG nach `docs/visuals/img/` (SVG mit Font-Pfad auf
+`docs/assets/fonts`). Ein Bild ohne Bildunterschrift oder umgekehrt bricht
+den Schritt ab.
+
+**Regeln.** Neue Grafik = Präfix in `CATEGORIES` (falls neu) + Eintrag in
+`CAPTIONS`. Die Seiten-Tokens (Grau, Karten) stehen in `site_kit.py`, nur
+die Markenfarben kommen aus `visuals_utils.py`. `docs/` ist erzeugt und
+wird committet, nicht von Hand bearbeitet.
+
+**Abnahme:** Entwurf; Seiten in Desktop- und Handybreite gerendert und
+angesehen. **Offen:** Flos Sichtabnahme; Pages einschalten (Settings →
+Pages → Branch `main`, Ordner `/docs`).
+
 ---
 
 # Teil D — Offene Punkte
@@ -1027,11 +1059,11 @@ Software→Objekt in `fdo-squirrel` modelliert werden soll.
 - **S12: CHUIS/1 und `Q22731`.** Die Abfrage zeigt, dass CHUIS/1 "Ogham
   Stone" nur als Text führt und `Q22731` im Bundle "Stone" heißt — Befunde
   für die Pakete, nicht für die Grafik; Korrektur nur über neue Zenodo-Version.
-- **S11: README.md listet nur die ersten fünf Grafiken** (S2–S6); S7–S11
-  fehlen dort. Kein Bug dieses Schritts, aber beim nächsten Anfassen der
-  README mitziehen.
-- **S11: eigene Übersichtsseite** (GitHub Pages) bewusst noch nicht — erst
-  mit dem `figure-pages-site`-Skill, wenn mehr Grafiken dieser Art dazukommen.
+- **S14: Seitenumfang.** `docs/` verdoppelt die Bildgröße im Repo (rund
+  12 MB zusätzlich). Wird das zu viel, PNGs der Seite verkleinern oder nur
+  die Folien als PNG, Rest als SVG ausliefern.
+- **S14: Bildunterschriften** der S1–S10-Grafiken sind aus Dateinamen und
+  Folientiteln abgeleitet; vor dem Veröffentlichen gegenlesen.
 
 - **CI (`--strict` bei jedem Push)** noch nicht eingerichtet — analog zu
   `fdo-architecture`s offenem Punkt, hier aber noch nicht mal vorgeschlagen.
