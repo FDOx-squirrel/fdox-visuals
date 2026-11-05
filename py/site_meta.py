@@ -13,7 +13,7 @@ from __future__ import annotations
 
 # Status shown on the card. "draft" graphics carry the notice below.
 DRAFT_NOTICE = "Draft, as of 2026-11-05"
-DRAFT_CATEGORIES = {"git-packager", "federation", "ogham-graph"}
+DRAFT_CATEGORIES = {"story", "git-packager", "federation", "ogham-graph"}
 
 CREDIT_BASE = "FDOx-squirrel, fdox-visuals (Florian Thiery, LEIZA). Code: MIT licence."
 
@@ -48,6 +48,9 @@ CAPTIONS: dict[str, list[tuple[str, str, str]]] = {
     ],
     "talk-process": [
         ("fdox-talk-step1-fdo-encapsulation", "Talk slide, step 1: FDO encapsulation. A 3D model (Freshford, St Lachtain’s Well, via Sketchfab) is converted and packaged with fdo-3d-packager.", ""),
+        ("fdox-talk-step1-fdo-encapsulation-ciic81",
+         "Talk slide, step 1 with CIIC 81: the Sketchfab model of an Ogham stone is converted and packaged with fdo-3d-packager (50 files in the registry).",
+         "Model: b-unicycling, via Sketchfab (screenshot of the model page). Registry 253aee9."),
         ("fdox-talk-step2-semantic-metadata", "Talk slide, step 2: semantic metadata and paradata modelling, with the real MD.cff and Turtle values of CIIC 81 and its CIDOC CRM anchor.", ""),
         ("fdox-talk-step3-linking-hubs", "Talk slide, step 3: linking to community hubs. CIIC 81 points to the Wikidata items Q2016147 (Inscribed Ogham stone) and Q22731 (Stone).", ""),
         ("fdox-talk-step4-federated-kg", "Talk slide, step 4: federated knowledge graph integration. The FDOx registry (release 2026-09-03, 8 sources, 7,793 triples) feeds the NFDI4Objects knowledge graph.", ""),
@@ -61,6 +64,20 @@ CAPTIONS: dict[str, list[tuple[str, str, str]]] = {
     "talk-closing": [
         ("fdox-talk-closing-a-sphere", "Closing slide, variant A: the eight badges as a ring around the FDO sphere.", ""),
         ("fdox-talk-closing-b-hubs", "Closing slide, variant B: the same ring, with dotted links to the community hubs NFDI4Objects, Wikidata and OpenStreetMap.", ""),
+    ],
+    "story": [
+        ("fdox-talk-story-fkge-map",
+         "From the federated KG ecosystem to FDOx: the FDO-driven and the LOD-driven way into the graph, with the four FDOx steps as the bridge for 3D models and software.",
+         "Simplified from the FKGE diagram of Thiery & Noback (CC BY 4.0)."),
+        ("fdox-talk-story-two-roads-unicorn",
+         "Two roads, one bundle: CIIC 81 (3D) and the SPARQLing Unicorn plugin (software, planned) meet in the same fdo-squirrel engine.",
+         "CIIC 81: registry 253aee9. SPARQLing Unicorn: tag v0.17.4 (ba8af4c). fdo-git-packager is a skeleton; the software FDO is not built yet."),
+        ("fdox-talk-story-two-roads-extractor",
+         "Two roads, one bundle: CIIC 81 (3D) and the finished Ogham 3D EpiDoc Extractor (software) end up as the same kind of FDO.",
+         "Registry 253aee9 (release 2026-09-03). fdo-git-packager is a skeleton; how the extractor was packaged is not recorded here."),
+        ("fdox-talk-story-squilly-graph",
+         "From Squilly’s nut-and-string graph to a real one: eight FDOs, the concepts and people that connect them.",
+         "Left: drawn sketch, not data. Right: registry 253aee9 (release 2026-09-03), 7,793 triples."),
     ],
     "git-packager": [
         ("fdox-git-packager-four-steps",
@@ -102,11 +119,11 @@ CAPTIONS: dict[str, list[tuple[str, str, str]]] = {
 # Short label prefix per category, numbered by position: PA.1, SC.2, ...
 LABELS = {
     "pattern": "PA", "schemas": "SC", "talk-process": "TP", "talk-purpose": "TU",
-    "talk-closing": "TC", "git-packager": "GP", "federation": "FE", "ogham-graph": "OG",
+    "talk-closing": "TC", "story": "ST", "git-packager": "GP", "federation": "FE", "ogham-graph": "OG",
 }
 
 # Short names for the navigation row.
 SHORT = {
     "pattern": "Pattern", "schemas": "Schemas", "talk-process": "Talk: process", "talk-purpose": "Talk: purpose",
-    "talk-closing": "Talk: closing", "git-packager": "Git packager", "federation": "Federation", "ogham-graph": "Ogham graphs",
+    "talk-closing": "Talk: closing", "story": "Story", "git-packager": "Git packager", "federation": "Federation", "ogham-graph": "Ogham graphs",
 }

@@ -104,7 +104,8 @@ _STEP1_PIPELINE = [
 ]
 
 
-def _build_step1(hshift: int, vshift: int) -> str:
+def _build_step1(hshift: int, vshift: int, caption: str = "Freshford: St Lachtain\u2019s Well \u00b7 by b-unicycling, via Sketchfab",
+                 files_line: str = "32 files \u00b7 deterministic") -> str:
     accent = STEPS[0]["color"]
     photo_x, photo_y, photo_w, photo_h = 60, 300, 460, 350  # 1500:1141 Sketchfab screenshot
     col_w, gap_x = 220, 36
@@ -125,7 +126,7 @@ def _build_step1(hshift: int, vshift: int) -> str:
     p.append(f'<text x="{photo_x}" y="{photo_y+photo_h+34}" font-family="Fira Sans" font-weight="700" '
               f'font-size="22" fill="{INK}">Sketchfab</text>')
     p.append(f'<text x="{photo_x}" y="{photo_y+photo_h+60}" font-family="Fira Sans" font-weight="400" '
-              f'font-size="20" fill="{MUTED}">Freshford: St Lachtain\u2019s Well \u00b7 by b-unicycling, via Sketchfab</text>')
+              f'font-size="20" fill="{MUTED}">{caption}</text>')
 
     arrow_y = (row1_y + row2_y) / 2
     p.append(arrow_line(photo_x + photo_w + 15, arrow_y, col0_x - 15, arrow_y))
@@ -163,13 +164,20 @@ def _build_step1(hshift: int, vshift: int) -> str:
     p.append(f'<text x="{meta_cx}" y="{meta_cy+meta_r+40}" text-anchor="middle" font-family="Fira Sans" '
               f'font-weight="700" font-size="22" fill="{INK}">FDO bundle</text>')
     p.append(f'<text x="{meta_cx}" y="{meta_cy+meta_r+66}" text-anchor="middle" font-family="Fira Sans" '
-              f'font-weight="400" font-size="20" fill="{MUTED}">32 files \u00b7 deterministic</text>')
+              f'font-weight="400" font-size="20" fill="{MUTED}">{files_line}</text>')
 
     p.append("</g></svg>")
     return "\n".join(p)
 
 
 _STEP1_RASTER = dict(x=60, y=300, w=460, h=350, asset="talk-sketchfab-freshford.png", circular=False)
+_STEP1_RASTER_CIIC = dict(_STEP1_RASTER, asset="talk-sketchfab-ciic81.png")
+
+
+def _build_step1_ciic(hshift: int, vshift: int) -> str:
+    """Same slide with CIIC 81 (registry: 50 files) instead of the Freshford well."""
+    return _build_step1(hshift, vshift, "CIIC 81 / UCC 4 \u00b7 by b-unicycling, via Sketchfab",
+                        "50 files \u00b7 deterministic")
 
 
 # ---------------------------------------------------------------- Step 2 --
@@ -388,7 +396,7 @@ def run(strict: bool = False) -> list[str]:
     log: list[str] = []
 
     missing = [f for f in ("talk-sketchfab-freshford.png", "talk-registry-screenshot.png",
-                            "talk-ciic81-preview.png") if not (SOURCE_DIR / f).exists()]
+                            "talk-ciic81-preview.png", "talk-sketchfab-ciic81.png") if not (SOURCE_DIR / f).exists()]
     if missing:
         msg = f"missing source asset(s) under img/source/: {', '.join(missing)}"
         if strict:
@@ -398,6 +406,8 @@ def run(strict: bool = False) -> list[str]:
     jobs = [
         ("fdox-talk-step1-fdo-encapsulation", _build_step1, -4, 20,
          [] if missing else [_STEP1_RASTER]),
+        ("fdox-talk-step1-fdo-encapsulation-ciic81", _build_step1_ciic, -4, 20,
+         [] if missing else [_STEP1_RASTER_CIIC]),
         ("fdox-talk-step2-semantic-metadata", _build_step2, 0, 0, []),
         ("fdox-talk-step3-linking-hubs", _build_step3, 32, 4,
          [] if missing else [dict(x=560-210, y=500-210, w=420, h=420,

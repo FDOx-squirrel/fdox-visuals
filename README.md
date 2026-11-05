@@ -27,9 +27,10 @@ The graphics are sorted by topic into `img/<category>/`; every file comes as
 |---|---|
 | `img/pattern/` | four-step and purpose banners with their badges |
 | `img/schemas/` | MD.cff and CITATION.cff schemas, fdo-squirrel architecture, FDO meta graphic and sphere |
-| `img/talk-process/` | talk slides, one per step |
+| `img/talk-process/` | talk slides, one per step (step 1 also with CIIC 81) |
 | `img/talk-purpose/` | talk slides, one per outcome |
 | `img/talk-closing/` | closing slides (ring of eight badges, two variants) |
+| `img/story/` | the story slides: FKGE map, two roads one bundle (two variants), Squilly graph (draft) |
 | `img/git-packager/` | concept graphics for `fdo-git-packager` (draft) |
 | `img/federation/` | finished 3D and software FDOs in the federated KG ecosystem (draft) |
 | `img/ogham-graph/` | graph pictures of Ogham stones, 3D FDOs and software (draft) |

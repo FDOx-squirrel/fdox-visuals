@@ -267,6 +267,7 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S12 | Fertige 3D-/Software-FDOs im Federated-KG-Ökosystem: drei Folien (Weg, Katalog, geteilte Konzepte) | fdox-visuals | S1, S11 | Entwurf 2026-11-05, wartet auf Abnahme |
 | S13 | Echte Graphbilder: Ogham-3D-FDOs, Software, Registry als Graph (drei Folien) | fdox-visuals | S1, S12 | Entwurf 2026-11-05, wartet auf Abnahme |
 | S14 | Themenordner `img/<kategorie>/` und GitHub-Pages-Seite `docs/` (Skill figure-pages-site, FDOx-Blau) | fdox-visuals | S1–S13 | Entwurf 2026-11-05, wartet auf Abnahme |
+| S15 | Story-Folien: FKGE-Landkarte, "Zwei Straßen, ein Bündel" (CIIC 81 + Unicorn / + Extractor), Squilly-Graph; Schritt 1 zusätzlich mit CIIC 81 | fdox-visuals | S1, S8, S11–S14 | Entwurf 2026-11-05, wartet auf Abnahme |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -1041,6 +1042,41 @@ wird committet, nicht von Hand bearbeitet.
 **Abnahme:** Entwurf; Seiten in Desktop- und Handybreite gerendert und
 angesehen. **Offen:** Flos Sichtabnahme; Pages einschalten (Settings →
 Pages → Branch `main`, Ordner `/docs`).
+
+## S15 — Story-Folien: vom FKGE zu FDOx, für 3D und Software
+
+**Ziel:** die Geschichte der alten 3D-Präsentation ("From Smartphone 3D to
+Federated Knowledge Graphs") mit der Software-Geschichte des ArcheoFOSS-
+Talks verbinden. Neue Kategorie `story` (Präfix `fdox-talk-story-`), Schritt
+`story` in `main.py`, Modul `py/step_story.py`. Antworten von Flo: CIIC 81
+ist der rote Faden; Squilly nur gezeichnet (kein Bild eingebettet);
+FKGE-Karte als vereinfachter Neubau.
+
+**Folien (alle 7:4, weiß, S8-Konvention).**
+- `fdox-talk-story-fkge-map`: FDO-driven links, LOD-driven rechts,
+  Federated Knowledge Graph in der Mitte, die vier FDOx-Schritte als Brücke.
+  Begriffe aus Flos FKGE-Diagramm (Thiery & Noback, CC BY 4.0), vereinfacht.
+- `fdox-talk-story-two-roads-unicorn` und `-extractor`: zwei Spuren in dieselbe
+  `fdo-squirrel`-Maschine. 3D-Spur: CIIC 81 (DOI 10.5281/zenodo.18724635, 50
+  Dateien, CC-BY-NC-SA-4.0). Software-Spur A: SPARQLing Unicorn (v0.17.4,
+  ba8af4c), alles gestrichelt (fdo-git-packager ist S1-Skelett). Software-Spur
+  B: Ogham 3D EpiDoc Extractor (DOI 10.5281/zenodo.18369125, 254 Dateien, MIT),
+  Ergebnis durchgezogen, Packager gestrichelt.
+- `fdox-talk-story-squilly-graph`: gezeichneter Nuss-Faden-Graph neben dem
+  Registry-Graphen (Fakten wie S13).
+- `fdox-talk-step1-fdo-encapsulation-ciic81` (Kategorie `talk-process`):
+  Schritt 1 mit CIIC 81 statt Freshford (50 Dateien laut Registry);
+  Screenshot aus Flos Folie 12 nach `img/source/talk-sketchfab-ciic81.png`.
+  Die Freshford-Fassung bleibt unverändert.
+
+**Grenzen.** Wie der Extractor tatsächlich verpackt wurde, steht in keinem
+gelesenen Repo; die Folie sagt das offen. Die Sketchfab-Quellenzeile
+("by b-unicycling") folgt Flos Folie 12; Folie 24 nennt A.-K. Distel für das
+Vorschaubild, vor Veröffentlichung klären.
+
+**Abnahme:** Entwurf; Folien angesehen, Seite gerendert. **Offen:** Flos
+Sichtabnahme; Entscheidung, ob eine Paradata-Kette (Foto → Modell → Software →
+Analyse mit `prov:used`) modelliert wird (siehe S13).
 
 ---
 

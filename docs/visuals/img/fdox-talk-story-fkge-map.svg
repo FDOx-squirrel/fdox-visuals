@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1750" height="1000" viewBox="0 0 1750 1000">
+<rect x="0" y="0" width="1750" height="1000" fill="white"/>
+<style>@font-face { font-family: "Fira Sans"; src: url("../../assets/fonts/FiraSans-Regular.ttf"); font-weight: 400; } @font-face { font-family: "Fira Sans"; src: url("../../assets/fonts/FiraSans-Bold.ttf"); font-weight: 700; }</style>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5B6478"/></marker>
+<g transform="translate(175,165) scale(0.56)"><circle cx="0" cy="0" r="150" fill="#E6ECF1" stroke="#004473" stroke-width="7"/><g transform="scale(1.05)"><line x1="0" y1="0" x2="0" y2="-56" stroke="#004473" stroke-width="6" stroke-linecap="round"/><line x1="0" y1="0" x2="54" y2="30" stroke="#004473" stroke-width="6" stroke-linecap="round"/><line x1="0" y1="0" x2="-54" y2="30" stroke="#004473" stroke-width="6" stroke-linecap="round"/><circle cx="0" cy="-56" r="13" fill="#004473"/><circle cx="54" cy="30" r="13" fill="#004473"/><circle cx="-54" cy="30" r="13" fill="#004473"/><circle cx="0" cy="0" r="17" fill="white" stroke="#004473" stroke-width="6"/></g></g><text x="310" y="150" text-anchor="start" font-family="Fira Sans" font-weight="700" font-size="58" fill="#004473">From the federated KG ecosystem to FDOx</text><text x="310" y="202" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="30" fill="#5B6478">Two ways into the graph, one bridge for 3D models and software</text>
+<rect x="520" y="250" width="710" height="70" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/><text x="875.0" y="291.82" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="22" fill="#161B2E">A research object: a stone, a 3D model, a piece of software</text>
+<line x1="520" y1="285" x2="395" y2="345" stroke="#5B6478" stroke-width="3.5" marker-end="url(#arrow)"/>
+<line x1="1230" y1="285" x2="1355" y2="345" stroke="#5B6478" stroke-width="3.5" marker-end="url(#arrow)"/>
+<text x="215" y="372" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="21" fill="#004473">FAIR-Digital-Object-driven</text>
+<rect x="50" y="392" width="330" height="62" rx="14" fill="#E6ECF1" stroke="#004473" stroke-width="3.5"/><text x="215.0" y="429.51" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="21" fill="#161B2E">Measurement</text>
+<line x1="215" y1="454" x2="215" y2="476" stroke="#5B6478" stroke-width="3.5" marker-end="url(#arrow)"/>
+<rect x="50" y="476" width="330" height="62" rx="14" fill="#E6ECF1" stroke="#004473" stroke-width="3.5"/><text x="215.0" y="513.51" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="21" fill="#161B2E">Analysis &amp; Visualisation</text>
+<line x1="215" y1="538" x2="215" y2="560" stroke="#5B6478" stroke-width="3.5" marker-end="url(#arrow)"/>
+<rect x="50" y="560" width="330" height="62" rx="14" fill="#E6ECF1" stroke="#004473" stroke-width="3.5"/><text x="215.0" y="597.51" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="21" fill="#161B2E">Conclusion</text>
+<text x="1535" y="372" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="21" fill="#004473">Linked-Open-Data-driven</text>
+<rect x="1370" y="392" width="330" height="62" rx="14" fill="#E6ECF1" stroke="#004473" stroke-width="3.5"/><text x="1535.0" y="429.51" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="21" fill="#161B2E">Capture &amp; Documentation</text>
+<line x1="1535" y1="454" x2="1535" y2="476" stroke="#5B6478" stroke-width="3.5" marker-end="url(#arrow)"/>
+<rect x="1370" y="476" width="330" height="62" rx="14" fill="#E6ECF1" stroke="#004473" stroke-width="3.5"/><text x="1535.0" y="513.51" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="21" fill="#161B2E">Analysis &amp; Enrichment</text>
+<line x1="1535" y1="538" x2="1535" y2="560" stroke="#5B6478" stroke-width="3.5" marker-end="url(#arrow)"/>
+<rect x="1370" y="560" width="330" height="62" rx="14" fill="#E6ECF1" stroke="#004473" stroke-width="3.5"/><text x="1535.0" y="597.51" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="21" fill="#161B2E">Conclusion</text>
+<ellipse cx="875" cy="520" rx="400" ry="190" fill="#E6ECF1" stroke="#004473" stroke-width="4"/>
+<text x="875" y="400" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="28" fill="#004473">Federated Knowledge Graph</text>
+<line x1="1105" y1="510" x2="645" y2="510" stroke="#4E8FBE" stroke-width="2.5" opacity="0.7"/>
+<line x1="875" y1="550" x2="645" y2="510" stroke="#4E8FBE" stroke-width="2.5" opacity="0.7"/>
+<line x1="875" y1="550" x2="1105" y2="510" stroke="#4E8FBE" stroke-width="2.5" opacity="0.7"/>
+<line x1="875" y1="550" x2="725" y2="620" stroke="#4E8FBE" stroke-width="2.5" opacity="0.7"/>
+<line x1="875" y1="550" x2="1025" y2="620" stroke="#4E8FBE" stroke-width="2.5" opacity="0.7"/>
+<line x1="725" y1="620" x2="645" y2="510" stroke="#4E8FBE" stroke-width="2.5" opacity="0.7"/>
+<line x1="725" y1="620" x2="1105" y2="510" stroke="#4E8FBE" stroke-width="2.5" opacity="0.7"/>
+<line x1="725" y1="620" x2="1025" y2="620" stroke="#4E8FBE" stroke-width="2.5" opacity="0.7"/>
+<line x1="1025" y1="620" x2="645" y2="510" stroke="#4E8FBE" stroke-width="2.5" opacity="0.7"/>
+<line x1="1025" y1="620" x2="1105" y2="510" stroke="#4E8FBE" stroke-width="2.5" opacity="0.7"/>
+<circle cx="645" cy="510" r="17" fill="#004473"/>
+<text x="645" y="552" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">Wikidata</text>
+<circle cx="1105" cy="510" r="17" fill="#004473"/>
+<text x="1105" y="552" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">Wikibase</text>
+<circle cx="875" cy="550" r="17" fill="#004473"/>
+<text x="875" y="592" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">LOD Cloud</text>
+<circle cx="725" cy="620" r="17" fill="#004473"/>
+<text x="725" y="662" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">NFDI4Objects KG</text>
+<circle cx="1025" cy="620" r="17" fill="#004473"/>
+<text x="1025" y="662" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">OpenStreetMap</text>
+<line x1="380" y1="520" x2="468" y2="520" stroke="#5B6478" stroke-width="3.5" marker-end="url(#arrow)"/>
+<line x1="1370" y1="520" x2="1282" y2="520" stroke="#5B6478" stroke-width="3.5" marker-end="url(#arrow)"/>
+<rect x="440" y="735" width="870" height="120" rx="16" fill="white" stroke="#004473" stroke-width="4"/>
+<text x="875" y="770" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="22" fill="#161B2E">FDOx: the same four steps for every object</text>
+<rect x="460" y="790" width="46" height="46" rx="10" fill="#004473"/><text x="483" y="823" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="28" fill="white">1</text>
+<text x="518" y="822" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="21" fill="#161B2E">Encapsulation</text>
+<rect x="690" y="790" width="46" height="46" rx="10" fill="#0E9488"/><text x="713" y="823" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="28" fill="white">2</text>
+<text x="748" y="822" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="21" fill="#161B2E">Modelling</text>
+<rect x="890" y="790" width="46" height="46" rx="10" fill="#C2790C"/><text x="913" y="823" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="28" fill="white">3</text>
+<text x="948" y="822" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="21" fill="#161B2E">Linking</text>
+<rect x="1085" y="790" width="46" height="46" rx="10" fill="#8034C9"/><text x="1108" y="823" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="28" fill="white">4</text>
+<text x="1143" y="822" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="21" fill="#161B2E">Integration</text>
+<line x1="875" y1="733" x2="875" y2="712" stroke="#5B6478" stroke-width="3.5" marker-end="url(#arrow)"/>
+<polyline points="215,622 215,795 432,795" fill="none" stroke="#5B6478" stroke-width="3.5" marker-end="url(#arrow)"/>
+<polyline points="1535,622 1535,795 1318,795" fill="none" stroke="#5B6478" stroke-width="3.5" marker-end="url(#arrow)"/>
+<rect x="50" y="690" width="330" height="40" rx="20" fill="white" stroke="#004473" stroke-width="3"/><text x="215.0" y="717" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="19" fill="#161B2E">3D · Software · Data · Image</text>
+<rect x="1370" y="690" width="330" height="40" rx="20" fill="white" stroke="#004473" stroke-width="3"/><text x="1535.0" y="717" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="19" fill="#161B2E">3D · Software · Data · Geodata</text>
+<text x="60" y="950" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">Simplified from the FKGE diagram of Thiery &amp; Noback (CC BY 4.0). The four steps are the FDOx four-step pattern.</text>
+</svg>
