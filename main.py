@@ -35,6 +35,9 @@ STEPS = [
     ("talk-process", "Talk slides: the four-step pattern, one real slide each", "step_talk_process"),
     ("talk-purpose", "Talk slides: the four-outcome pattern, one real slide each", "step_talk_purpose"),
     ("talk-closing", "Talk closing slide: all eight badges as a ring around the FDO sphere (2 variants)", "step_talk_closing"),
+    ("git-packager", "fdo-git-packager concept: four-step banner + GitHub Actions swimlane slide", "step_git_packager"),
+    ("federation", "finished 3D and software FDOs in the federated KG ecosystem: three talk slides", "step_federation"),
+    ("ogham-graph", "real graph pictures of Ogham 3D FDOs and the software that works on them: three talk slides", "step_ogham_graph"),
 ]
 
 

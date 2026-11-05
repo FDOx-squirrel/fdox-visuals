@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1750" height="1000" viewBox="0 0 1750 1000">
+<rect x="0" y="0" width="1750" height="1000" fill="white"/>
+<style>@font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Regular.ttf"); font-weight: 400; } @font-face { font-family: "Fira Sans"; src: url("../fonts/FiraSans-Bold.ttf"); font-weight: 700; }</style>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5B6478"/></marker>
+<g transform="translate(175,165) scale(0.56)"><circle cx="0" cy="0" r="150" fill="#E6ECF1" stroke="#004473" stroke-width="7"/><g transform="scale(1.05)"><line x1="0" y1="-52" x2="-52" y2="38" stroke="#004473" stroke-width="6"/><line x1="0" y1="-52" x2="52" y2="38" stroke="#004473" stroke-width="6"/><line x1="-52" y1="38" x2="52" y2="38" stroke="#004473" stroke-width="6" stroke-dasharray="3 10" stroke-linecap="round"/><circle cx="0" cy="-52" r="14" fill="#004473"/><circle cx="-52" cy="38" r="14" fill="#004473"/><circle cx="52" cy="38" r="14" fill="#004473"/></g></g><text x="310" y="150" text-anchor="start" font-family="Fira Sans" font-weight="700" font-size="58" fill="#004473">What the graph links, and what it does not</text><text x="310" y="202" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="30" fill="#5B6478">Registry query: Wikidata concepts that more than one FDO points at</text>
+<rect x="60" y="270" width="600" height="54" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/>
+<rect x="72" y="282" width="48" height="30" rx="8" fill="white" stroke="#004473" stroke-width="3"/><text x="96" y="304" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="#004473">SW</text>
+<text x="134" y="305" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">Ogham 3D EpiDoc Extractor</text>
+<rect x="60" y="332" width="600" height="54" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/>
+<rect x="72" y="344" width="48" height="30" rx="8" fill="white" stroke="#004473" stroke-width="3"/><text x="96" y="366" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="#004473">SW</text>
+<text x="134" y="367" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">Ogham Analysis</text>
+<rect x="60" y="394" width="600" height="54" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/>
+<rect x="72" y="406" width="48" height="30" rx="8" fill="#004473" stroke="#004473" stroke-width="3"/><text x="96" y="428" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="white">3D</text>
+<text x="134" y="429" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">GEARS/1</text>
+<rect x="60" y="456" width="600" height="54" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/>
+<rect x="72" y="468" width="48" height="30" rx="8" fill="#004473" stroke="#004473" stroke-width="3"/><text x="96" y="490" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="white">3D</text>
+<text x="134" y="491" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">CO074-148---- (CIIC 81)</text>
+<rect x="60" y="518" width="600" height="54" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/>
+<rect x="72" y="530" width="48" height="30" rx="8" fill="#004473" stroke="#004473" stroke-width="3"/><text x="96" y="552" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="white">3D</text>
+<text x="134" y="553" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">CHUIS/1</text>
+<rect x="60" y="580" width="600" height="54" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/>
+<rect x="72" y="592" width="48" height="30" rx="8" fill="#004473" stroke="#004473" stroke-width="3"/><text x="96" y="614" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="white">3D</text>
+<text x="134" y="615" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">Steinmännchen / Antholzer See</text>
+<rect x="60" y="642" width="600" height="54" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/>
+<rect x="72" y="654" width="48" height="30" rx="8" fill="#004473" stroke="#004473" stroke-width="3"/><text x="96" y="676" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="white">3D</text>
+<text x="134" y="677" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">Beuys-Stele B 1036 (Kassel)</text>
+<rect x="60" y="704" width="600" height="54" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/>
+<rect x="72" y="716" width="48" height="30" rx="8" fill="#004473" stroke="#004473" stroke-width="3"/><text x="96" y="738" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="white">3D</text>
+<text x="134" y="739" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">Freshford: St Lachtain’s Well</text>
+<line x1="660" y1="297.0" x2="800" y2="370" stroke="#004473" stroke-width="3.5"/>
+<line x1="660" y1="359.0" x2="800" y2="370" stroke="#004473" stroke-width="3.5"/>
+<line x1="660" y1="421.0" x2="800" y2="370" stroke="#004473" stroke-width="3.5"/>
+<line x1="660" y1="483.0" x2="800" y2="370" stroke="#004473" stroke-width="3.5"/>
+<line x1="660" y1="297.0" x2="800" y2="640" stroke="#4E8FBE" stroke-width="3.5"/>
+<line x1="660" y1="359.0" x2="800" y2="640" stroke="#4E8FBE" stroke-width="3.5"/>
+<line x1="660" y1="421.0" x2="800" y2="640" stroke="#4E8FBE" stroke-width="3.5"/>
+<line x1="660" y1="483.0" x2="800" y2="640" stroke="#4E8FBE" stroke-width="3.5"/>
+<line x1="660" y1="545.0" x2="800" y2="640" stroke="#4E8FBE" stroke-width="3.5"/>
+<line x1="660" y1="607.0" x2="800" y2="640" stroke="#4E8FBE" stroke-width="3.5"/>
+<rect x="800" y="328" width="260" height="84" rx="14" fill="#E6ECF1" stroke="#004473" stroke-width="4"/>
+<text x="930" y="366" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="25" fill="#161B2E">wd:Q2016147</text>
+<text x="930" y="396" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">4 FDOs</text>
+<rect x="800" y="598" width="260" height="84" rx="14" fill="#E6ECF1" stroke="#4E8FBE" stroke-width="4"/>
+<text x="930" y="636" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="25" fill="#161B2E">wd:Q22731</text>
+<text x="930" y="666" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">6 FDOs</text>
+<text x="930" y="308" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">“Ogham stone”</text>
+<text x="930" y="708" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">label in the bundle: “Stone”</text>
+<line x1="660" y1="545.0" x2="1090" y2="549.0" stroke="#5B6478" stroke-width="3" stroke-dasharray="10 8"/>
+<rect x="1090" y="521.0" width="200" height="52" rx="14" fill="white" stroke="#5B6478" stroke-width="3.5" stroke-dasharray="14 9"/><text x="1190.0" y="553.2" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">“Ogham Stone”</text>
+<rect x="1330" y="255" width="370" height="200" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/><text x="1352" y="301" text-anchor="start" font-family="Fira Sans" font-weight="700" font-size="24" fill="#161B2E">What this shows</text><text x="1352" y="335.12" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">3D models and software share</text><text x="1352" y="361.34000000000003" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">concepts, so a query from one</text><text x="1352" y="387.56000000000006" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">finds the other: the extractor,</text><text x="1352" y="413.7800000000001" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">the analysis and two stones.</text>
+<rect x="1330" y="490" width="370" height="240" rx="14" fill="white" stroke="#004473" stroke-width="3.5" stroke-dasharray="14 9"/><text x="1352" y="536" text-anchor="start" font-family="Fira Sans" font-weight="700" font-size="24" fill="#004473">What it does not</text><text x="1352" y="570.12" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">CHUIS/1 says “Ogham Stone” as text</text><text x="1352" y="596.34" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">only and is missing from Q2016147.</text><text x="1352" y="622.5600000000001" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">The Beuys stele and the Freshford</text><text x="1352" y="648.7800000000001" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">well share no concept with another</text><text x="1352" y="675.0000000000001" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">FDO. The query makes that visible.</text>
+<text x="60" y="790" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="21" fill="#161B2E">Also shared: both software FDOs carry OSM relation 62273 as dct:spatial.</text>
+<rect x="60" y="880" width="62" height="34" rx="9" fill="white" stroke="#004473" stroke-width="3.5"/><text x="140" y="905" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">exists, checked in the repositories</text><rect x="560" y="880" width="62" height="34" rx="9" fill="white" stroke="#004473" stroke-width="3.5" stroke-dasharray="14 9"/><text x="640" y="905" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">free text, no concept IRI</text><text x="60" y="950" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">Registry query “Wikidata concepts that more than one FDO points at” (queries.yaml, shared-concepts), run on dist/fdo-registry.ttl (7,793 triples), 2026-11-05.</text>
+</svg>

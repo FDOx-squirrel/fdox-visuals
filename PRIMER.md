@@ -261,6 +261,9 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S8 | Talk-Prozess-Folien: die vier Schritte, je eine reale Folie | fdox-visuals | S1, S2 | erledigt 2026-09-09 |
 | S9 | Talk-Zweck-Folien: die vier Ergebnisse, je eine reale Folie | fdox-visuals | S1, S7 | erledigt 2026-09-09 |
 | S10 | Abschlussfolie: acht Badges als Ring um die FDO-Kugel, 2 Varianten | fdox-visuals | S1, S2, S3, S7 | erledigt 2026-09-10 |
+| S11 | `fdo-git-packager` (Konzept): Banner, vier Schritt-Folien, vier Badges, GitHub-Actions-Swimlane (reales Beispiel SPARQLing Unicorn) | fdox-visuals | S1, S2, S8 | Entwurf 2026-11-05, wartet auf Abnahme |
+| S12 | Fertige 3D-/Software-FDOs im Federated-KG-Ökosystem: drei Folien (Weg, Katalog, geteilte Konzepte) | fdox-visuals | S1, S11 | Entwurf 2026-11-05, wartet auf Abnahme |
+| S13 | Echte Graphbilder: Ogham-3D-FDOs, Software, Registry als Graph (drei Folien) | fdox-visuals | S1, S12 | Entwurf 2026-11-05, wartet auf Abnahme |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -871,7 +874,164 @@ Hintergrund, `PIL.Image.mode == "RGB"` geprüft.
 
 ---
 
+## S11 — `fdo-git-packager` (Konzept)
+
+**Ziel:** Grafiken für den ArcheoFOSS-2026-Talk ("From Fragmented Objects
+to Federated Knowledge"), die zeigen, wie ein GitHub-Repository zu einem
+FDOx wird — das Gegenstück zu S8s Folie 1 (`fdo-3d-packager`). Der Talk
+nennt einen "forthcoming Git-based packager".
+
+**Stand des Repos (geprüft 2026-11-05).** `FDOx-squirrel/fdo-git-packager`
+existiert bereits als **S1-Skelett** (Commit `c7dc35c`, 2026-09-03): fünf
+Schritte `fetch`, `inspect`, `mdcff`, `bundle`, `build_fdo`, alle noch
+Stubs ("nothing to do"). Festgelegt im dortigen PRIMER: `--ref` = Commit-SHA
+Pflicht, Arbeitsbaum ohne `.git` flach in ein ZIP, `fdo-squirrel` als
+Motor, Aufruf von `fdo-squirrel` noch offen. Die Grafiken folgen diesem
+Entwurf. **CoMET-RS** steht nicht im Skelett; das Abstract sagt aber, der
+Packager baue auf COMET-Extraktion auf — daher als *geplant* bei `inspect`
+gezeichnet. Eine frühere Fassung dieses Schritts (Pin/Extract/Package/
+Register mit "PROV-O from git log" und "SHACL check") wich vom Skelett ab
+und ist ersetzt.
+
+**Reales Beispiel (wie chublets-visuals S18).** SPARQLing Unicorn QGIS
+Plugin, `sparqlunicorn/sparqlunicornGoesGIS`, gelesen 2026-11-05 am Tag
+`v0.17.4` = `ba8af4cd0e3f95b862bd7562f0315b058124ab34` (2025-12-17).
+Reihenfolge der Tags geprüft: v0.17.2 `736ec92` → v0.17.3 `4a5ab67` →
+v0.17.4 `ba8af4c` → master `a519707` (2026-03-11, 7 Commits später).
+Arbeitsbaum 690 Dateien (die Ausschlüsse des Packagers — `.git`,
+`node_modules`, `build`, `dist`, `__pycache__`, `.venv` — greifen hier
+nicht). Eigene `CITATION.cff`: Version **0.17.2** (hinkt dem Tag
+hinterher), 15 DOI-Einträge, kein `license:`-Schlüssel. CoMET-RS-Review
+(`examples/unicorn`, Tag `v0.4.3-chublets.2`): "version 0.17.2 differs
+from release tag 0.17.4", "several DOIs, not linked to versions",
+"person needs reconciliation". Keine erfundene MD.cff und keine
+erfundene `fdo-metadata.ttl` im Bild.
+
+**Vier Schritte, fünf Skelett-Schritte.** 1 Pin = `fetch`; 2 Inspect =
+`inspect` (+ CoMET-RS, geplant); 3 Package = `mdcff` + `bundle`;
+4 Build & Publish = `build_fdo`, danach (außerhalb des Repos) Zenodo-
+Deposit → DOI, FDOx-Registry, N4O-KG.
+
+**Dateien (alle neu).** Banner `fdox-git-packager-four-steps` (transparent,
+A4); vier Badges `fdox-git-packager-step-{1-pin,2-inspect,3-package,
+4-build}` (transparent, A4); vier Folien `fdox-talk-git-packager-step{1-fetch,
+2-inspect,3-package,4-build}` (weiß, 7:4, S8); Swimlane
+`fdox-talk-git-packager-actions` (weiß, 7:4; Lanes GitHub / GitHub Actions /
+Zenodo / FDOx-Registry → N4O-KG, Tags 1–4 wie im Banner).
+
+**Konzept sichtbar.** Gestrichelt = geplant (alles aus dem Skelett, Zenodo-
+Deposit, Registry-Eintrag), durchgezogen = existiert (GitHub-Release,
+Repo-`CITATION.cff`, Registry, N4O-KG). Jede Folie trägt die Legende "S1
+skeleton, no step is implemented yet".
+
+**Eine Farbe (S7-Präzedenz).** S2s vier Farben bedeuten andere Schritte;
+daher durchgehend `FDO_ACCENT` (+ `_LIGHT`/`_SOFT`/Tint) aus
+`visuals_utils.py`, kein neuer Hex-Code.
+
+**Zenodo-Befund.** Die GitHub-Integration archiviert nur den
+Quellcode-Zipball eines Releases, nicht Assets (`zenodo/zenodo#1235`,
+offene Feature-Anfrage; Workaround: Upload per Zenodo-API aus GitHub
+Actions). Beleg ist der Issue-Thread, keine offizielle Dokumentation —
+vor "das ist so" im Vortrag gegenprüfen.
+
+**Abnahme:** Entwurf — `python main.py --only git-packager --strict`
+läuft, zwei Läufe bytegleich, `git status --short` zeigt nur die
+erwarteten Pfade. **Offen:** Flos Sichtabnahme.
+
+---
+
+## S12 — Fertige 3D- und Software-FDOs im Federated-KG-Ökosystem
+
+**Ziel:** drei 7:4-Folien (weiß, S8-Konvention, Badge links oben ohne
+Nummer, weil es keine Schritte sind) für den ArcheoFOSS-2026-Talk:
+was mit den *fertigen* FDOs passiert, wenn sie die Packager verlassen.
+Dateien (alle neu): `fdox-talk-federation-path`, `-catalogue`,
+`-shared-concepts` (je `.svg`/`.png`, 3500×2000, RGB).
+
+**Echte Daten, gelesen 2026-11-05** (flache Klone):
+`fdo-squirrel-registry` `253aee9` (Release 2026-09-03): 8 FDOs im Katalog
+(6 × `3DDataFDO`, 2 × `SoftwareFDO`: *Ogham 3D EpiDoc Extractor*,
+*Ogham Analysis*), 599 Dateien, 7.793 Tripel; ein neunter gepinnter
+Datensatz ("Heinz Eau") hat keine `fdo-metadata.ttl` und fehlt im
+Katalog. `crm_bridge.ttl`: `3DDataFDO ⊑ crmdig:D1_Digital_Object`,
+`SoftwareFDO ⊑ crmdig:D14_Software`. `fdox-squirrel-n4o-collection`
+`882a5f7` (2026-09-04): VoID zählt 5 × 3DDataFDO und 2 × SoftwareFDO
+(älterer Bundle-Stand als die Registry).
+
+**Folie 3 beruht auf der echten Registry-Abfrage** `shared-concepts`
+(`queries.yaml`), mit rdflib auf `dist/fdo-registry.ttl` ausgeführt:
+`wd:Q2016147` ist `dct:subject` von 4 FDOs (Extractor, Analysis, GEARS/1,
+CO074-148---- = CIIC 81), `wd:Q22731` von 6 (im Bundle als "Stone"
+beschriftet). CHUIS/1 trägt "Ogham Stone" nur als Freitext und fehlt bei
+Q2016147; Beuys-Stele und Freshford teilen kein Konzept. OSM-Relation
+62273 ist `dct:spatial` beider Software-FDOs. Die Folie zeigt das ehrlich
+als Befund, nicht als Erfolgsmeldung.
+
+**Durchgezogen = in den Repos geprüft, gestrichelt = offen oder geplant:**
+N4O-Onboarding durch VZG (README-Stand 2026-09-04; echte Collection-URI
+noch Platzhalter) und `jupyter-nb-lod` (zweites Software-Repo aus dem
+Abstract, noch nicht in der Registry; soll über `fdo-git-packager` laufen).
+
+**Abnahme:** Entwurf; `python main.py --only federation --strict` läuft,
+zwei Läufe bytegleich. **Offen:** Flos Sichtabnahme.
+
+---
+
+## S13 — Echte Graphbilder: Ogham-Objekte, 3D-FDOs und Software
+
+**Ziel:** drei 7:4-Folien (weiß, S8) mit *echten Triples* der Registry als
+Knoten-Kanten-Graph statt Konzeptkästen: `fdox-talk-ogham-graph-cluster`
+(3 × 3DDataFDO + 2 × SoftwareFDO um `wd:Q2016147`), `-object` (CIIC 81 und
+`o3d-epidoc-extractor`, je ein Hop) und `-registry` (alle acht FDOs als
+ein Graph). Quelle: `dist/fdo-registry.ttl` von `fdo-squirrel-registry`
+`253aee9` (7.793 Tripel), mit rdflib gelesen am 2026-11-05; Knoten und
+Kanten stehen im Docstring von `py/step_ogham_graph.py` einzeln belegt.
+
+**Befunde, die die Folien zeigen (nicht beschönigen):**
+- `wd:Q2016147` ("Inscribed Ogham stone" im Bundle) ist `dct:subject`/
+  `dct:type` von Extractor, Ogham Analysis, GEARS/1 und CIIC 81; CHUIS/1
+  führt "Ogham Stone" nur als Freitext.
+- **Es gibt kein Triple "Software X nutzt 3D-FDO Y".** Software und Objekte
+  treffen sich über Konzept, `fdo:context` und Publisher. Folie 2 zeichnet
+  die explizite Kante gestrichelt als Vorschlag (z. B. `prov:used`), mit dem
+  Hinweis "not modelled yet".
+- Florian Thiery erscheint als ORCID-Knoten (Extractor, GEARS/1) **und** als
+  Registry-Agent `8e916ce55425de21` (CHUIS/1, CIIC 81, Antholzer See,
+  Beuys-Stele); die Registry führt nicht nach Namen zusammen (Quality-Report).
+- Freshford teilt kein Konzept, keinen Ort und keine Person mit anderen FDOs.
+
+**Grenze:** Wikidata war aus der Sandbox nicht erreichbar. Gezeigt werden nur
+die Labels, die das Bundle selbst trägt ("Inscribed Ogham stone", "Cork
+Public Museum", "EpiDoc", "Linked Open Data"); `wd:Q121592049` bleibt ohne
+Label, nichts wurde ergänzt. `wd:Q22731` ("Stone", 6 FDOs) ist auf Folie 3
+aus Gründen der Lesbarkeit weggelassen und in der Fußzeile genannt.
+
+**Abnahme:** Entwurf; `python main.py --only ogham-graph --strict` läuft.
+**Offen:** Flos Sichtabnahme; Entscheidung, ob eine explizite Kante
+Software→Objekt in `fdo-squirrel` modelliert werden soll.
+
+---
+
 # Teil D — Offene Punkte
+
+- **S11: Annahmen ohne Bestätigung.** (a) Slug `sparqlunicornGoesGIS-ba8af4c`
+  ist meine Illustration der Ableitung, nicht aus dem Skelett-Code geprüft;
+  (b) CoMET-RS in `inspect` ist geplant, steht nicht im Skelett; (c) wie
+  `build_fdo` `fdo-squirrel` aufruft, ist im Repo selbst offen; (d)
+  Zenodo-Deposit per API und "registry entry — DOI + bundle link" sind
+  Konzept, nicht geprüft; (e) die Repo-README von `fdo-git-packager` nennt
+  schon "S1 skeleton" — Grafiken und README stimmen damit überein.
+- **S12: Registry-Stand und N4O-Stand weichen ab.** Die Folien nennen
+  Registry 2026-09-03 (8 FDOs) und N4O-Bundle 2026-09-04 (7 FDOs); vor dem
+  Vortrag Zahlen und den VZG-Onboarding-Status neu prüfen.
+- **S12: CHUIS/1 und `Q22731`.** Die Abfrage zeigt, dass CHUIS/1 "Ogham
+  Stone" nur als Text führt und `Q22731` im Bundle "Stone" heißt — Befunde
+  für die Pakete, nicht für die Grafik; Korrektur nur über neue Zenodo-Version.
+- **S11: README.md listet nur die ersten fünf Grafiken** (S2–S6); S7–S11
+  fehlen dort. Kein Bug dieses Schritts, aber beim nächsten Anfassen der
+  README mitziehen.
+- **S11: eigene Übersichtsseite** (GitHub Pages) bewusst noch nicht — erst
+  mit dem `figure-pages-site`-Skill, wenn mehr Grafiken dieser Art dazukommen.
 
 - **CI (`--strict` bei jedem Push)** noch nicht eingerichtet — analog zu
   `fdo-architecture`s offenem Punkt, hier aber noch nicht mal vorgeschlagen.
