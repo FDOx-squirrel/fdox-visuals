@@ -540,7 +540,7 @@ def run(strict: bool = False) -> list[str]:
     ]
     for name, build_fn, hshift, vshift in jobs:
         w, h = _render_fixed(name, build_fn, hshift, vshift)
-        log.append(f"wrote {img_path(f"{name}.svg").relative_to(IMG_DIR.parent).as_posix()} + .png ({w}x{h}, white background)")
+        log.append(f"wrote {img_path(f'{name}.svg').relative_to(IMG_DIR.parent).as_posix()} + .png ({w}x{h}, white background)")
 
     return log
 
