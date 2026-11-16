@@ -112,21 +112,29 @@ def _icon_build(c: str) -> str:
 _ICONS = [_icon_fetch, _icon_convert, _icon_nexus, _icon_mdcff, _icon_bundle, _icon_build]
 
 
+def badge_group(idx: int, cx: float = 0, cy: float = 0, scale: float = 1.0) -> str:
+    """One step badge as an SVG group, to draw it inside other graphics (radius BADGE_R * scale)."""
+    tag = -BADGE_R - TAG_OFFSET
+    num = PACKAGER_STEPS[idx][0]
+    return (
+        f'<g transform="translate({cx},{cy}) scale({scale})">'
+        f'<circle cx="0" cy="0" r="{BADGE_R}" fill="{TINT}" stroke="{FDO_ACCENT}" stroke-width="7"/>'
+        f'<g>{_ICONS[idx](FDO_ACCENT)}</g>'
+        f'<rect x="{tag}" y="{tag}" width="{TAG_SIZE}" height="{TAG_SIZE}" rx="26" fill="{FDO_ACCENT}"/>'
+        f'<text x="{tag + TAG_SIZE / 2}" y="{tag + TAG_SIZE / 2 + 40}" text-anchor="middle" font-family="Fira Sans" '
+        f'font-weight="700" font-size="104" fill="white">{num}</text></g>'
+    )
+
+
 def _badge_svg(idx: int) -> tuple[str, int]:
     pad = 15
     left = top = -(BADGE_R + TAG_OFFSET) - pad
     right = bottom = BADGE_R + pad
     vb = right - left
-    tag = -BADGE_R - TAG_OFFSET
-    num = PACKAGER_STEPS[idx][0]
     p = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{vb}" height="{vb}" viewBox="{left} {top} {vb} {vb}">',
         font_face_css(),
-        f'<circle cx="0" cy="0" r="{BADGE_R}" fill="{TINT}" stroke="{FDO_ACCENT}" stroke-width="7"/>',
-        f'<g>{_ICONS[idx](FDO_ACCENT)}</g>',
-        f'<rect x="{tag}" y="{tag}" width="{TAG_SIZE}" height="{TAG_SIZE}" rx="26" fill="{FDO_ACCENT}"/>',
-        f'<text x="{tag + TAG_SIZE / 2}" y="{tag + TAG_SIZE / 2 + 40}" text-anchor="middle" font-family="Fira Sans" '
-        f'font-weight="700" font-size="104" fill="white">{num}</text>',
+        badge_group(idx),
         "</svg>",
     ]
     return "\n".join(p), vb

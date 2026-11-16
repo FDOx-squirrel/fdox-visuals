@@ -59,6 +59,8 @@ from step_federation import (  # noqa: E402
     _t,
     _tag,
 )
+from step_3d_packager_pictograms import badge_group  # noqa: E402
+
 
 # ------------------------------------------------------- slide 1: FKGE map --
 
@@ -136,10 +138,29 @@ CIIC = dict(
     lines=["3DDataFDO · CC-BY-NC-SA-4.0", "DOI 10.5281/zenodo.18724635", "50 files: model 4, data 10, documentation 9,", "auxiliary 25, metadata 2"])
 
 
+_PACKAGER_NAMES = ["fetch", "convert", "nexus", "mdcff", "bundle", "build_fdo"]
+
+
+def _packager_badges(x, y, w) -> str:
+    """The six fdo-3d-packager steps as pictograms, one row inside the packager box."""
+    r, gap = 21, 6
+    scale = r / 150
+    total = 6 * 2 * r + 5 * gap
+    x0 = x + (w - total) / 2 + r
+    out = _t(x + w / 2, y + 34, "fdo-3d-packager", 22, 700, INK, "middle")
+    for i in range(6):
+        out += badge_group(i, round(x0 + i * (2 * r + gap), 2), y + 90, scale)
+    out += _t(x + w / 2, y + 140, "fetch · convert · nexus", 17, 400, MUTED, "middle")
+    out += _t(x + w / 2, y + 160, "mdcff · bundle · build_fdo", 17, 400, MUTED, "middle")
+    return out
+
+
 def _lane(y, source, packager, packager_dashed, result, result_dashed) -> str:
     out = ""
     out += _box(50, y, 330, 170, source["rows"], center=True, dashed=source.get("dashed", False))
     out += _box(440, y, 330, 170, packager["rows"], center=True, dashed=packager_dashed)
+    if packager.get("badges"):
+        out += _packager_badges(440, y, 330)
     out += _box(1180, y, 340, 170, result["rows"], center=True, dashed=result_dashed)
     out += _tag(1192, y + 12, result["tag"], result_dashed)
     out += _arrow(384, y + 85, 434, y + 85)
@@ -157,7 +178,7 @@ def _build_two_roads(variant: str) -> str:
     p.append(_lane(
         y1,
         dict(rows=[("CIIC 81 / UCC 4", 23, 700, INK), (None, 6), ("Sketchfab model of an", 19, 400, MUTED), ("Ogham stone, Cork", 19, 400, MUTED)]),
-        dict(rows=[("fdo-3d-packager v1.0.0", 22, 700, INK), (None, 6), ("fetch · convert · nexus", 19, 400, MUTED), ("mdcff · bundle · build_fdo", 19, 400, MUTED)]),
+        dict(rows=[], badges=True),
         False,
         dict(tag="3D", rows=[(None, 30), ("CO074-148----", 23, 700, INK), ("DOI 10.5281/zenodo.18724635", 18, 400, MUTED), ("50 files · CC-BY-NC-SA-4.0", 18, 400, MUTED)]),
         False))

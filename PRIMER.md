@@ -277,7 +277,8 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S16 | RO-Crate und Signposting in den Grafiken: Architekturdiagramm (S4) erweitert, neue Grafik "ein Bundle, drei Sichten", RO-Crate- und RDF-Logo | fdox-visuals | S4, `fdo-squirrel` v1.1.0 | fertig, committet 2026-11-16 (2e573e6) |
 | S17 | Bilder-Pool: Seitenstruktur (Gruppen, Titel ohne "Talk:", "Concept" statt "Draft"), Kreuzungen in Graphen beseitigt, RO-Crate in Schritt 1 | fdox-visuals | S11–S16 | fertig, committet 2026-11-16 (ca3f1f0) |
 | S18 | Lebendige Galerie: neutrale Namen ohne "talk", Piktogramme auf eigene Unterseiten, kein Nutzungshinweis | fdox-visuals | S14, S17 | fertig, committet 2026-11-16 (1b8928b) |
-| S19 | Graph-Bilder ohne Header/Footer, transparent und eng beschnitten; sechs Piktogramme für fdo-3d-packager | fdox-visuals | S13, S15, S18 | Entwurf 2026-11-16, wartet auf Abnahme |
+| S19 | Graph-Bilder ohne Header/Footer, transparent und eng beschnitten; sechs Piktogramme für fdo-3d-packager | fdox-visuals | S13, S15, S18 | fertig, committet 2026-11-16 (f857e27) |
+| S20 | 3D-Packager-Piktogramme in Step 1 und in den "two roads"-Bildern eingebunden statt Textboxen | fdox-visuals | S8, S15, S19 | Entwurf 2026-11-16, wartet auf Abnahme |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -1305,7 +1306,7 @@ in Gleitkommastellen, `422.27` statt `422.27000000000004`). **Offen:** Flos Sich
   Zeitpunkt schon fertig und wurde nicht mehr nachgezogen. Nächster Anlass
   zum Anfassen von `step_talk_purpose.py`: `_edge_label()` entfernen, Import
   aus `visuals_utils` stattdessen.
-- **S16: Logo-Lizenz.** Beide Logos sind laut Flo CC BY 4.0 (RO-Crate Community; RDF: Bill Schwappacher / W3C). Beim RDF-Logo ist `W3C` im Namen: die W3C-Logo-Regeln (nicht verändern, keine Billigung andeuten) werden eingehalten, aber die Lizenzangabe ist nicht aus einer Quelle belegt.
+- **S16: Logo-Lizenz.** Beide Logos sind laut Flo CC BY 4.0 (RO-Crate Community; RDF: Bill Schwappacher / W3C). Beim RDF-Logo ist `W3C` im Namen: die W3C-Logo-Regeln (nicht verändern, keine Billigung andeuten) werden eingehalten, aber die Lizenzangabe ist nicht aus einer Quelle belegt. **Von Flo am 2026-11-16 geprüft: die Lizenzangaben stimmen.**
   Die Lizenz steht nicht in der Datei selbst; Flo prüft sie bei Gelegenheit
   auf der RO-Crate-Seite gegen und korrigiert `img/source/NOTICE.md`, falls sie
   abweicht. Die Spezifikation steht unter Apache 2.0, das sagt nichts über das
@@ -1342,3 +1343,22 @@ Tabelle sind; nur die erklärende Box wanderte in die Bildunterschrift.
 
 **Abnahme:** `python main.py --only federation && ... ogham-graph && ... story && ... 3d-packager && ... site`;
 die zehn Bilder zeigen keinen Titel und keine Quellenzeile, PNG-Hintergrund ist transparent.
+
+## S20 — 3D-Packager-Piktogramme in den Grafiken
+
+**Ziel:** die sechs Piktogramme (S19) sind Bausteine des Pools und kommen dort vor, wo die
+sechs Schritte des fdo-3d-packager gezeigt werden, statt als Textboxen.
+
+**Umfang:**
+- `step_3d_packager_pictograms.badge_group(idx, cx, cy, scale)`: ein Badge als SVG-Gruppe;
+  die Piktogramm-Dateien nutzen dieselbe Funktion.
+- Step 1 (`fdox-steps-1-fdo-encapsulation`, `…-ciic81`): sechs Badges mit Schrittname und
+  Kurzbeschreibung statt sechs Boxen.
+- "Two roads" (`fdox-story-two-roads-unicorn`, `…-extractor`): die Packager-Box des 3D-Zweigs
+  zeigt die sechs Badges in einer Reihe.
+- Quellenzeilen der Piktogramm-Seite ohne Versionsangabe.
+
+**Offen:** Version des fdo-3d-packager: Step 1 sagt v1.1.0, die Story-Bilder sagten v1.0.0
+(jetzt steht dort keine Version mehr). **Abnahme:** `python main.py --only steps && ...
+--only story && ... --only 3d-packager`, danach `git checkout` der unveränderten PNGs
+(`fdox-steps-3-linking-hubs.png`, `fdox-steps-4-federated-kg.png`), dann `--only site`.

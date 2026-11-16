@@ -52,6 +52,7 @@ from visuals_utils import (  # noqa: E402
     render_svg_to_png,
 )
 from step_pattern import _node_icon  # noqa: E402  -- exact same badge glyphs as S2
+from step_3d_packager_pictograms import badge_group  # noqa: E402  -- the six packager pictograms
 
 SOURCE_DIR = IMG_DIR / "source"
 
@@ -136,24 +137,29 @@ def _build_step1(hshift: int, vshift: int, caption: str = "Freshford: St Lachtai
     p.append(f'<text x="{(col0_x+col2_x+col_w)/2}" y="{row1_y-90}" text-anchor="middle" '
               f'font-family="Fira Sans" font-weight="700" font-size="24" fill="{accent}">fdo-3d-packager v1.1.0</text>')
 
+    # the six steps as the fdo-3d-packager pictograms: badge on top, step name and what it does below
     cols = [col0_x, col1_x, col2_x]
-    for i, (name, desc) in enumerate(_STEP1_PIPELINE[:3]):
-        p.append(label_box(cols[i], row1_y - row_h/2, col_w, row_h,
-                            [(name, 700, 26), (desc, 400, 18)], stroke=accent))
-    for i, (name, desc) in enumerate(_STEP1_PIPELINE[3:5]):
-        p.append(label_box(cols[i], row2_y - row_h/2, col_w, row_h,
-                            [(name, 700, 26), (desc, 400, 18)], stroke=accent))
-    name, desc = _STEP1_PIPELINE[5]
-    p.append(label_box(col2_x, row2_y - row_h/2, col_w, row_h,
-                        [(name, 700, 26), (desc, 400, 18)], fill=accent, stroke=accent, text_color="white"))
+    br = 150 * 0.30                      # badge radius on the slide
+    cells = [(cols[i], row1_y, i) for i in range(3)] + [(cols[i], row2_y, 3 + i) for i in range(3)]
+    for cx0, ry, idx in cells:
+        ccx, ccy = cx0 + col_w / 2, ry - 30
+        name, desc = _STEP1_PIPELINE[idx]
+        p.append(badge_group(idx, ccx, ccy, 0.30))
+        p.append(f'<text x="{ccx}" y="{ry + 38}" text-anchor="middle" font-family="Fira Sans" font-weight="700" '
+                 f'font-size="26" fill="{INK}">{name}</text>')
+        p.append(f'<text x="{ccx}" y="{ry + 66}" text-anchor="middle" font-family="Fira Sans" font-weight="400" '
+                 f'font-size="18" fill="{MUTED}">{esc(desc)}</text>')
 
-    p.append(arrow_line(col0_x + col_w, row1_y, col1_x, row1_y))
-    p.append(arrow_line(col1_x + col_w, row1_y, col2_x, row1_y))
-    p.append(elbow_path([(col2_x + col_w/2, row1_y + row_h/2), (col2_x + col_w/2, row1_y + row_h/2 + 35),
-                          (col0_x + col_w/2, row2_y - row_h/2 - 35), (col0_x + col_w/2, row2_y - row_h/2)]))
-    p.append(arrow_line(col0_x + col_w, row2_y, col1_x, row2_y))
-    p.append(arrow_line(col1_x + col_w, row2_y, col2_x, row2_y))
-    p.append(arrow_line(col2_x + col_w + 15, row2_y, meta_cx - meta_r - 15, row2_y))
+    def _gap(x_from, x_to, y):
+        return arrow_line(x_from + br + 14, y, x_to - br - 14, y)
+
+    c = [col0_x + col_w / 2, col1_x + col_w / 2, col2_x + col_w / 2]
+    p.append(_gap(c[0], c[1], row1_y - 30))
+    p.append(_gap(c[1], c[2], row1_y - 30))
+    p.append(elbow_path([(c[2], row1_y + 84), (c[2], row1_y + 110), (c[0], row2_y - 130), (c[0], row2_y - 106)]))
+    p.append(_gap(c[0], c[1], row2_y - 30))
+    p.append(_gap(c[1], c[2], row2_y - 30))
+    p.append(arrow_line(c[2] + br + 14, row2_y - 30, meta_cx - meta_r - 15, row2_y - 30))
 
     meta_scale = meta_r / 320
     p.append(f'<g transform="translate({meta_cx},{meta_cy}) scale({meta_scale})">'
