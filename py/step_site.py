@@ -93,10 +93,10 @@ def _category_page(cat: dict, cats: list[dict]) -> str:
 
 
 _GROUP_INTRO = {
-    "Concept": "The pattern, its badges, and the schemas and architecture behind fdo-squirrel.",
-    "Slides": "Worked examples with real data of CIIC 81 and the FDOx registry, as complete slides.",
-    "Software FDOs": "Software as FDO: concept graphics for fdo-git-packager.",
-    "Registry": "Finished 3D and software FDOs in the registry, drawn as graphs.",
+    "Concept": "The pattern and its badges, the schemas and architecture behind fdo-squirrel, and the closing slides.",
+    "3D models": "The worked example for 3D models: CIIC 81 and the registry's 3D objects, one slide per step and per outcome.",
+    "Software": "Software as FDO: concept graphics for fdo-git-packager.",
+    "3D and software": "Where both meet: the story from the FKGE to FDOx, and the registry with its 3D and software FDOs as graphs.",
 }
 
 
