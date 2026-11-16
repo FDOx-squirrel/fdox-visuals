@@ -17,7 +17,7 @@ from html import escape
 from pathlib import Path
 
 from site_kit import ASSETS, DOCS, page, write_assets
-from site_meta import CAPTIONS, CREDIT_BASE, DRAFT_CATEGORIES, DRAFT_NOTICE, LABELS, SHORT
+from site_meta import CAPTIONS, CONCEPT_CATEGORIES, CONCEPT_NOTICE, CONCEPT_STEMS, CREDIT_BASE, LABELS, SHORT
 from visuals_utils import CATEGORIES, IMG_DIR
 
 VIS = DOCS / "visuals"
@@ -47,8 +47,9 @@ def _collect() -> list[dict]:
             png = IMG_DIR / slug / f"{stem}.png"
             w, h = _png_size(png)
             figs.append({"stem": stem, "label": f"{LABELS[slug]}.{i}", "caption": caption,
-                         "source": source, "w": w, "h": h, "slug": slug})
-        cats.append({**cat, "short": SHORT[slug], "figs": figs, "draft": slug in DRAFT_CATEGORIES})
+                         "source": source, "w": w, "h": h, "slug": slug,
+                         "concept": slug in CONCEPT_CATEGORIES or stem in CONCEPT_STEMS})
+        cats.append({**cat, "short": SHORT[slug], "figs": figs, "concept": slug in CONCEPT_CATEGORIES})
     return cats
 
 
@@ -65,10 +66,10 @@ def _copy_images(cats: list[dict]) -> None:
             (VIS_IMG / f"{f['stem']}.svg").write_text(svg, encoding="utf-8")
 
 
-def _figure_card(f: dict, draft: bool) -> str:
+def _figure_card(f: dict) -> str:
     cap = escape(f["caption"])
     credit = CREDIT_BASE + (" " + escape(f["source"]) if f["source"] else "")
-    badge = f'<div class="badge">{DRAFT_NOTICE}</div>' if draft else ""
+    badge = f'<div class="badge">{CONCEPT_NOTICE}</div>' if f["concept"] else ""
     return (
         f'<section class="card" id="{f["stem"]}">{badge}'
         f'<img class="fig" src="img/{f["stem"]}.png" width="{f["w"]}" height="{f["h"]}" loading="lazy" '
@@ -83,35 +84,52 @@ def _figure_card(f: dict, draft: bool) -> str:
 
 def _category_page(cat: dict, cats: list[dict]) -> str:
     notice = ""
-    if cat["draft"]:
-        notice = (f'<blockquote class="note"><b>{DRAFT_NOTICE}.</b> These graphics are drafts for the '
-                  'ArcheoFOSS 2026 talk. Dashed outlines mark what is planned, solid outlines what exists.</blockquote>')
+    if cat["concept"]:
+        notice = ('<blockquote class="note"><b>Concept.</b> fdo-git-packager is a skeleton; these graphics show the '
+                  'planned design. Dashed outlines mark what is planned, solid outlines what exists.</blockquote>')
     body = (f'<h1>{escape(cat["title"])}</h1><p class="lead">{escape(cat["desc"])}</p>{notice}'
-            + "".join(_figure_card(f, cat["draft"]) for f in cat["figs"]))
+            + "".join(_figure_card(f) for f in cat["figs"]))
     return page(cat["title"], body, cats, cat["slug"], 1)
+
+
+_GROUP_INTRO = {
+    "Concept": "The pattern, its badges, and the schemas and architecture behind fdo-squirrel.",
+    "Slides": "Worked examples with real data of CIIC 81 and the FDOx registry, as complete slides.",
+    "Software FDOs": "Software as FDO: concept graphics for fdo-git-packager.",
+    "Registry": "Finished 3D and software FDOs in the registry, drawn as graphs.",
+}
 
 
 def _index_page(cats: list[dict]) -> str:
     n = sum(len(c["figs"]) for c in cats)
-    tiles = []
+    groups: dict[str, list[dict]] = {}
     for c in cats:
-        first = c["figs"][0]
-        badge = f'<div class="badge">{DRAFT_NOTICE}</div>' if c["draft"] else ""
-        tiles.append(
-            f'<section class="card"><a class="tile" href="visuals/{c["slug"]}.html">{badge}'
-            f'<img src="visuals/img/{first["stem"]}.png" loading="lazy" alt="">'
-            f'<div class="ct">{escape(c["title"])}</div><div class="cd">{escape(c["desc"])}</div>'
-            f'<div class="cc">{len(c["figs"])} graphics</div></a></section>')
+        groups.setdefault(c.get("group", "Visuals"), []).append(c)
+    sections = []
+    for g, members in groups.items():
+        tiles = []
+        for c in members:
+            first = c["figs"][0]
+            badge = f'<div class="badge">{CONCEPT_NOTICE}</div>' if c["concept"] else ""
+            tiles.append(
+                f'<section class="card"><a class="tile" href="visuals/{c["slug"]}.html">{badge}'
+                f'<img src="visuals/img/{first["stem"]}.png" loading="lazy" alt="">'
+                f'<div class="ct">{escape(c["title"])}</div><div class="cd">{escape(c["desc"])}</div>'
+                f'<div class="cc">{len(c["figs"])} graphics</div></a></section>')
+        sections.append(f'<h2>{escape(g)}</h2><p class="lead">{escape(_GROUP_INTRO.get(g, ""))}</p>'
+                        f'<div class="grid">{"".join(tiles)}</div>')
     body = (
         "<h1>FDOx graphics</h1>"
-        f'<p class="lead">{n} graphics for talks, posters and papers of the FDOx-squirrel family, '
-        "sorted by topic. Each comes as PNG and SVG with a caption you can copy.</p>"
-        f'<blockquote class="note"><b>{DRAFT_NOTICE}.</b> The sets on fdo-git-packager, the federated knowledge '
-        "graph ecosystem and the Ogham graph pictures are drafts and carry a notice on every card.</blockquote>"
-        f'<div class="grid">{"".join(tiles)}</div>'
-        '<article class="prose"><p>The graphics are generated by pure-Python scripts, see the '
-        '<a href="https://github.com/FDOx-squirrel/fdox-visuals">repository</a>. Transparent PNGs are meant for '
-        "slides and posters, white 7:4 PNGs are complete talk slides.</p></article>")
+        f'<p class="lead">An image pool of {n} graphics for presentations, posters and papers of the '
+        "FDOx-squirrel family. Each comes as PNG and SVG with a caption and a credit line you can copy.</p>"
+        '<blockquote class="note"><b>How to use them.</b> Transparent PNGs and SVGs (badges, schemas) go onto '
+        "your own slides and posters; white 7:4 PNGs are complete slides. Where a graphic shows planned work it is "
+        "tagged <b>Concept</b>; everything else is built from released tools and registry data, and its credit line "
+        "names the release.</blockquote>"
+        + "".join(sections)
+        + '<article class="prose"><p>The graphics are generated by pure-Python scripts, see the '
+        '<a href="https://github.com/FDOx-squirrel/fdox-visuals">repository</a>. Third-party logos carry their '
+        "credit in the graphic.</p></article>")
     return page("FDOx graphics", body, cats, "index", 0)
 
 

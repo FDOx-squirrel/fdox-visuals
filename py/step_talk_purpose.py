@@ -338,15 +338,17 @@ def _build_purpose2(hshift: int, vshift: int) -> str:
 # where confirmed from the TTL (dct:spatial / dct:subject); SquirrelBase
 # carries the real item id instead, since that triple's own predicate
 # isn't confirmed from the TTL (S9 -- do not assert it).
+# Row and hub order chosen by brute force over all orders: one single crossing
+# of the straight edges (the previous order had eleven).
 _INTEROP_FDOS = [
+    ("Freshford: St Lachtain's Well", "wd:Q121840779", [("wd", "dct:subject")]),
     ("CO074-148---- (CIIC 81)", "OSM node/11071361392", [("osm", "dct:spatial"), ("wd", "dct:subject/type")]),
+    ("CHUIS/1", "OSM node/11966430251", [("osm", "dct:spatial")]),
     ("GEARS/1", "OSM node/11966441102", [("osm", "dct:spatial")]),
     ("Steinm\u00e4nnchen / Antholzer See", "OSM relation/14599988", [("osm", "dct:spatial"), ("sb", "Q60")]),
     ("Beuys-Stele B 1036", "OSM node/3647679932", [("osm", "dct:spatial"), ("sb", "Q56")]),
-    ("CHUIS/1", "OSM node/11966430251", [("osm", "dct:spatial")]),
-    ("Freshford: St Lachtain's Well", "wd:Q121840779", [("wd", "dct:subject")]),
 ]
-_INTEROP_HUBS = {"osm": (190, "OpenStreetMap"), "wd": (500, "Wikidata"), "sb": (810, "SquirrelBase")}
+_INTEROP_HUBS = {"wd": (190, "Wikidata"), "osm": (500, "OpenStreetMap"), "sb": (810, "SquirrelBase")}
 
 
 def _edge_label(x1, y1, x2, y2, frac, text, font_size=19, color=ACCENT):
@@ -403,7 +405,7 @@ def _build_purpose3(hshift: int, vshift: int) -> str:
             hy = _INTEROP_HUBS[hub_key][0]
             hx2 = hub_x - hub_r - 8
             p.append(arrow_line(x, y, hx2, hy, color=ACCENT_LIGHT, width=2))
-            p.append(_edge_label(x, y, hx2, hy, 0.22 + ei * 0.22, label))
+            p.append(_edge_label(x, y, hx2, hy, 0.2 + ei * 0.14, label))
 
     for hub_key, (hy, hname) in _INTEROP_HUBS.items():
         p.append(f'<circle cx="{hub_x}" cy="{hy}" r="{hub_r}" fill="{ACCENT}"/>')

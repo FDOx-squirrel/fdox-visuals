@@ -233,11 +233,14 @@ Eigenschaften, an denen sich ein Rebuild messen lassen muss:
 | Ausgabeformat | **`.png`, transparenter Hintergrund** — ersetzt `.jpg` auf weißem Grund mit dezentem Dot-Grid-Muster; das Muster war auf Weiß gedacht, wurde beim Reinzoomen (Flos Screenshot) aber als sichtbare Punkte im Hintergrund wahrgenommen. Dot-Grid komplett entfernt statt nur den Hintergrund transparent zu machen — es hätte ohne definierten Untergrund keinen Sinn ergeben | 2026-09-08, ersetzt Beschluss vom selben Tag |
 | Auflösung | **Zurückgenommen** von "so hoch wie möglich" auf einen Zielbereich von ~2–6 Megapixel *Inhalt* (nach dem Trim) je Grafik — Google Slides komprimiert eingefügte Bilder oberhalb von 25 Megapixel zwangsweise (offizielle API-Grenze) und beginnt in der Praxis schon deutlich darunter sichtbar zu degradieren. `OVERSAMPLE`/`ICON_SCALE` entsprechend gesenkt (Banner 3→1,5; Icons 6→4; FDO-Meta-Grafik 3,5→2,5) | 2026-09-08, ersetzt Beschluss vom selben Tag |
 | Ordner in `img/` | **acht Themenordner**: `pattern`, `schemas`, `talk-process`, `talk-purpose`, `talk-closing`, `git-packager`, `federation`, `ogham-graph`; Zuordnung über den Dateinamen (`CATEGORIES` in `visuals_utils.py`); SVGs verweisen deshalb mit `../../fonts` auf die Schrift. `img/source/` bleibt | 2026-11-05 |
-| Website | GitHub Pages aus `main`/`docs`, statisches HTML (kein Jekyll-Build, `.nojekyll`), Layout des Skills `figure-pages-site` mit Akzent FDOx-Blau; S11–S13 öffentlich mit Hinweis "Draft, as of 2026-11-05" | 2026-11-05 |
+| Website | GitHub Pages aus `main`/`docs`, statisches HTML (kein Jekyll-Build, `.nojekyll`), Layout des Skills `figure-pages-site` mit Akzent FDOx-Blau; S11–S13 öffentlich mit Hinweis "Draft, as of 2026-11-05" (seit S17 ersetzt: nur Planungsgrafiken tragen das Etikett "Concept", siehe unten) | 2026-11-05 |
 | Transparenter Rand | **maximal 10px** um jede Grafik, für alle sechs PNGs einheitlich — per `trim_transparent_border()` auf Pixelebene zugeschnitten (Alphakanal-Bounding-Box + fester Rand), nicht per geschätztem Design-Koordinaten-Abstand. Grund für den Pixel-Ansatz statt Geometrie-Rechnung: Schritt 4s Titeltext reicht nachweislich über den Icon-Kreis hinaus (siehe A1, neuer Befund) — eine Design-Koordinaten-Schätzung hätte das riskiert abzuschneiden | 2026-09-08 |
 | RO-Crate und Signposting in den Grafiken (S16) | Architekturdiagramm (S4) um die Zeile "Signposting & RO-Crate" und eine Ausgabebox ergänzt; dabei die veraltete Angabe "Mermaid → JPG" auf PNG korrigiert (`fdo-squirrel` S19). Neue Grafik `fdox-bundle-three-views` (Kategorie `schemas`, Schritt `bundle-views`): ein Bundle, drei Sichten (TTL verlustfrei, RO-Crate, Landing Page). Flos Entscheidung im Dialog | 2026-11-16 |
 | RO-Crate-Logo (S16) | Eingebunden ist das Logo der RO-Crate Community (Lizenz CC BY 4.0, laut Flo), Datei `img/source/ro-crate-logo.png` (auf 400 × 400 Pixel verkleinert, sonst unverändert; Original 1920 × 1920). Quelle, Lizenz und Änderung stehen in `img/source/NOTICE.md`. CC BY verlangt Namensnennung: die Grafik trägt sie selbst ("RO-Crate logo: RO-Crate Community, CC BY 4.0"), ebenso ihre Bildunterschrift auf der Seite. `ro_crate_logo()` nimmt zuerst eine `ro-crate-logo.svg`, falls jemand eine ablegt, sonst das PNG; fehlt beides, steht ein Textpill "RO-Crate" an der Stelle und der Lauf bleibt auch unter `--strict` ohne Fehler | 2026-11-16 |
-| Entwurfsfolien S11/S12 bleiben unverändert (S16) | `fdox-talk-federation-*` und `fdox-talk-git-packager-*` nennen `fdo-metadata.ttl` als Beleg bzw. als Inhalt der bestehenden Zenodo-Records; diese Records (`fdo-squirrel` v1.0.x) haben kein Crate. RO-Crate dort erst aufnehmen, wenn die Registry Crate-Bundles führt. Claude-Vorschlag, von Flo noch zu bestätigen | 2026-11-16, Vorschlag |
+| Bilder-Pool-Seite (S17) | Die Site ist ein Bilder-Pool für Vorträge, Poster und Papers. Navigation und Startseite nach Gruppen (Concept, Slides, Software FDOs, Registry); Titel ohne "Talk:" (Slugs, Dateinamen und Kürzel TP/TU/TC/ST bleiben, damit Links und Verweise halten). Das Etikett "Draft, as of 2026-11-05" entfällt; nur Grafiken über Geplantes tragen "Concept: planned, not implemented yet" (alle `git-packager`-Grafiken und `fdox-talk-story-two-roads-unicorn`), die Kategorie `git-packager` zusätzlich einen Hinweis. Alles andere gilt als gebaut aus veröffentlichten Werkzeugen und Registry-Daten; die Quellzeile nennt den Stand. Flos Auftrag; die Wahl, was "Concept" ist, ist Claudes Vorschlag, von Flo noch zu bestätigen | 2026-11-16 |
+| Kreuzungsfreie Graphen (S17) | In Graphen und Fächern werden Reihenfolgen so gewählt, dass sich Kanten nicht kreuzen: `purpose3` (Zeilen- und Hubreihenfolge per Brute-Force, eine Kreuzung statt elf), `shared-concepts` (je Konzept ein vertikaler Bus mit Punkten, Zeilen nach Zugehörigkeit sortiert), Registry-Graph (CHUIS/1 unter Q2016147, Beuys und Freshford getauscht). Neue Graphen: erst Reihenfolge prüfen, dann zeichnen | 2026-11-16 |
+| RO-Crate in Schritt 1 (S17) | Die beiden Schritt-1-Folien nennen `fdo-3d-packager` v1.1.0 (statt v1.0.0), unter dem Bündel "RDF · RO-Crate · landing page" und zeigen dort das RDF- und das RO-Crate-Logo (Nennung unten links in der Folie, `logo()`/`logo_credits()`). Schritte 2 bis 4 bleiben: sie zeigen Werte, nicht Ausgabeformate | 2026-11-16 |
+| Entwurfsfolien S11/S12 bleiben unverändert (S16; S17 ändert nur `shared-concepts` im Layout) | `fdox-talk-federation-*` und `fdox-talk-git-packager-*` nennen `fdo-metadata.ttl` als Beleg bzw. als Inhalt der bestehenden Zenodo-Records; diese Records (`fdo-squirrel` v1.0.x) haben kein Crate. RO-Crate dort erst aufnehmen, wenn die Registry Crate-Bundles führt. Claude-Vorschlag, von Flo noch zu bestätigen | 2026-11-16, Vorschlag |
 
 ## A5. Was in welchem Chat hochgeladen wird
 
@@ -271,7 +274,8 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S13 | Echte Graphbilder: Ogham-3D-FDOs, Software, Registry als Graph (drei Folien) | fdox-visuals | S1, S12 | Entwurf 2026-11-05, wartet auf Abnahme |
 | S14 | Themenordner `img/<kategorie>/` und GitHub-Pages-Seite `docs/` (Skill figure-pages-site, FDOx-Blau) | fdox-visuals | S1–S13 | Entwurf 2026-11-05, wartet auf Abnahme |
 | S15 | Story-Folien: FKGE-Landkarte, "Zwei Straßen, ein Bündel" (CIIC 81 + Unicorn / + Extractor), Squilly-Graph; Schritt 1 zusätzlich mit CIIC 81 | fdox-visuals | S1, S8, S11–S14 | Entwurf 2026-11-05, wartet auf Abnahme |
-| S16 | RO-Crate und Signposting in den Grafiken: Architekturdiagramm (S4) erweitert, neue Grafik "ein Bundle, drei Sichten", RO-Crate-Logo | fdox-visuals | S4, `fdo-squirrel` v1.1.0 | Entwurf 2026-11-16, wartet auf Abnahme |
+| S16 | RO-Crate und Signposting in den Grafiken: Architekturdiagramm (S4) erweitert, neue Grafik "ein Bundle, drei Sichten", RO-Crate- und RDF-Logo | fdox-visuals | S4, `fdo-squirrel` v1.1.0 | fertig, committet 2026-11-16 (2e573e6) |
+| S17 | Bilder-Pool: Seitenstruktur (Gruppen, Titel ohne "Talk:", "Concept" statt "Draft"), Kreuzungen in Graphen beseitigt, RO-Crate in Schritt 1 | fdox-visuals | S11–S16 | Entwurf 2026-11-16, wartet auf Abnahme |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -1122,6 +1126,33 @@ Wie oben, in der Sandbox gerendert und angesehen, jetzt mit dem echten RO-Crate-
 und dem RDF-Logo (Flo hat beide Dateien geliefert; RDF: Bill Schwappacher / W3C,
 CC BY 4.0, laut Flo, unverändert als SVG). **Offen:** Flos Sichtabnahme.
 
+
+---
+
+## S17 — Bilder-Pool: Seitenstruktur, Kreuzungen, RO-Crate in Schritt 1
+
+**Ziel:** das Repository dient als Bilder-Pool für Präsentationen und Papers. Flos
+Auftrag: weniger "Draft", "Talk:" in den Seitentiteln ersetzen, umsortieren,
+RO-Crate in die Prozessfolien (Schritt 1 ist der Packager), Linienüberschneidungen
+in den Grafiken prüfen.
+
+**Umfang:**
+- `py/visuals_utils.py` (`CATEGORIES` mit `group`, neue Titel), `py/site_meta.py`
+  (`CONCEPT_*` statt `DRAFT_*`, Bildunterschriften "Slide, ..." statt "Talk slide, ..."),
+  `py/site_kit.py` (Navigation nach Gruppen), `py/step_site.py` (Startseite nach Gruppen,
+  Hinweis "How to use them").
+- `py/step_talk_purpose.py` (purpose3), `py/step_federation.py` (shared-concepts),
+  `py/step_ogham_graph.py` (Registry-Graph), `py/step_talk_process.py` (Schritt 1).
+
+**Abnahme:** `--only talk-purpose`, `talk-process`, `federation`, `ogham-graph`,
+`site` laufen; die vier Grafiken zeigen keine Kreuzungen mehr (purpose3: eine);
+Navigation zeigt Gruppen; nur `git-packager` und `two-roads-unicorn` tragen "Concept".
+
+### Entwurf 2026-11-16
+
+Gerendert und angesehen. **Offen:** Flos Sichtabnahme; ob "Concept" für genau
+diese Grafiken stimmt; die Squilly-Grafik (CIIC 81 und Thiery laufen auf einen
+Punkt zu, kreuzen sich aber nicht) blieb unverändert.
 ---
 
 # Teil D — Offene Punkte

@@ -8,47 +8,47 @@
 <text x="80" y="215" font-family="Fira Sans" font-weight="700" font-size="24" fill="#5B6478">6 real registry objects</text>
 <text x="1500" y="45" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="24" fill="#004473">three real, shared hubs</text>
 <rect x="80" y="250" width="500" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.5"/>
-<text x="100" y="286" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">CO074-148---- (CIIC 81)</text>
-<text x="100" y="315" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM node/11071361392</text>
+<text x="100" y="286" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">Freshford: St Lachtain's Well</text>
+<text x="100" y="315" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">wd:Q121840779</text>
 <rect x="80" y="378" width="500" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.5"/>
-<text x="100" y="414" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">GEARS/1</text>
-<text x="100" y="443" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM node/11966441102</text>
+<text x="100" y="414" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">CO074-148---- (CIIC 81)</text>
+<text x="100" y="443" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM node/11071361392</text>
 <rect x="80" y="506" width="500" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.5"/>
-<text x="100" y="542" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">Steinmännchen / Antholzer See</text>
-<text x="100" y="571" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM relation/14599988</text>
+<text x="100" y="542" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">CHUIS/1</text>
+<text x="100" y="571" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM node/11966430251</text>
 <rect x="80" y="634" width="500" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.5"/>
-<text x="100" y="670" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">Beuys-Stele B 1036</text>
-<text x="100" y="699" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM node/3647679932</text>
+<text x="100" y="670" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">GEARS/1</text>
+<text x="100" y="699" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM node/11966441102</text>
 <rect x="80" y="762" width="500" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.5"/>
-<text x="100" y="798" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">CHUIS/1</text>
-<text x="100" y="827" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM node/11966430251</text>
+<text x="100" y="798" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">Steinmännchen / Antholzer See</text>
+<text x="100" y="827" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM relation/14599988</text>
 <rect x="80" y="890" width="500" height="90" rx="12" fill="#E6ECF1" stroke="#004473" stroke-width="2.5"/>
-<text x="100" y="926" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">Freshford: St Lachtain's Well</text>
-<text x="100" y="955" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">wd:Q121840779</text>
+<text x="100" y="926" font-family="Fira Sans" font-weight="700" font-size="19" fill="#161B2E">Beuys-Stele B 1036</text>
+<text x="100" y="955" font-family="Fira Sans" font-weight="400" font-size="17" fill="#5B6478">OSM node/3647679932</text>
 <line x1="580" y1="295.0" x2="1377" y2="190" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
-<g transform="translate(755.3,271.9) rotate(-7.5)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
-<line x1="580" y1="295.0" x2="1377" y2="500" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
-<g transform="translate(930.7,385.2) rotate(14.4)"><rect x="-101.2" y="-16.5" width="202.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:subject/type</text></g>
+<g transform="translate(739.4,274.0) rotate(-7.5)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:subject</text></g>
+<line x1="580" y1="423.0" x2="1377" y2="500" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(739.4,438.4) rotate(5.5)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
 <line x1="580" y1="423.0" x2="1377" y2="190" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
-<g transform="translate(755.3,371.7) rotate(-16.3)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
-<line x1="580" y1="551.0" x2="1377" y2="190" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
-<g transform="translate(755.3,471.6) rotate(-24.4)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
-<line x1="580" y1="551.0" x2="1377" y2="810" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
-<g transform="translate(930.7,665.0) rotate(18.0)"><rect x="-27.1" y="-16.5" width="54.2" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">Q60</text></g>
-<line x1="580" y1="679.0" x2="1377" y2="190" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
-<g transform="translate(755.3,571.4) rotate(-31.5)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
-<line x1="580" y1="679.0" x2="1377" y2="810" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
-<g transform="translate(930.7,736.6) rotate(9.3)"><rect x="-27.1" y="-16.5" width="54.2" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">Q56</text></g>
-<line x1="580" y1="807.0" x2="1377" y2="190" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
-<g transform="translate(755.3,671.3) rotate(-37.7)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
+<g transform="translate(851.0,343.8) rotate(-16.3)"><rect x="-101.2" y="-16.5" width="202.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:subject/type</text></g>
+<line x1="580" y1="551.0" x2="1377" y2="500" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(739.4,540.8) rotate(-3.7)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
+<line x1="580" y1="679.0" x2="1377" y2="500" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(739.4,643.2) rotate(-12.7)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
+<line x1="580" y1="807.0" x2="1377" y2="500" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(739.4,745.6) rotate(-21.1)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
+<line x1="580" y1="807.0" x2="1377" y2="810" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(851.0,808.0) rotate(0.2)"><rect x="-27.1" y="-16.5" width="54.2" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">Q60</text></g>
 <line x1="580" y1="935.0" x2="1377" y2="500" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
-<g transform="translate(755.3,839.3) rotate(-28.6)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:subject</text></g>
+<g transform="translate(739.4,848.0) rotate(-28.6)"><rect x="-72.7" y="-16.5" width="145.4" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">dct:spatial</text></g>
+<line x1="580" y1="935.0" x2="1377" y2="810" stroke="#116099" stroke-width="2" marker-end="url(#arrow)"/>
+<g transform="translate(851.0,892.5) rotate(-8.9)"><rect x="-27.1" y="-16.5" width="54.2" height="33.0" rx="6" fill="white" stroke="#004473" stroke-width="1.3" opacity="0.95"/><text x="0" y="6.8" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="19" fill="#004473">Q56</text></g>
 <circle cx="1500" cy="190" r="115" fill="#004473"/>
-<text x="1500" y="186" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="22" fill="white">OpenStreetMap</text>
-<text x="1500" y="214" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="#E6ECF1">5 real links</text>
+<text x="1500" y="186" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="22" fill="white">Wikidata</text>
+<text x="1500" y="214" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="#E6ECF1">2 real links</text>
 <circle cx="1500" cy="500" r="115" fill="#004473"/>
-<text x="1500" y="496" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="22" fill="white">Wikidata</text>
-<text x="1500" y="524" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="#E6ECF1">2 real links</text>
+<text x="1500" y="496" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="22" fill="white">OpenStreetMap</text>
+<text x="1500" y="524" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="#E6ECF1">5 real links</text>
 <circle cx="1500" cy="810" r="115" fill="#004473"/>
 <text x="1500" y="806" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="22" fill="white">SquirrelBase</text>
 <text x="1500" y="834" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="#E6ECF1">2 real links</text>

@@ -17,36 +17,50 @@
 <text x="134" y="491" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">CO074-148---- (CIIC 81)</text>
 <rect x="60" y="518" width="600" height="54" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/>
 <rect x="72" y="530" width="48" height="30" rx="8" fill="#004473" stroke="#004473" stroke-width="3"/><text x="96" y="552" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="white">3D</text>
-<text x="134" y="553" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">CHUIS/1</text>
+<text x="134" y="553" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">Steinmännchen / Antholzer See</text>
 <rect x="60" y="580" width="600" height="54" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/>
 <rect x="72" y="592" width="48" height="30" rx="8" fill="#004473" stroke="#004473" stroke-width="3"/><text x="96" y="614" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="white">3D</text>
-<text x="134" y="615" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">Steinmännchen / Antholzer See</text>
+<text x="134" y="615" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">CHUIS/1</text>
 <rect x="60" y="642" width="600" height="54" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/>
 <rect x="72" y="654" width="48" height="30" rx="8" fill="#004473" stroke="#004473" stroke-width="3"/><text x="96" y="676" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="white">3D</text>
 <text x="134" y="677" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">Beuys-Stele B 1036 (Kassel)</text>
 <rect x="60" y="704" width="600" height="54" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/>
 <rect x="72" y="716" width="48" height="30" rx="8" fill="#004473" stroke="#004473" stroke-width="3"/><text x="96" y="738" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="18" fill="white">3D</text>
 <text x="134" y="739" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="22" fill="#161B2E">Freshford: St Lachtain’s Well</text>
-<line x1="660" y1="297.0" x2="800" y2="370" stroke="#004473" stroke-width="3.5"/>
-<line x1="660" y1="359.0" x2="800" y2="370" stroke="#004473" stroke-width="3.5"/>
-<line x1="660" y1="421.0" x2="800" y2="370" stroke="#004473" stroke-width="3.5"/>
-<line x1="660" y1="483.0" x2="800" y2="370" stroke="#004473" stroke-width="3.5"/>
-<line x1="660" y1="297.0" x2="800" y2="640" stroke="#4E8FBE" stroke-width="3.5"/>
-<line x1="660" y1="359.0" x2="800" y2="640" stroke="#4E8FBE" stroke-width="3.5"/>
-<line x1="660" y1="421.0" x2="800" y2="640" stroke="#4E8FBE" stroke-width="3.5"/>
-<line x1="660" y1="483.0" x2="800" y2="640" stroke="#4E8FBE" stroke-width="3.5"/>
-<line x1="660" y1="545.0" x2="800" y2="640" stroke="#4E8FBE" stroke-width="3.5"/>
-<line x1="660" y1="607.0" x2="800" y2="640" stroke="#4E8FBE" stroke-width="3.5"/>
-<rect x="800" y="328" width="260" height="84" rx="14" fill="#E6ECF1" stroke="#004473" stroke-width="4"/>
-<text x="930" y="366" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="25" fill="#161B2E">wd:Q2016147</text>
-<text x="930" y="396" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">4 FDOs</text>
-<rect x="800" y="598" width="260" height="84" rx="14" fill="#E6ECF1" stroke="#4E8FBE" stroke-width="4"/>
-<text x="930" y="636" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="25" fill="#161B2E">wd:Q22731</text>
-<text x="930" y="666" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">6 FDOs</text>
-<text x="930" y="308" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">“Ogham stone”</text>
-<text x="930" y="708" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">label in the bundle: “Stone”</text>
-<line x1="660" y1="545.0" x2="1090" y2="549.0" stroke="#5B6478" stroke-width="3" stroke-dasharray="10 8"/>
-<rect x="1090" y="521.0" width="200" height="52" rx="14" fill="white" stroke="#5B6478" stroke-width="3.5" stroke-dasharray="14 9"/><text x="1190.0" y="553.2" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">“Ogham Stone”</text>
+<line x1="790" y1="297.0" x2="790" y2="483.0" stroke="#004473" stroke-width="4"/>
+<line x1="660" y1="297.0" x2="790" y2="297.0" stroke="#004473" stroke-width="3.5"/>
+<circle cx="790" cy="297.0" r="6" fill="#004473"/>
+<line x1="660" y1="359.0" x2="790" y2="359.0" stroke="#004473" stroke-width="3.5"/>
+<circle cx="790" cy="359.0" r="6" fill="#004473"/>
+<line x1="660" y1="421.0" x2="790" y2="421.0" stroke="#004473" stroke-width="3.5"/>
+<circle cx="790" cy="421.0" r="6" fill="#004473"/>
+<line x1="660" y1="483.0" x2="790" y2="483.0" stroke="#004473" stroke-width="3.5"/>
+<circle cx="790" cy="483.0" r="6" fill="#004473"/>
+<line x1="790" y1="390.0" x2="850" y2="390.0" stroke="#004473" stroke-width="4"/>
+<line x1="730" y1="297.0" x2="730" y2="597.0" stroke="#4E8FBE" stroke-width="4"/>
+<line x1="660" y1="297.0" x2="730" y2="297.0" stroke="#4E8FBE" stroke-width="3.5"/>
+<circle cx="730" cy="297.0" r="6" fill="#4E8FBE"/>
+<line x1="660" y1="359.0" x2="730" y2="359.0" stroke="#4E8FBE" stroke-width="3.5"/>
+<circle cx="730" cy="359.0" r="6" fill="#4E8FBE"/>
+<line x1="660" y1="421.0" x2="730" y2="421.0" stroke="#4E8FBE" stroke-width="3.5"/>
+<circle cx="730" cy="421.0" r="6" fill="#4E8FBE"/>
+<line x1="660" y1="483.0" x2="730" y2="483.0" stroke="#4E8FBE" stroke-width="3.5"/>
+<circle cx="730" cy="483.0" r="6" fill="#4E8FBE"/>
+<line x1="660" y1="545.0" x2="730" y2="545.0" stroke="#4E8FBE" stroke-width="3.5"/>
+<circle cx="730" cy="545.0" r="6" fill="#4E8FBE"/>
+<line x1="660" y1="597.0" x2="730" y2="597.0" stroke="#4E8FBE" stroke-width="3.5"/>
+<circle cx="730" cy="597.0" r="6" fill="#4E8FBE"/>
+<line x1="730" y1="543.0" x2="850" y2="543.0" stroke="#4E8FBE" stroke-width="4"/>
+<rect x="850" y="348.0" width="260" height="84" rx="14" fill="#E6ECF1" stroke="#004473" stroke-width="4"/>
+<text x="980" y="386.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="25" fill="#161B2E">wd:Q2016147</text>
+<text x="980" y="416.0" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">4 FDOs</text>
+<rect x="850" y="501.0" width="260" height="84" rx="14" fill="#E6ECF1" stroke="#4E8FBE" stroke-width="4"/>
+<text x="980" y="539.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="25" fill="#161B2E">wd:Q22731</text>
+<text x="980" y="569.0" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">6 FDOs</text>
+<text x="980" y="336.0" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">“Ogham stone”</text>
+<text x="980" y="489.0" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">label in the bundle: “Stone”</text>
+<line x1="660" y1="619.0" x2="1090" y2="619.0" stroke="#5B6478" stroke-width="3" stroke-dasharray="10 8"/>
+<rect x="1090" y="593.0" width="200" height="52" rx="14" fill="white" stroke="#5B6478" stroke-width="3.5" stroke-dasharray="14 9"/><text x="1190.0" y="625.2" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">“Ogham Stone”</text>
 <rect x="1330" y="255" width="370" height="200" rx="14" fill="white" stroke="#004473" stroke-width="3.5"/><text x="1352" y="301" text-anchor="start" font-family="Fira Sans" font-weight="700" font-size="24" fill="#161B2E">What this shows</text><text x="1352" y="335.12" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">3D models and software share</text><text x="1352" y="361.34000000000003" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">concepts, so a query from one</text><text x="1352" y="387.56000000000006" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">finds the other: the extractor,</text><text x="1352" y="413.7800000000001" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">the analysis and two stones.</text>
 <rect x="1330" y="490" width="370" height="240" rx="14" fill="white" stroke="#004473" stroke-width="3.5" stroke-dasharray="14 9"/><text x="1352" y="536" text-anchor="start" font-family="Fira Sans" font-weight="700" font-size="24" fill="#004473">What it does not</text><text x="1352" y="570.12" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">CHUIS/1 says “Ogham Stone” as text</text><text x="1352" y="596.34" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">only and is missing from Q2016147.</text><text x="1352" y="622.5600000000001" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">The Beuys stele and the Freshford</text><text x="1352" y="648.7800000000001" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">well share no concept with another</text><text x="1352" y="675.0000000000001" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="19" fill="#5B6478">FDO. The query makes that visible.</text>
 <text x="60" y="790" text-anchor="start" font-family="Fira Sans" font-weight="400" font-size="21" fill="#161B2E">Also shared: both software FDOs carry OSM relation 62273 as dct:spatial.</text>

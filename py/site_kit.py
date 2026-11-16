@@ -88,9 +88,17 @@ def nav(categories: list[dict], active: str, depth: int) -> str:
         return f'<a href="{href}"{on}>{escape(text)}</a>'
 
     home = link(f"{up}index.html", "Overview", "index")
-    links = " ".join(link(f"{up}visuals/{c['slug']}.html", c["short"], c["slug"]) for c in categories)
-    return (f'<nav><div class="row"><span class="lab">Site</span>{home}</div>'
-            f'<div class="row"><span class="lab">Visuals</span>{links}</div></nav>')
+    rows, order = {}, []
+    for c in categories:
+        g = c.get("group", "Visuals")
+        if g not in rows:
+            rows[g] = []
+            order.append(g)
+        rows[g].append(link(f"{up}visuals/{c['slug']}.html", c["short"], c["slug"]))
+    out = [f'<nav><div class="row"><span class="lab">Site</span>{home}</div>']
+    for g in order:
+        out.append(f'<div class="row"><span class="lab">{escape(g)}</span>{" ".join(rows[g])}</div>')
+    return "".join(out) + "</nav>"
 
 
 def page(title: str, body: str, categories: list[dict], active: str, depth: int) -> str:

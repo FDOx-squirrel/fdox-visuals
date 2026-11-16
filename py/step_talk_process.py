@@ -44,6 +44,8 @@ from visuals_utils import (  # noqa: E402
     elbow_path,
     ensure_dirs,
     esc,
+    logo,
+    logo_credits,
     font_face_css,
     label_box,
     paste_raster,
@@ -81,7 +83,7 @@ def _icon_svg(step_idx: int, scale: float, cx: float = ICON_CX, cy: float = ICON
 
 def _svg_open(defs: str = "") -> list[str]:
     return [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
+        f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
         f'<rect x="0" y="0" width="{W}" height="{H}" fill="white"/>',
         font_face_css(),
         arrow_marker("arrow", MUTED),
@@ -132,7 +134,7 @@ def _build_step1(hshift: int, vshift: int, caption: str = "Freshford: St Lachtai
     p.append(arrow_line(photo_x + photo_w + 15, arrow_y, col0_x - 15, arrow_y))
 
     p.append(f'<text x="{(col0_x+col2_x+col_w)/2}" y="{row1_y-90}" text-anchor="middle" '
-              f'font-family="Fira Sans" font-weight="700" font-size="24" fill="{accent}">fdo-3d-packager v1.0.0</text>')
+              f'font-family="Fira Sans" font-weight="700" font-size="24" fill="{accent}">fdo-3d-packager v1.1.0</text>')
 
     cols = [col0_x, col1_x, col2_x]
     for i, (name, desc) in enumerate(_STEP1_PIPELINE[:3]):
@@ -165,6 +167,14 @@ def _build_step1(hshift: int, vshift: int, caption: str = "Freshford: St Lachtai
               f'font-weight="700" font-size="22" fill="{INK}">FDO bundle</text>')
     p.append(f'<text x="{meta_cx}" y="{meta_cy+meta_r+66}" text-anchor="middle" font-family="Fira Sans" '
               f'font-weight="400" font-size="20" fill="{MUTED}">{files_line}</text>')
+    p.append(f'<text x="{meta_cx}" y="{meta_cy+meta_r+92}" text-anchor="middle" font-family="Fira Sans" '
+              f'font-weight="400" font-size="20" fill="{MUTED}">RDF \u00b7 RO-Crate \u00b7 landing page</text>')
+    # the two views fdo-squirrel adds, as their logos (credits in the slide, CC BY)
+    ly = meta_cy + meta_r + 104
+    p.append(logo("rdf", meta_cx - 110, ly, 64, 64))
+    p.append(logo("ro-crate", meta_cx + 46, ly, 64, 64))
+    p.append(f'<text x="60" y="{H-60}" text-anchor="start" font-family="Fira Sans" font-weight="400" '
+              f'font-size="15" fill="{MUTED}">{esc(logo_credits())}</text>')
 
     p.append("</g></svg>")
     return "\n".join(p)

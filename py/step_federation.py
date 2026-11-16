@@ -310,37 +310,55 @@ def _build_shared() -> str:
     p.append(_heading(_glyph_triple(), "What the graph links, and what it does not", "Registry query: Wikidata concepts that more than one FDO points at"))
 
     rx, rw, rh, gap, y0 = 60, 600, 54, 8, 270
-    pos = {}
-    for i, (rid, title, kind, _, _) in enumerate(FDOS):
+    # Rows are ordered by membership (both concepts, Q22731 only, neither) so
+    # that each concept is one vertical bus with no line crossing another: an
+    # edge is a short horizontal stub from the row to the bus, with a dot.
+    CHUIS_ID = "18744583"
+
+    def _rank(rid: str) -> int:
+        if rid == CHUIS_ID:          # last row of Q22731: its dashed text-only edge leaves below the bus
+            return 2
+        return 0 if rid in Q2016147 else (1 if rid in Q22731 else 3)
+
+    rows = sorted(FDOS, key=lambda f: _rank(f[0]))   # stable: keeps the listed order inside a group
+    pos, mid = {}, {}
+    for i, (rid, title, kind, _, _) in enumerate(rows):
         y = y0 + i * (rh + gap)
         pos[rid] = (rx + rw, y + rh / 2)
+        mid[rid] = y + rh / 2 - (10 if rid == CHUIS_ID else 0)
         p.append(_box(rx, y, rw, rh, []))
         p.append(_tag(rx + 12, y + 12, kind))
         p.append(_t(rx + 74, y + 35, title, 22, 400, INK))
 
-    hubs = [
-        ("18369126", "wd:Q2016147", "4 FDOs", Q2016147, 800, 370, FDO_ACCENT),
-        ("18369157", "wd:Q22731", "6 FDOs", Q22731, 800, 640, FDO_ACCENT_SOFT),
+    bus_b_x, bus_a_x = 730, 790
+    box_x = 850
+    buses = [  # name, count, members, bus x, colour, label above/below
+        ("wd:Q2016147", "4 FDOs", Q2016147, bus_a_x, FDO_ACCENT),
+        ("wd:Q22731", "6 FDOs", Q22731, bus_b_x, FDO_ACCENT_SOFT),
     ]
-    hub_pos = {}
-    for _, name, count, members, hx, hy, col in hubs:
-        hub_pos[name] = (hx, hy)
-    # edges first, nodes on top
-    for _, name, count, members, hx, hy, col in hubs:
-        for rid, (ex, ey) in pos.items():
-            if rid in members:
-                p.append(f'<line x1="{ex}" y1="{ey}" x2="{hx}" y2="{hy}" stroke="{col}" stroke-width="3.5"/>')
-    for _, name, count, members, hx, hy, col in hubs:
-        p.append(f'<rect x="{hx}" y="{hy-42}" width="260" height="84" rx="14" fill="{TINT}" stroke="{col}" stroke-width="4"/>')
-        p.append(_t(hx + 130, hy - 4, name, 25, 700, INK, "middle"))
-        p.append(_t(hx + 130, hy + 26, count, 20, 400, MUTED, "middle"))
-    p.append(_t(930, 308, "“Ogham stone”", 20, 400, MUTED, "middle"))
-    p.append(_t(930, 708, "label in the bundle: “Stone”", 20, 400, MUTED, "middle"))
+    box_cy = {}
+    for name, count, members, bx, col in buses:
+        ys = [mid[r] for r in members if r in mid]
+        top, bot = min(ys), max(ys)
+        box_cy[name] = (top + bot) / 2 if name == "wd:Q2016147" else bot - (bot - top) * 0.18
+        p.append(f'<line x1="{bx}" y1="{top}" x2="{bx}" y2="{bot}" stroke="{col}" stroke-width="4"/>')
+        for r in [row[0] for row in rows if row[0] in members]:   # row order, never set order (deterministic SVG)
+            if r in mid:
+                p.append(f'<line x1="{rx+rw}" y1="{mid[r]}" x2="{bx}" y2="{mid[r]}" stroke="{col}" stroke-width="3.5"/>')
+                p.append(f'<circle cx="{bx}" cy="{mid[r]}" r="6" fill="{col}"/>')
+        p.append(f'<line x1="{bx}" y1="{box_cy[name]}" x2="{box_x}" y2="{box_cy[name]}" stroke="{col}" stroke-width="4"/>')
+    for name, count, members, bx, col in buses:
+        hy = box_cy[name]
+        p.append(f'<rect x="{box_x}" y="{hy-42}" width="260" height="84" rx="14" fill="{TINT}" stroke="{col}" stroke-width="4"/>')
+        p.append(_t(box_x + 130, hy - 4, name, 25, 700, INK, "middle"))
+        p.append(_t(box_x + 130, hy + 26, count, 20, 400, MUTED, "middle"))
+    p.append(_t(box_x + 130, box_cy["wd:Q2016147"] - 54, "\u201cOgham stone\u201d", 20, 400, MUTED, "middle"))
+    p.append(_t(box_x + 130, box_cy["wd:Q22731"] - 54, "label in the bundle: \u201cStone\u201d", 20, 400, MUTED, "middle"))
 
-    # CHUIS/1: free text only, dashed edge to a literal
-    cy = y0 + 4 * (rh + gap) + rh / 2
-    p.append(f'<line x1="{rx+rw}" y1="{cy}" x2="1090" y2="{cy+4}" stroke="{MUTED}" stroke-width="3" stroke-dasharray="10 8"/>')
-    p.append(_box(1090, cy - 24, 200, 52, [("“Ogham Stone”", 20, 400, MUTED)], dashed=True, stroke=MUTED, center=True))
+    # CHUIS/1: free text only, dashed edge to a literal (below both buses)
+    cy = mid[CHUIS_ID] + 22
+    p.append(f'<line x1="{rx+rw}" y1="{cy}" x2="1090" y2="{cy}" stroke="{MUTED}" stroke-width="3" stroke-dasharray="10 8"/>')
+    p.append(_box(1090, cy - 26, 200, 52, [("\u201cOgham Stone\u201d", 20, 400, MUTED)], dashed=True, stroke=MUTED, center=True))
 
     p.append(_box(1330, 255, 370, 200, [
         ("What this shows", 24, 700, INK),
