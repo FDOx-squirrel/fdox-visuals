@@ -18,7 +18,7 @@ CONCEPT_NOTICE = "Concept: planned, not implemented yet"
 CONCEPT_STEMS = {"fdox-story-two-roads-unicorn"}   # the git-packager set is added by category below
 CONCEPT_CATEGORIES = {"git-packager", "git-packager-pictograms"}
 
-CREDIT_BASE = "FDOx-squirrel, fdox-visuals (Florian Thiery, LEIZA). Code: MIT licence."
+CREDIT_BASE = "FDOx-squirrel, fdox-visuals (Florian Thiery, Research Squirrel Engineers Network / LEIZA). Code: MIT licence."
 
 CAPTIONS: dict[str, list[tuple[str, str, str]]] = {
     # (file stem, caption, source line or "")

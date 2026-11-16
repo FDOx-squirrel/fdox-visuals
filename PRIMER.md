@@ -279,7 +279,8 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S18 | Lebendige Galerie: neutrale Namen ohne "talk", Piktogramme auf eigene Unterseiten, kein Nutzungshinweis | fdox-visuals | S14, S17 | fertig, committet 2026-11-16 (1b8928b) |
 | S19 | Graph-Bilder ohne Header/Footer, transparent und eng beschnitten; sechs Piktogramme für fdo-3d-packager | fdox-visuals | S13, S15, S18 | fertig, committet 2026-11-16 (f857e27) |
 | S20 | 3D-Packager-Piktogramme in Step 1 und in den "two roads"-Bildern eingebunden statt Textboxen | fdox-visuals | S8, S15, S19 | fertig, committet 2026-11-16 |
-| S21 | Keine Versionsangabe des fdo-3d-packager mehr in den Grafiken | fdox-visuals | S20 | Entwurf 2026-11-16, wartet auf Abnahme |
+| S21 | Keine Versionsangabe des fdo-3d-packager mehr in den Grafiken | fdox-visuals | S20 | fertig, committet 2026-11-16 (9e65a72) |
+| S22 | Urheberzeile der Doku: "Florian Thiery, Research Squirrel Engineers Network / LEIZA" | fdox-visuals | S14 | Entwurf 2026-11-16, wartet auf Abnahme |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -1369,3 +1370,10 @@ Flo: die Version soll überall raus. Entfernt: die Zeile "fdo-3d-packager v1.1.0
 (`fdox-steps-1-fdo-encapsulation` und `…-ciic81`); in den Story-Bildern und Captions stand sie
 seit S20 nicht mehr; in Docstrings ohne Version. **Abnahme:** `python main.py --only steps`,
 danach `git checkout` der unveränderten PNGs (Steps 2 bis 4), dann `--only site`.
+
+## S22 — Urheberzeile der Doku
+
+Flo: in der Doku (GitHub Pages) soll überall "Florian Thiery, Research Squirrel Engineers
+Network / LEIZA" stehen statt "Florian Thiery, LEIZA". Geändert: `site_meta.CREDIT_BASE`, die
+einzige Stelle, die die Zeile unter jeder Grafik erzeugt. **Abnahme:** `python main.py --only site`;
+jede Karte endet auf "(Florian Thiery, Research Squirrel Engineers Network / LEIZA). Code: MIT licence."
