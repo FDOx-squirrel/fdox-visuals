@@ -3,9 +3,9 @@
 Three 7:4 talk slides (white, S8 convention) that draw *actual triples* of the
 FDOx Registry as node-link graphs, not as boxes-and-arrows concept art:
 
-  img/fdox-talk-ogham-graph-cluster.svg/.png    the Ogham cluster: 3 x 3DDataFDO + 2 x SoftwareFDO, shared concept, places, people
-  img/fdox-talk-ogham-graph-object.svg/.png     CIIC 81 (3D FDO) and the o3d-epidoc-extractor (SoftwareFDO), one hop each
-  img/fdox-talk-ogham-graph-registry.svg/.png   all eight FDOs of the registry as one graph, with the Wikidata hubs
+  img/fdox-ogham-graph-cluster.svg/.png    the Ogham cluster: 3 x 3DDataFDO + 2 x SoftwareFDO, shared concept, places, people
+  img/fdox-ogham-graph-object.svg/.png     CIIC 81 (3D FDO) and the o3d-epidoc-extractor (SoftwareFDO), one hop each
+  img/fdox-ogham-graph-registry.svg/.png   all eight FDOs of the registry as one graph, with the Wikidata hubs
 
 Source of every node and edge: `dist/fdo-registry.ttl` of
 `FDOx-squirrel/fdo-squirrel-registry` at 253aee9 (release 2026-09-03, 7,793
@@ -355,9 +355,9 @@ def _build_registry() -> str:
 
 
 SLIDES = [
-    ("fdox-talk-ogham-graph-cluster", _build_cluster),
-    ("fdox-talk-ogham-graph-object", _build_object),
-    ("fdox-talk-ogham-graph-registry", _build_registry),
+    ("fdox-ogham-graph-cluster", _build_cluster),
+    ("fdox-ogham-graph-object", _build_object),
+    ("fdox-ogham-graph-registry", _build_registry),
 ]
 
 

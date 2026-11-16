@@ -24,45 +24,57 @@ FONT_FAMILY = "Fira Sans"
 # SVG somewhere else, this constant has to move with it.
 _FONT_REL_PREFIX = "../../fonts"
 
-# Topic folders under img/. The order is the order of the site (S14). A
-# graphic belongs to the first category whose prefix its file stem starts
-# with, so longer, more specific prefixes come first.
+# Topic folders under img/. The order is the order of the site (S14), and the
+# order of the navigation. A graphic belongs to the category with the longest
+# prefix its file stem starts with.
 CATEGORIES = [
-    {"slug": "pattern", "group": "Concept", "title": "The four-step pattern and its purpose",
-     "desc": "Banners and badges for the four FDO steps and the four purposes.",
-     "prefixes": ["fdox-four-step-pattern", "fdox-step-", "fdox-purpose-"]},
+    {"slug": "pattern", "group": "Concept", "title": "The four-step pattern and its outcomes",
+     "desc": "The two banners: the four FDO steps and the four outcomes of FDOx.",
+     "prefixes": ["fdox-four-step-pattern", "fdox-purpose-pattern"]},
+    {"slug": "pictograms", "group": "Concept", "title": "Pictograms: steps and outcomes",
+     "desc": "The eight pictograms as single files: the four steps and the four outcomes.",
+     "prefixes": ["fdox-step-", "fdox-purpose-"]},
     {"slug": "schemas", "group": "Concept", "title": "Schemas, architecture and bundle views",
      "desc": "The MD.cff and CITATION.cff schemas, the fdo-squirrel architecture, the three views of a bundle (RDF, RO-Crate, landing page) and the FDO meta graphic.",
      "prefixes": ["fdox-md-cff-schema", "fdox-citation-cff-schema", "fdox-fdo-squirrel-architecture",
                   "fdox-bundle-three-views",
                   "fdox-fair-digital-object-meta-graphic", "fdox-fdo-sphere"]},
-    {"slug": "talk-closing", "group": "Concept", "title": "The FDO sphere and the community hubs",
-     "desc": "The eight badges around the FDO sphere, with and without the community hubs.", "prefixes": ["fdox-talk-closing"]},
-    {"slug": "talk-process", "group": "3D models", "title": "The four steps in practice",
-     "desc": "One graphic per FDOx step with real values of CIIC 81: packaging with fdo-3d-packager (RDF and RO-Crate via fdo-squirrel), modelling, linking, federation.", "prefixes": ["fdox-talk-step"]},
-    {"slug": "talk-purpose", "group": "3D models", "title": "The four outcomes in practice",
-     "desc": "One graphic per outcome: FAIR and citable, semantically queryable, interoperable, integrable.", "prefixes": ["fdox-talk-purpose"]},
+    {"slug": "sphere", "group": "Concept", "title": "The FDO sphere and the community hubs",
+     "desc": "The eight pictograms around the FDO sphere, with and without the community hubs.", "prefixes": ["fdox-sphere-"]},
+    {"slug": "steps", "group": "3D models", "title": "The four steps in practice",
+     "desc": "One graphic per FDOx step with real values of CIIC 81: packaging with fdo-3d-packager (RDF and RO-Crate via fdo-squirrel), modelling, linking, federation.",
+     "prefixes": ["fdox-steps-"]},
+    {"slug": "outcomes", "group": "3D models", "title": "The four outcomes in practice",
+     "desc": "One graphic per outcome: FAIR and citable, semantically queryable, interoperable, integrable.",
+     "prefixes": ["fdox-outcomes-"]},
     {"slug": "git-packager", "group": "Software", "title": "fdo-git-packager: software as FDO",
      "desc": "Concept graphics for packaging a Git repository as an FDO (the tool is a skeleton, nothing here is implemented yet).",
-     "prefixes": ["fdox-git-packager-", "fdox-talk-git-packager-"]},
-    {"slug": "story", "group": "3D and software", "title": "The story: from the FKGE to FDOx",
+     "prefixes": ["fdox-git-packager-"]},
+    {"slug": "git-packager-pictograms", "group": "Software", "title": "Pictograms: fdo-git-packager",
+     "desc": "The four pictograms of the fdo-git-packager steps: pin, inspect, package, build.",
+     "prefixes": ["fdox-git-packager-step-"]},
+    {"slug": "story", "group": "3D and software", "title": "From the FKGE to FDOx",
      "desc": "Graphics that lead from the federated knowledge graph ecosystem to FDOx, for 3D models and software.",
-     "prefixes": ["fdox-talk-story-"]},
+     "prefixes": ["fdox-story-"]},
     {"slug": "federation", "group": "3D and software", "title": "Federated knowledge graph ecosystem",
      "desc": "Finished 3D and software FDOs in the registry and the N4O collection.",
-     "prefixes": ["fdox-talk-federation-"]},
+     "prefixes": ["fdox-federation-"]},
     {"slug": "ogham-graph", "group": "3D and software", "title": "Ogham graph pictures",
      "desc": "Graph pictures of Ogham stones, their 3D FDOs and the software that uses them.",
-     "prefixes": ["fdox-talk-ogham-graph-"]},
+     "prefixes": ["fdox-ogham-graph-"]},
 ]
 
 
 def category_of(stem: str) -> str:
-    """Folder slug (under img/) for a graphic's file stem."""
+    """Folder slug (under img/) for a graphic's file stem: the longest matching prefix wins."""
+    best, best_len = None, -1
     for cat in CATEGORIES:
-        if any(stem.startswith(p) for p in cat["prefixes"]):
-            return cat["slug"]
-    raise KeyError(f"no category for graphic {stem!r}; add its prefix to CATEGORIES")
+        for pre in cat["prefixes"]:
+            if stem.startswith(pre) and len(pre) > best_len:
+                best, best_len = cat["slug"], len(pre)
+    if best is None:
+        raise KeyError(f"no category for graphic {stem!r}; add its prefix to CATEGORIES")
+    return best
 
 
 def img_path(filename: str) -> Path:

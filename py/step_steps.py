@@ -10,10 +10,10 @@ the FAIR 3D Heritage Conference talk (Mainz, 2026-09-14/16), Part 5.
 Produces (white background -- these are meant to be the single image on
 a slide, not composited further, so A4's "transparent, no header/footer"
 convention does not apply here; see PRIMER S8):
-  img/fdox-talk-step1-fdo-encapsulation.png
-  img/fdox-talk-step2-semantic-metadata.png
-  img/fdox-talk-step3-linking-hubs.png
-  img/fdox-talk-step4-federated-kg.png
+  img/fdox-steps-1-fdo-encapsulation.png
+  img/fdox-steps-2-semantic-metadata.png
+  img/fdox-steps-3-linking-hubs.png
+  img/fdox-steps-4-federated-kg.png
 
 Three of the four composite a real screenshot/photo under img/source/ --
 Sketchfab, the FDOx Registry, and CIIC 81's preview render -- which is the
@@ -21,7 +21,7 @@ one case PRIMER A3/patch-zip-delivery's "generated files" rule carves out:
 assets a script cannot itself produce (no browser, no camera) ship as
 data and are composited, not regenerated. Step 2's slide is pure SVG.
 
-Runnable standalone: `python py/step_talk_process.py`
+Runnable standalone: `python py/step_steps.py`
 """
 
 from __future__ import annotations
@@ -180,8 +180,8 @@ def _build_step1(hshift: int, vshift: int, caption: str = "Freshford: St Lachtai
     return "\n".join(p)
 
 
-_STEP1_RASTER = dict(x=60, y=300, w=460, h=350, asset="talk-sketchfab-freshford.png", circular=False)
-_STEP1_RASTER_CIIC = dict(_STEP1_RASTER, asset="talk-sketchfab-ciic81.png")
+_STEP1_RASTER = dict(x=60, y=300, w=460, h=350, asset="sketchfab-freshford.png", circular=False)
+_STEP1_RASTER_CIIC = dict(_STEP1_RASTER, asset="sketchfab-ciic81.png")
 
 
 def _build_step1_ciic(hshift: int, vshift: int) -> str:
@@ -362,7 +362,7 @@ def _build_step4(hshift: int, vshift: int) -> str:
     return "\n".join(p)
 
 
-_STEP4_RASTER = dict(x=40, y=245, w=687, h=680, asset="talk-registry-screenshot.png", circular=False)
+_STEP4_RASTER = dict(x=40, y=245, w=687, h=680, asset="registry-screenshot.png", circular=False)
 
 
 # ------------------------------------------------------------------------
@@ -405,8 +405,8 @@ def run(strict: bool = False) -> list[str]:
     ensure_dirs()
     log: list[str] = []
 
-    missing = [f for f in ("talk-sketchfab-freshford.png", "talk-registry-screenshot.png",
-                            "talk-ciic81-preview.png", "talk-sketchfab-ciic81.png") if not (SOURCE_DIR / f).exists()]
+    missing = [f for f in ("sketchfab-freshford.png", "registry-screenshot.png",
+                            "ciic81-preview.png", "sketchfab-ciic81.png") if not (SOURCE_DIR / f).exists()]
     if missing:
         msg = f"missing source asset(s) under img/source/: {', '.join(missing)}"
         if strict:
@@ -414,15 +414,15 @@ def run(strict: bool = False) -> list[str]:
         log.append(f"WARNING: {msg}")
 
     jobs = [
-        ("fdox-talk-step1-fdo-encapsulation", _build_step1, -4, 20,
+        ("fdox-steps-1-fdo-encapsulation", _build_step1, -4, 20,
          [] if missing else [_STEP1_RASTER]),
-        ("fdox-talk-step1-fdo-encapsulation-ciic81", _build_step1_ciic, -4, 20,
+        ("fdox-steps-1-fdo-encapsulation-ciic81", _build_step1_ciic, -4, 20,
          [] if missing else [_STEP1_RASTER_CIIC]),
-        ("fdox-talk-step2-semantic-metadata", _build_step2, 0, 0, []),
-        ("fdox-talk-step3-linking-hubs", _build_step3, 32, 4,
+        ("fdox-steps-2-semantic-metadata", _build_step2, 0, 0, []),
+        ("fdox-steps-3-linking-hubs", _build_step3, 32, 4,
          [] if missing else [dict(x=560-210, y=500-210, w=420, h=420,
-                                   asset="talk-ciic81-preview.png", circular=True)]),
-        ("fdox-talk-step4-federated-kg", _build_step4, 0, 0,
+                                   asset="ciic81-preview.png", circular=True)]),
+        ("fdox-steps-4-federated-kg", _build_step4, 0, 0,
          [] if missing else [_STEP4_RASTER]),
     ]
 

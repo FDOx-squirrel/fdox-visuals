@@ -27,7 +27,7 @@ Produces (all new, none replaces an existing graphic):
   img/fdox-git-packager-four-steps.svg/.png       banner, transparent (A4)
   img/fdox-git-packager-step-<n>-<slug>.svg/.png  four badges, transparent
   img/fdox-talk-git-packager-step<n>-<slug>.svg/.png  four 7:4 slides, white (S8)
-  img/fdox-talk-git-packager-actions.svg/.png     GitHub Actions swimlane, white
+  img/fdox-git-packager-actions.svg/.png     GitHub Actions swimlane, white
 
 One brand colour on purpose (S7 precedent), so none of this is mistaken for the
 four-colour FDOx pattern of S2, whose steps 1-4 mean something else.
@@ -679,11 +679,11 @@ def _build_actions_svg() -> str:
 # --------------------------------------------------------------------- run --
 
 SLIDES = [
-    ("fdox-talk-git-packager-step1-fetch", _build_slide_fetch),
-    ("fdox-talk-git-packager-step2-inspect", _build_slide_inspect),
-    ("fdox-talk-git-packager-step3-package", _build_slide_package),
-    ("fdox-talk-git-packager-step4-build", _build_slide_build),
-    ("fdox-talk-git-packager-actions", _build_actions_svg),
+    ("fdox-git-packager-1-fetch", _build_slide_fetch),
+    ("fdox-git-packager-2-inspect", _build_slide_inspect),
+    ("fdox-git-packager-3-package", _build_slide_package),
+    ("fdox-git-packager-4-build", _build_slide_build),
+    ("fdox-git-packager-actions", _build_actions_svg),
 ]
 
 

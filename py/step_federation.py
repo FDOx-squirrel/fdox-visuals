@@ -4,9 +4,9 @@ Three 7:4 talk slides (white, S8 convention) for the ArcheoFOSS 2026 talk
 ("From Fragmented Objects to Federated Knowledge"): what happens to the
 *finished* FDOs, 3D and software alike, once they leave the packagers.
 
-  img/fdox-talk-federation-path.svg/.png             FDO -> Zenodo -> Registry -> N4O KG -> ecosystem
-  img/fdox-talk-federation-catalogue.svg/.png        one catalogue, two kinds of FDO (real table)
-  img/fdox-talk-federation-shared-concepts.svg/.png  what the graph links, and what it does not (real query)
+  img/fdox-federation-path.svg/.png             FDO -> Zenodo -> Registry -> N4O KG -> ecosystem
+  img/fdox-federation-catalogue.svg/.png        one catalogue, two kinds of FDO (real table)
+  img/fdox-federation-shared-concepts.svg/.png  what the graph links, and what it does not (real query)
 
 Nothing here is invented. Values come from the repositories as read on
 2026-11-05 (shallow clones, `FDOx-squirrel/fdo-squirrel-registry` at
@@ -388,9 +388,9 @@ def _build_shared() -> str:
 # --------------------------------------------------------------------- run --
 
 SLIDES = [
-    ("fdox-talk-federation-path", _build_path),
-    ("fdox-talk-federation-catalogue", _build_catalogue),
-    ("fdox-talk-federation-shared-concepts", _build_shared),
+    ("fdox-federation-path", _build_path),
+    ("fdox-federation-catalogue", _build_catalogue),
+    ("fdox-federation-shared-concepts", _build_shared),
 ]
 
 

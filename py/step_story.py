@@ -4,10 +4,10 @@ Four 7:4 talk slides (white, S8 convention) that tie the 3D story of "From
 Smartphone 3D to Federated Knowledge Graphs" to the software story of the
 ArcheoFOSS 2026 talk:
 
-  fdox-talk-story-fkge-map              the FKGE (FDO-driven / LOD-driven) with the four FDOx steps as the bridge
-  fdox-talk-story-two-roads-unicorn     two roads, one bundle: CIIC 81 (3D) and the SPARQLing Unicorn plugin (software, planned)
-  fdox-talk-story-two-roads-extractor   two roads, one bundle: CIIC 81 (3D) and the Ogham 3D EpiDoc Extractor (software, finished)
-  fdox-talk-story-squilly-graph         a drawn nut-and-string graph next to the real registry graph
+  fdox-story-fkge-map              the FKGE (FDO-driven / LOD-driven) with the four FDOx steps as the bridge
+  fdox-story-two-roads-unicorn     two roads, one bundle: CIIC 81 (3D) and the SPARQLing Unicorn plugin (software, planned)
+  fdox-story-two-roads-extractor   two roads, one bundle: CIIC 81 (3D) and the Ogham 3D EpiDoc Extractor (software, finished)
+  fdox-story-squilly-graph         a drawn nut-and-string graph next to the real registry graph
 
 Sources, all read on 2026-11-05:
   * FKGE columns and terms: the author's FKGE diagram (Thiery & Noback, CC BY 4.0),
@@ -300,10 +300,10 @@ def _build_squilly() -> str:
 # --------------------------------------------------------------------- run --
 
 SLIDES = [
-    ("fdox-talk-story-fkge-map", _build_fkge_map),
-    ("fdox-talk-story-two-roads-unicorn", lambda: _build_two_roads("unicorn")),
-    ("fdox-talk-story-two-roads-extractor", lambda: _build_two_roads("extractor")),
-    ("fdox-talk-story-squilly-graph", _build_squilly),
+    ("fdox-story-fkge-map", _build_fkge_map),
+    ("fdox-story-two-roads-unicorn", lambda: _build_two_roads("unicorn")),
+    ("fdox-story-two-roads-extractor", lambda: _build_two_roads("extractor")),
+    ("fdox-story-squilly-graph", _build_squilly),
 ]
 
 

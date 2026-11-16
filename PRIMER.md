@@ -275,7 +275,8 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S14 | Themenordner `img/<kategorie>/` und GitHub-Pages-Seite `docs/` (Skill figure-pages-site, FDOx-Blau) | fdox-visuals | S1–S13 | Entwurf 2026-11-05, wartet auf Abnahme |
 | S15 | Story-Folien: FKGE-Landkarte, "Zwei Straßen, ein Bündel" (CIIC 81 + Unicorn / + Extractor), Squilly-Graph; Schritt 1 zusätzlich mit CIIC 81 | fdox-visuals | S1, S8, S11–S14 | Entwurf 2026-11-05, wartet auf Abnahme |
 | S16 | RO-Crate und Signposting in den Grafiken: Architekturdiagramm (S4) erweitert, neue Grafik "ein Bundle, drei Sichten", RO-Crate- und RDF-Logo | fdox-visuals | S4, `fdo-squirrel` v1.1.0 | fertig, committet 2026-11-16 (2e573e6) |
-| S17 | Bilder-Pool: Seitenstruktur (Gruppen, Titel ohne "Talk:", "Concept" statt "Draft"), Kreuzungen in Graphen beseitigt, RO-Crate in Schritt 1 | fdox-visuals | S11–S16 | Entwurf 2026-11-16, wartet auf Abnahme |
+| S17 | Bilder-Pool: Seitenstruktur (Gruppen, Titel ohne "Talk:", "Concept" statt "Draft"), Kreuzungen in Graphen beseitigt, RO-Crate in Schritt 1 | fdox-visuals | S11–S16 | fertig, committet 2026-11-16 (ca3f1f0) |
+| S18 | Lebendige Galerie: neutrale Namen ohne "talk", Piktogramme auf eigene Unterseiten, kein Nutzungshinweis | fdox-visuals | S14, S17 | Entwurf 2026-11-16, wartet auf Abnahme |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -1153,6 +1154,90 @@ Navigation zeigt Gruppen; nur `git-packager` und `two-roads-unicorn` tragen "Con
 Gerendert und angesehen. **Offen:** Flos Sichtabnahme; ob "Concept" für genau
 diese Grafiken stimmt; die Squilly-Grafik (CIIC 81 und Thiery laufen auf einen
 Punkt zu, kreuzen sich aber nicht) blieb unverändert.
+
+---
+
+## S18 — Lebendige Galerie: neutrale Namen, Piktogramme eigene Seiten
+
+**Ziel:** das Repository ist eine lebendige Galerie, aus der man sich für Vorträge,
+Papers und Software-Dokumentation bedient; Namen und Kategorien beschreiben den Inhalt,
+nicht den Verwendungszweck. Flos Auftrag: "talk" aus Namen, Ordnern und Seiten entfernen
+(nirgends aktiv eingebunden, also frei umbenennbar), "How to use" von der Startseite
+entfernen, die Piktogramme je in eine eigene Unterseite.
+
+**Umfang:**
+- Umbenennung nach der Tabelle unten (Dateien, Ordner, Kategorien, Seiten, Skripte,
+  Schritt-Schlüssel); Quell-Screenshots `img/source/talk-*` heißen jetzt ohne Präfix.
+- Neue Kategorien `pictograms` (acht Piktogramme der Schritte und Outcomes) und
+  `git-packager-pictograms` (vier Piktogramme); `pattern` enthält nur noch die zwei Banner,
+  `git-packager` die Walkthrough-Grafiken und den Swimlane.
+- `category_of()` nimmt das längste passende Präfix (vorher das erste).
+- Startseite ohne Nutzungshinweis; Navigation und Startseite haben dieselbe Reihenfolge
+  (Gruppen und Kategorien aus `CATEGORIES`); `step_site` löscht nicht mehr gebaute
+  Seiten in `docs/visuals/`.
+- `migrate_names.py` (einmalig, nicht ins Repository): verschiebt per `git mv`, damit die
+  Historie mitgeht und kein PNG neu gerendert werden muss.
+
+**Abnahme:** nach `python migrate_names.py && python main.py --only site` zeigen alle
+Seiten dieselbe Navigation, das Menü der Unterseiten stimmt mit der Startseite überein, und
+`git status` zeigt nur Umbenennungen (Dateiinhalt unverändert) plus die geänderten Seiten.
+
+### Entwurf 2026-11-16
+
+Auf der Sandbox-Kopie ausgeführt: die SVGs aller umbenannten Grafiken sind nach dem
+Verschieben bytegleich zu einem Neuaufbau (Ausnahme: zwei Story-SVGs unterscheiden sich nur
+in Gleitkommastellen, `422.27` statt `422.27000000000004`). **Offen:** Flos Sichtabnahme.
+
+**Umbenennungen** (ältere Abschnitte dieses Dokuments nennen noch die alten Namen; die Tabelle übersetzt):
+
+| alt | neu |
+|---|---|
+| `img/talk-closing/fdox-talk-closing-a-sphere` | `img/sphere/fdox-sphere-badges` |
+| `img/talk-closing/fdox-talk-closing-b-hubs` | `img/sphere/fdox-sphere-hubs` |
+| `img/talk-process/fdox-talk-step1-fdo-encapsulation` | `img/steps/fdox-steps-1-fdo-encapsulation` |
+| `img/talk-process/fdox-talk-step1-fdo-encapsulation-ciic81` | `img/steps/fdox-steps-1-fdo-encapsulation-ciic81` |
+| `img/talk-process/fdox-talk-step2-semantic-metadata` | `img/steps/fdox-steps-2-semantic-metadata` |
+| `img/talk-process/fdox-talk-step3-linking-hubs` | `img/steps/fdox-steps-3-linking-hubs` |
+| `img/talk-process/fdox-talk-step4-federated-kg` | `img/steps/fdox-steps-4-federated-kg` |
+| `img/talk-purpose/fdox-talk-purpose1-fair-citable` | `img/outcomes/fdox-outcomes-1-fair-citable` |
+| `img/talk-purpose/fdox-talk-purpose2-semantically-queryable` | `img/outcomes/fdox-outcomes-2-semantically-queryable` |
+| `img/talk-purpose/fdox-talk-purpose3-interoperable` | `img/outcomes/fdox-outcomes-3-interoperable` |
+| `img/talk-purpose/fdox-talk-purpose4-integrable` | `img/outcomes/fdox-outcomes-4-integrable` |
+| `img/story/fdox-talk-story-fkge-map` | `img/story/fdox-story-fkge-map` |
+| `img/story/fdox-talk-story-two-roads-unicorn` | `img/story/fdox-story-two-roads-unicorn` |
+| `img/story/fdox-talk-story-two-roads-extractor` | `img/story/fdox-story-two-roads-extractor` |
+| `img/story/fdox-talk-story-squilly-graph` | `img/story/fdox-story-squilly-graph` |
+| `img/git-packager/fdox-talk-git-packager-step1-fetch` | `img/git-packager/fdox-git-packager-1-fetch` |
+| `img/git-packager/fdox-talk-git-packager-step2-inspect` | `img/git-packager/fdox-git-packager-2-inspect` |
+| `img/git-packager/fdox-talk-git-packager-step3-package` | `img/git-packager/fdox-git-packager-3-package` |
+| `img/git-packager/fdox-talk-git-packager-step4-build` | `img/git-packager/fdox-git-packager-4-build` |
+| `img/git-packager/fdox-talk-git-packager-actions` | `img/git-packager/fdox-git-packager-actions` |
+| `img/federation/fdox-talk-federation-path` | `img/federation/fdox-federation-path` |
+| `img/federation/fdox-talk-federation-catalogue` | `img/federation/fdox-federation-catalogue` |
+| `img/federation/fdox-talk-federation-shared-concepts` | `img/federation/fdox-federation-shared-concepts` |
+| `img/ogham-graph/fdox-talk-ogham-graph-cluster` | `img/ogham-graph/fdox-ogham-graph-cluster` |
+| `img/ogham-graph/fdox-talk-ogham-graph-object` | `img/ogham-graph/fdox-ogham-graph-object` |
+| `img/ogham-graph/fdox-talk-ogham-graph-registry` | `img/ogham-graph/fdox-ogham-graph-registry` |
+| `img/pattern/fdox-step-1-fdo-encapsulation` | `img/pictograms/fdox-step-1-fdo-encapsulation` |
+| `img/pattern/fdox-step-2-semantic-paradata-modelling` | `img/pictograms/fdox-step-2-semantic-paradata-modelling` |
+| `img/pattern/fdox-step-3-linking-community-hubs` | `img/pictograms/fdox-step-3-linking-community-hubs` |
+| `img/pattern/fdox-step-4-federated-kg-integration` | `img/pictograms/fdox-step-4-federated-kg-integration` |
+| `img/pattern/fdox-purpose-1-fair-citable` | `img/pictograms/fdox-purpose-1-fair-citable` |
+| `img/pattern/fdox-purpose-2-semantically-queryable` | `img/pictograms/fdox-purpose-2-semantically-queryable` |
+| `img/pattern/fdox-purpose-3-interoperable` | `img/pictograms/fdox-purpose-3-interoperable` |
+| `img/pattern/fdox-purpose-4-integrable` | `img/pictograms/fdox-purpose-4-integrable` |
+| `img/git-packager/fdox-git-packager-step-1-pin` | `img/git-packager-pictograms/fdox-git-packager-step-1-pin` |
+| `img/git-packager/fdox-git-packager-step-2-inspect` | `img/git-packager-pictograms/fdox-git-packager-step-2-inspect` |
+| `img/git-packager/fdox-git-packager-step-3-package` | `img/git-packager-pictograms/fdox-git-packager-step-3-package` |
+| `img/git-packager/fdox-git-packager-step-4-build` | `img/git-packager-pictograms/fdox-git-packager-step-4-build` |
+| `img/source/talk-sketchfab-freshford.png` | `img/source/sketchfab-freshford.png` |
+| `img/source/talk-sketchfab-ciic81.png` | `img/source/sketchfab-ciic81.png` |
+| `img/source/talk-registry-screenshot.png` | `img/source/registry-screenshot.png` |
+| `img/source/talk-ciic81-preview.png` | `img/source/ciic81-preview.png` |
+| `py/step_talk_process.py`, Schritt `talk-process` | `py/step_steps.py`, Schritt `steps` |
+| `py/step_talk_purpose.py`, Schritt `talk-purpose` | `py/step_outcomes.py`, Schritt `outcomes` |
+| `py/step_talk_closing.py`, Schritt `talk-closing` | `py/step_sphere.py`, Schritt `sphere` |
+| `docs/visuals/talk-process.html`, `talk-purpose.html`, `talk-closing.html` | `steps.html`, `outcomes.html`, `sphere.html` |
 ---
 
 # Teil D — Offene Punkte

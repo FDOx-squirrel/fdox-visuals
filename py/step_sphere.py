@@ -14,10 +14,10 @@ not a table describing one. Two variants:
 
 Produces (white background, no header/footer/title -- same A4-departure
 rationale as S8/S9: single image on a slide, not a composited banner):
-  img/fdox-talk-closing-a-sphere.svg / .png
-  img/fdox-talk-closing-b-hubs.svg / .png
+  img/fdox-sphere-badges.svg / .png
+  img/fdox-sphere-hubs.svg / .png
 
-Runnable standalone: `python py/step_talk_closing.py`
+Runnable standalone: `python py/step_sphere.py`
 """
 
 from __future__ import annotations
@@ -228,8 +228,8 @@ def run(strict: bool = False) -> list[str]:
     log: list[str] = []
 
     for name, build_fn in [
-        ("fdox-talk-closing-a-sphere", _build_variant_a),
-        ("fdox-talk-closing-b-hubs", _build_variant_b),
+        ("fdox-sphere-badges", _build_variant_a),
+        ("fdox-sphere-hubs", _build_variant_b),
     ]:
         svg_path = img_path(f"{name}.svg")
         svg_path.write_text(build_fn(), encoding="utf-8")

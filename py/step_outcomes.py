@@ -9,17 +9,17 @@ icon+description. Built for the FAIR 3D Heritage Conference talk (Mainz,
 
 Produces (white background, see S8 docstring for why that differs from
 the transparent-icon convention elsewhere in this repo):
-  img/fdox-talk-purpose1-fair-citable.png
-  img/fdox-talk-purpose2-semantically-queryable.png
-  img/fdox-talk-purpose3-interoperable.png
-  img/fdox-talk-purpose4-integrable.png
+  img/fdox-outcomes-1-fair-citable.png
+  img/fdox-outcomes-2-semantically-queryable.png
+  img/fdox-outcomes-3-interoperable.png
+  img/fdox-outcomes-4-integrable.png
 
 Deliberately screenshot-free (Flo, 2026-09-09: "eher eine eigene Grafik...
 den Reviewern gerecht wird" -- after S8-style Sketchfab/registry crops
 were tried for two of these and felt like a step backwards here): every
 one of the four is hand-drawn SVG from real values, nothing composited.
 
-Runnable standalone: `python py/step_talk_purpose.py`
+Runnable standalone: `python py/step_outcomes.py`
 """
 
 from __future__ import annotations
@@ -535,10 +535,10 @@ def run(strict: bool = False) -> list[str]:
     log: list[str] = []
 
     jobs = [
-        ("fdox-talk-purpose1-fair-citable", _build_purpose1, 36, 0),
-        ("fdox-talk-purpose2-semantically-queryable", _build_purpose2, 0, 0),
-        ("fdox-talk-purpose3-interoperable", _build_purpose3, 23, 0),
-        ("fdox-talk-purpose4-integrable", _build_purpose4, -15, 60),
+        ("fdox-outcomes-1-fair-citable", _build_purpose1, 36, 0),
+        ("fdox-outcomes-2-semantically-queryable", _build_purpose2, 0, 0),
+        ("fdox-outcomes-3-interoperable", _build_purpose3, 23, 0),
+        ("fdox-outcomes-4-integrable", _build_purpose4, -15, 60),
     ]
     for name, build_fn, hshift, vshift in jobs:
         w, h = _render_fixed(name, build_fn, hshift, vshift)

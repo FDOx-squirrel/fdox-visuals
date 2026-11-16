@@ -26,20 +26,20 @@ sys.path.insert(0, str(ROOT / "py"))
 
 # (id, description, module name under py/)
 STEPS = [
-    ("pattern", "Four-step documentation pattern banner + 4 icon badges", "step_pattern"),
-    ("purpose", "FDOx purpose banner ('What does FDOx do?') + 4 icon badges", "step_purpose"),
+    ("pattern", "Four-step documentation pattern banner + 4 pictograms", "step_pattern"),
+    ("purpose", "FDOx purpose banner ('What does FDOx do?') + 4 pictograms", "step_purpose"),
     ("fdo-meta", "FAIR Digital Object meta-graphic (Data/Metadata/PID) + standalone sphere", "step_fdo_meta"),
     ("architecture", "fdo-squirrel architecture diagram", "step_architecture"),
     ("bundle-views", "One bundle, three views: TTL, RO-Crate, Signposting landing page", "step_bundle_views"),
     ("md-cff-schema", "MD.cff schema class diagram", "step_md_cff_schema"),
     ("citation-cff-schema", "CITATION.cff schema diagram", "step_citation_cff_schema"),
-    ("talk-process", "Talk slides: the four-step pattern, one real slide each", "step_talk_process"),
-    ("talk-purpose", "Talk slides: the four-outcome pattern, one real slide each", "step_talk_purpose"),
-    ("talk-closing", "Talk closing slide: all eight badges as a ring around the FDO sphere (2 variants)", "step_talk_closing"),
-    ("git-packager", "fdo-git-packager concept: four-step banner + GitHub Actions swimlane slide", "step_git_packager"),
-    ("federation", "finished 3D and software FDOs in the federated KG ecosystem: three talk slides", "step_federation"),
-    ("ogham-graph", "real graph pictures of Ogham 3D FDOs and the software that works on them: three talk slides", "step_ogham_graph"),
-    ("story", "talk slides: from the federated KG ecosystem to FDOx, for 3D models and software", "step_story"),
+    ("steps", "The four steps in practice: one graphic per step with real CIIC 81 values", "step_steps"),
+    ("outcomes", "The four outcomes in practice: one graphic per outcome with real registry values", "step_outcomes"),
+    ("sphere", "The FDO sphere with all eight pictograms as a ring (2 variants)", "step_sphere"),
+    ("git-packager", "fdo-git-packager concept: four-step banner, walkthrough graphics and GitHub Actions swimlane", "step_git_packager"),
+    ("federation", "finished 3D and software FDOs in the federated KG ecosystem: three graphics", "step_federation"),
+    ("ogham-graph", "real graph pictures of Ogham 3D FDOs and the software that works on them: three graphics", "step_ogham_graph"),
+    ("story", "from the federated KG ecosystem to FDOx, for 3D models and software", "step_story"),
     ("site", "GitHub Pages site (docs/): overview and one page per category, built from img/", "step_site"),
 ]
 
