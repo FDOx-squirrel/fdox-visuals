@@ -280,7 +280,8 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S19 | Graph-Bilder ohne Header/Footer, transparent und eng beschnitten; sechs Piktogramme für fdo-3d-packager | fdox-visuals | S13, S15, S18 | fertig, committet 2026-11-16 (f857e27) |
 | S20 | 3D-Packager-Piktogramme in Step 1 und in den "two roads"-Bildern eingebunden statt Textboxen | fdox-visuals | S8, S15, S19 | fertig, committet 2026-11-16 |
 | S21 | Keine Versionsangabe des fdo-3d-packager mehr in den Grafiken | fdox-visuals | S20 | fertig, committet 2026-11-16 (9e65a72) |
-| S22 | Urheberzeile der Doku: "Florian Thiery, Research Squirrel Engineers Network / LEIZA" | fdox-visuals | S14 | Entwurf 2026-11-16, wartet auf Abnahme |
+| S22 | Urheberzeile der Doku: "Florian Thiery, Research Squirrel Engineers Network / LEIZA" | fdox-visuals | S14 | fertig, committet 2026-11-16 (67bfc23) |
+| S23 | Affiliation in `CITATION.cff` angeglichen | fdox-visuals | S22 | Entwurf 2026-11-16, wartet auf Abnahme |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -1377,3 +1378,10 @@ Flo: in der Doku (GitHub Pages) soll überall "Florian Thiery, Research Squirrel
 Network / LEIZA" stehen statt "Florian Thiery, LEIZA". Geändert: `site_meta.CREDIT_BASE`, die
 einzige Stelle, die die Zeile unter jeder Grafik erzeugt. **Abnahme:** `python main.py --only site`;
 jede Karte endet auf "(Florian Thiery, Research Squirrel Engineers Network / LEIZA). Code: MIT licence."
+
+## S23 — Affiliation in CITATION.cff
+
+Flo: wie die Urheberzeile der Doku (S22). `CITATION.cff` nennt jetzt "Research Squirrel Engineers
+Network / Leibniz-Zentrum für Archäologie (LEIZA)" als Affiliation (CFF kennt dafür ein einzelnes
+Textfeld). **Abnahme:** die Datei ist gültiges CFF 1.2.0 (z. B. `cffconvert --validate`, falls
+installiert); GitHub zeigt unter "Cite this repository" die neue Affiliation.

@@ -6,7 +6,7 @@ authors:
   - family-names: Thiery
     given-names: Florian
     orcid: "https://orcid.org/0000-0002-3246-3531"
-    affiliation: "Leibniz-Zentrum für Archäologie (LEIZA)"
+    affiliation: "Research Squirrel Engineers Network / Leibniz-Zentrum für Archäologie (LEIZA)"
 repository-code: "https://github.com/FDOx-squirrel/fdox-visuals"
 license: MIT
 keywords:
