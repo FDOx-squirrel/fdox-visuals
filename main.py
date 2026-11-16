@@ -30,6 +30,7 @@ STEPS = [
     ("purpose", "FDOx purpose banner ('What does FDOx do?') + 4 icon badges", "step_purpose"),
     ("fdo-meta", "FAIR Digital Object meta-graphic (Data/Metadata/PID) + standalone sphere", "step_fdo_meta"),
     ("architecture", "fdo-squirrel architecture diagram", "step_architecture"),
+    ("bundle-views", "One bundle, three views: TTL, RO-Crate, Signposting landing page", "step_bundle_views"),
     ("md-cff-schema", "MD.cff schema class diagram", "step_md_cff_schema"),
     ("citation-cff-schema", "CITATION.cff schema diagram", "step_citation_cff_schema"),
     ("talk-process", "Talk slides: the four-step pattern, one real slide each", "step_talk_process"),

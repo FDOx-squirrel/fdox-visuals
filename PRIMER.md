@@ -235,6 +235,9 @@ Eigenschaften, an denen sich ein Rebuild messen lassen muss:
 | Ordner in `img/` | **acht Themenordner**: `pattern`, `schemas`, `talk-process`, `talk-purpose`, `talk-closing`, `git-packager`, `federation`, `ogham-graph`; Zuordnung über den Dateinamen (`CATEGORIES` in `visuals_utils.py`); SVGs verweisen deshalb mit `../../fonts` auf die Schrift. `img/source/` bleibt | 2026-11-05 |
 | Website | GitHub Pages aus `main`/`docs`, statisches HTML (kein Jekyll-Build, `.nojekyll`), Layout des Skills `figure-pages-site` mit Akzent FDOx-Blau; S11–S13 öffentlich mit Hinweis "Draft, as of 2026-11-05" | 2026-11-05 |
 | Transparenter Rand | **maximal 10px** um jede Grafik, für alle sechs PNGs einheitlich — per `trim_transparent_border()` auf Pixelebene zugeschnitten (Alphakanal-Bounding-Box + fester Rand), nicht per geschätztem Design-Koordinaten-Abstand. Grund für den Pixel-Ansatz statt Geometrie-Rechnung: Schritt 4s Titeltext reicht nachweislich über den Icon-Kreis hinaus (siehe A1, neuer Befund) — eine Design-Koordinaten-Schätzung hätte das riskiert abzuschneiden | 2026-09-08 |
+| RO-Crate und Signposting in den Grafiken (S16) | Architekturdiagramm (S4) um die Zeile "Signposting & RO-Crate" und eine Ausgabebox ergänzt; dabei die veraltete Angabe "Mermaid → JPG" auf PNG korrigiert (`fdo-squirrel` S19). Neue Grafik `fdox-bundle-three-views` (Kategorie `schemas`, Schritt `bundle-views`): ein Bundle, drei Sichten (TTL verlustfrei, RO-Crate, Landing Page). Flos Entscheidung im Dialog | 2026-11-16 |
+| RO-Crate-Logo (S16) | Eingebunden ist das Logo der RO-Crate Community (Lizenz CC BY 4.0, laut Flo), Datei `img/source/ro-crate-logo.png` (auf 400 × 400 Pixel verkleinert, sonst unverändert; Original 1920 × 1920). Quelle, Lizenz und Änderung stehen in `img/source/NOTICE.md`. CC BY verlangt Namensnennung: die Grafik trägt sie selbst ("RO-Crate logo: RO-Crate Community, CC BY 4.0"), ebenso ihre Bildunterschrift auf der Seite. `ro_crate_logo()` nimmt zuerst eine `ro-crate-logo.svg`, falls jemand eine ablegt, sonst das PNG; fehlt beides, steht ein Textpill "RO-Crate" an der Stelle und der Lauf bleibt auch unter `--strict` ohne Fehler | 2026-11-16 |
+| Entwurfsfolien S11/S12 bleiben unverändert (S16) | `fdox-talk-federation-*` und `fdox-talk-git-packager-*` nennen `fdo-metadata.ttl` als Beleg bzw. als Inhalt der bestehenden Zenodo-Records; diese Records (`fdo-squirrel` v1.0.x) haben kein Crate. RO-Crate dort erst aufnehmen, wenn die Registry Crate-Bundles führt. Claude-Vorschlag, von Flo noch zu bestätigen | 2026-11-16, Vorschlag |
 
 ## A5. Was in welchem Chat hochgeladen wird
 
@@ -268,6 +271,7 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S13 | Echte Graphbilder: Ogham-3D-FDOs, Software, Registry als Graph (drei Folien) | fdox-visuals | S1, S12 | Entwurf 2026-11-05, wartet auf Abnahme |
 | S14 | Themenordner `img/<kategorie>/` und GitHub-Pages-Seite `docs/` (Skill figure-pages-site, FDOx-Blau) | fdox-visuals | S1–S13 | Entwurf 2026-11-05, wartet auf Abnahme |
 | S15 | Story-Folien: FKGE-Landkarte, "Zwei Straßen, ein Bündel" (CIIC 81 + Unicorn / + Extractor), Squilly-Graph; Schritt 1 zusätzlich mit CIIC 81 | fdox-visuals | S1, S8, S11–S14 | Entwurf 2026-11-05, wartet auf Abnahme |
+| S16 | RO-Crate und Signposting in den Grafiken: Architekturdiagramm (S4) erweitert, neue Grafik "ein Bundle, drei Sichten", RO-Crate-Logo | fdox-visuals | S4, `fdo-squirrel` v1.1.0 | Entwurf 2026-11-16, wartet auf Abnahme |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -1078,6 +1082,46 @@ Vorschaubild, vor Veröffentlichung klären.
 Sichtabnahme; Entscheidung, ob eine Paradata-Kette (Foto → Modell → Software →
 Analyse mit `prov:used`) modelliert wird (siehe S13).
 
+## S16 — RO-Crate und Signposting in den Grafiken
+
+**Ziel:** die Grafiken zeigen RO-Crate und die Landing Page als Teil dessen,
+was `fdo-squirrel` ab v1.1.0 standardmäßig ausgibt. Antworten von Flo: das
+Architekturdiagramm erweitern, eine neue Grafik "ein Bundle, drei Sichten"
+bauen, das offizielle Logo einbinden; wo RO-Crate Standardausgabe ist, bestehende
+Grafiken ergänzen, sonst neu.
+
+**Substanz.**
+- `py/step_architecture.py`: neue Prozesszeile `ROW_CRATE` ("Signposting &
+  RO-Crate", zwischen Overview und Bundle, wie in `fdo-squirrel`s `main.py`),
+  neue Ausgabebox (`ro-crate-metadata.json`, `fdo-landing-page.html`); "Mermaid →
+  JPG" korrigiert auf PNG. `OUTPUT_BOXES` hat jetzt fünf Einträge, die Kanten
+  verwenden deren Index.
+- `py/step_bundle_views.py` (Schritt `bundle-views`, Kategorie `schemas`):
+  `fdox-bundle-three-views.svg/.png`. Ein hohes Bundle-Kästchen, drei Karten (RDF:
+  `fdo-metadata.ttl`; RO-Crate: `ro-crate-metadata.json`; Signposting:
+  `fdo-landing-page.html`). Farben aus `STEPS`/`FDO_ACCENT`, kein eigenes Hex.
+- `py/visuals_utils.py`: Tabelle `LOGOS` (Schlüssel `rdf`, `ro-crate`; Dateistamm und
+  Nennungstext), `logo(key, ...)` bettet `img/source/<stem>.svg` (sonst `.png`) als
+  `data:`-URI ein, `logo_path(key)` sagt, ob eines da ist, `logo_credits()` liefert die
+  Nennungszeile der vorhandenen Logos; `ro_crate_logo*()` bleiben als Kurzformen;
+  `CATEGORIES` um das neue Präfix.
+- `img/source/ro-crate-logo.png`, `img/source/rdf-logo.svg`, `img/source/NOTICE.md`: die
+  Logos und ihr Hinweis (Autor, Lizenz, Änderung).
+- `py/site_meta.py`: Bildunterschriften für beide Grafiken; Architektur-
+  unterschrift nennt `fdo-squirrel` v1.2.0.
+
+**Abnahme:** `python main.py --only architecture`, `--only bundle-views` und
+`--only site` laufen; zwei Läufe liefern identische Dateien; die Seite zeigt
+beide Grafiken in der Kategorie "Schemas, architecture and meta graphic". Ohne
+Logo-Datei steht ein Textpill, mit Logo-Datei das Logo samt Nennung unter dem
+rechten Panel.
+
+### Entwurf 2026-11-16
+
+Wie oben, in der Sandbox gerendert und angesehen, jetzt mit dem echten RO-Crate-Logo
+und dem RDF-Logo (Flo hat beide Dateien geliefert; RDF: Bill Schwappacher / W3C,
+CC BY 4.0, laut Flo, unverändert als SVG). **Offen:** Flos Sichtabnahme.
+
 ---
 
 # Teil D — Offene Punkte
@@ -1144,3 +1188,15 @@ Analyse mit `prov:used`) modelliert wird (siehe S13).
   Zeitpunkt schon fertig und wurde nicht mehr nachgezogen. Nächster Anlass
   zum Anfassen von `step_talk_purpose.py`: `_edge_label()` entfernen, Import
   aus `visuals_utils` stattdessen.
+- **S16: Logo-Lizenz.** Beide Logos sind laut Flo CC BY 4.0 (RO-Crate Community; RDF: Bill Schwappacher / W3C). Beim RDF-Logo ist `W3C` im Namen: die W3C-Logo-Regeln (nicht verändern, keine Billigung andeuten) werden eingehalten, aber die Lizenzangabe ist nicht aus einer Quelle belegt.
+  Die Lizenz steht nicht in der Datei selbst; Flo prüft sie bei Gelegenheit
+  auf der RO-Crate-Seite gegen und korrigiert `img/source/NOTICE.md`, falls sie
+  abweicht. Die Spezifikation steht unter Apache 2.0, das sagt nichts über das
+  Logo.
+- **S16: Volllauf ändert viele PNGs.** Ein `python main.py` ohne `--only` mit
+  einer anderen `resvg-py`-Version als der, mit der die committeten PNGs
+  entstanden, schreibt fast alle PNGs neu (in der Sandbox mit `resvg-py` 0.5.0
+  rund 90 Dateien). Für diesen Patch deshalb nur `--only architecture`,
+  `--only bundle-views`, `--only site`.
+- **S16: `fdo-squirrel/architecture.mermaid`** bleibt, wie schon nach S4,
+  unverändert (anderes Repo pro Chat, A3).

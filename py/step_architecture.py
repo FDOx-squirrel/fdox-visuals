@@ -3,8 +3,10 @@
 Redraws FDOx-squirrel/fdo-squirrel's `architecture.mermaid` in the
 fdox-visuals house style, and brings it up to date with the actual
 current `main.py` pipeline (see PRIMER.md A1 for the three stages the
-original diagram is missing: schema validation, the Mermaid/JPG overview
-step, and bundle finalisation).
+original diagram is missing: schema validation, the Mermaid overview
+step, and bundle finalisation). Updated 2026-11-16 (S16) for fdo-squirrel
+v1.1.0: the row "Signposting & RO-Crate" and its output box, and the
+overview image is a PNG since fdo-squirrel S19 (the box still said JPG).
 
 "Role classification" and "Crosswalk & Mapping Rules" are drawn side by
 side, not stacked, because that's what they actually are in main.py:
@@ -61,19 +63,20 @@ BOTTOM_PAD = 40    # last row's bottom -> panel bottom
 
 # --- process rows, top to bottom. Row 2 is a fork: two boxes side by
 # side instead of one, see module docstring. ---
-ROW_INGEST, ROW_VALIDATE, ROW_FORK, ROW_PROVENANCE, ROW_OVERVIEW, ROW_BUNDLE = range(6)
+ROW_INGEST, ROW_VALIDATE, ROW_FORK, ROW_PROVENANCE, ROW_OVERVIEW, ROW_CRATE, ROW_BUNDLE = range(7)
 
 SINGLE_ROWS = {
     ROW_INGEST: "Metadata ingest",
     ROW_VALIDATE: "Schema validation",
     ROW_PROVENANCE: "Provenance tracking",
-    ROW_OVERVIEW: "Overview diagram\nMermaid \u2192 JPG",
+    ROW_OVERVIEW: "Overview diagram\nMermaid \u2192 PNG",
+    ROW_CRATE: "Signposting & RO-Crate\nlanding page + crate metadata",
     ROW_BUNDLE: "Bundle finalisation",
 }
 FORK_LEFT = "Role classification\nZIP \u2192 Distribution"   # fed directly by Data/Software/Models
 FORK_RIGHT = "Crosswalk &\nMapping Rules"                    # fed by Schema validation
 
-N_ROWS = 6
+N_ROWS = 7
 
 # --- input column: (label, target process row) ---
 INPUT_BOXES = [
@@ -86,7 +89,8 @@ INPUT_BOXES = [
 OUTPUT_BOXES = [
     ("fdo-metadata.ttl\nDCAT + FDO + CIDOC CRM /\nCRMdig + GeoSPARQL", ROW_FORK),
     ("rdf_modelling_report\nJSON / HTML", ROW_PROVENANCE),
-    ("fdo_overview\nMermaid + JPG", ROW_OVERVIEW),
+    ("fdo_overview\nMermaid + PNG", ROW_OVERVIEW),
+    ("ro-crate-metadata.json\nfdo-landing-page.html\nRO-Crate 1.2 + FAIR Signposting", ROW_CRATE),
     ("<slug>-fdo-bundle.zip\nself-contained, republishable", ROW_BUNDLE),
 ]
 
@@ -232,17 +236,18 @@ def _build_svg() -> tuple[str, float, float]:
         (output_x, ttl_y + 14),
     ]))
 
-    # --- process tail (provenance -> overview -> bundle), full width ---
-    for a, b in [(ROW_PROVENANCE, ROW_OVERVIEW), (ROW_OVERVIEW, ROW_BUNDLE)]:
+    # --- process tail (provenance -> overview -> crate -> bundle), full width ---
+    for a, b in [(ROW_PROVENANCE, ROW_OVERVIEW), (ROW_OVERVIEW, ROW_CRATE), (ROW_CRATE, ROW_BUNDLE)]:
         ya = row_y(a) + ROW_H / 2
         yb = row_y(b) - ROW_H / 2
         parts.append(_arrow(cx, ya, cx, yb))
 
-    # --- provenance/overview/bundle -> their outputs ---
+    # --- provenance/overview/crate/bundle -> their outputs ---
     for src, y_out in [
         (ROW_PROVENANCE, row_y(OUTPUT_BOXES[1][1])),
         (ROW_OVERVIEW, row_y(OUTPUT_BOXES[2][1])),
-        (ROW_BUNDLE, row_y(OUTPUT_BOXES[3][1])),
+        (ROW_CRATE, row_y(OUTPUT_BOXES[3][1])),
+        (ROW_BUNDLE, row_y(OUTPUT_BOXES[4][1])),
     ]:
         parts.append(_arrow(process_x + PROCESS_BOX_W, row_y(src), output_x, y_out))
 

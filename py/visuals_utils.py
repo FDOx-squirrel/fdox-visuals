@@ -6,6 +6,9 @@ No step imports rdflib/matplotlib/pandas — this stays light on purpose so
 
 from __future__ import annotations
 
+import base64
+import re
+import struct
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,6 +34,7 @@ CATEGORIES = [
     {"slug": "schemas", "title": "Schemas, architecture and meta graphic",
      "desc": "The MD.cff and CITATION.cff schemas, the FDO-Squirrel architecture and the FDO meta graphic.",
      "prefixes": ["fdox-md-cff-schema", "fdox-citation-cff-schema", "fdox-fdo-squirrel-architecture",
+                  "fdox-bundle-three-views",
                   "fdox-fair-digital-object-meta-graphic", "fdox-fdo-sphere"]},
     {"slug": "talk-process", "title": "Talk slides: the process",
      "desc": "One slide for each of the four steps.", "prefixes": ["fdox-talk-step"]},
@@ -230,6 +234,75 @@ def flatten_to_jpg(png_path: Path, jpg_path: Path, quality: int = 95) -> None:
 # flowchart-like diagrams rather than the badge grids S2/S7 draw. Pure
 # string formatters, no heavy import, so they don't cost --list/--dry-run
 # anything (A2 in spirit: keep this module light).
+
+
+# Third-party logos used in the graphics (img/source/NOTICE.md says whose they
+# are and under which terms). Each is looked up as img/source/<stem>.svg, then
+# .png; fewer than all of them is fine, a text pill stands in for a missing one.
+LOGOS = {
+    "ro-crate": {"stem": "ro-crate-logo", "credit": "RO-Crate logo: RO-Crate Community, CC BY 4.0"},
+    "rdf": {"stem": "rdf-logo", "credit": "RDF logo: Bill Schwappacher / W3C, CC BY 4.0"},
+}
+RO_CRATE_LOGO_CREDIT = LOGOS["ro-crate"]["credit"]
+
+
+def logo_path(key: str) -> Path | None:
+    stem = LOGOS[key]["stem"]
+    for ext in (".svg", ".png"):
+        candidate = IMG_DIR / "source" / (stem + ext)
+        if candidate.exists():
+            return candidate
+    return None
+
+
+def logo_credits() -> str:
+    """The credit line for the logos that are actually present."""
+    return "  ·  ".join(LOGOS[k]["credit"] for k in LOGOS if logo_path(k) is not None)
+
+
+def _svg_ratio(head: str) -> float:
+    m = re.search(r'viewBox\s*=\s*"([-\d.eE]+)[ ,]+([-\d.eE]+)[ ,]+([-\d.eE]+)[ ,]+([-\d.eE]+)"', head)
+    if m and float(m.group(4)) > 0:
+        return float(m.group(3)) / float(m.group(4))
+    # no viewBox: fall back to the width and height attributes of the root element
+    root = re.search(r"<svg\b[^>]*>", head)
+    if root:
+        wm = re.search(r'\bwidth\s*=\s*"([\d.]+)', root.group(0))
+        hm = re.search(r'\bheight\s*=\s*"([\d.]+)', root.group(0))
+        if wm and hm and float(hm.group(1)) > 0:
+            return float(wm.group(1)) / float(hm.group(1))
+    return 1.0
+
+
+def logo(key: str, x: float, y: float, max_w: float, max_h: float) -> str:
+    """The logo as an <image> with an embedded data: URI, fitted into the
+    given box and centred in it; empty string if no logo file exists."""
+    path = logo_path(key)
+    if path is None:
+        return ""
+    raw = path.read_bytes()
+    if path.suffix.lower() == ".png":
+        mime = "image/png"
+        # IHDR: width and height are big-endian 32-bit ints at bytes 16-24
+        pw, ph = struct.unpack(">II", raw[16:24])
+        ratio = pw / ph if ph else 1.0
+    else:
+        mime = "image/svg+xml"
+        ratio = _svg_ratio(raw[:2000].decode("utf-8", errors="ignore"))
+    w, h = max_w, max_w / ratio
+    if h > max_h:
+        w, h = max_h * ratio, max_h
+    ix, iy = x + (max_w - w) / 2, y + (max_h - h) / 2
+    uri = f"data:{mime};base64," + base64.b64encode(raw).decode("ascii")
+    return f'<image x="{ix:.1f}" y="{iy:.1f}" width="{w:.1f}" height="{h:.1f}" xlink:href="{uri}"/>'
+
+
+def ro_crate_logo_path() -> Path | None:
+    return logo_path("ro-crate")
+
+
+def ro_crate_logo(x: float, y: float, max_w: float, max_h: float) -> str:
+    return logo("ro-crate", x, y, max_w, max_h)
 
 
 def arrow_marker(marker_id: str = "arrow", color: str = MUTED) -> str:
