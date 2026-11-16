@@ -60,6 +60,7 @@ from visuals_utils import (  # noqa: E402
     esc,
     font_face_css,
     render_svg_to_png,
+    write_tight_graphic,
 )
 
 TINT = STEPS[0]["tint"]
@@ -95,50 +96,9 @@ def _t(x, y, s, size, weight=400, fill=INK, anchor="start") -> str:
 def _open() -> list[str]:
     return [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
-        f'<rect x="0" y="0" width="{W}" height="{H}" fill="white"/>',
         font_face_css(),
         arrow_marker("arrow", MUTED),
     ]
-
-
-def _glyph_hub() -> str:
-    c = FDO_ACCENT
-    out = "".join(
-        f'<line x1="0" y1="0" x2="{x}" y2="{y}" stroke="{c}" stroke-width="6" stroke-linecap="round"/>'
-        for x, y in ((0, -56), (54, 30), (-54, 30))
-    )
-    out += "".join(f'<circle cx="{x}" cy="{y}" r="13" fill="{c}"/>' for x, y in ((0, -56), (54, 30), (-54, 30)))
-    return out + f'<circle cx="0" cy="0" r="17" fill="white" stroke="{c}" stroke-width="6"/>'
-
-
-def _glyph_stack() -> str:
-    c = FDO_ACCENT
-    out = ""
-    for dy in (-34, 0, 34):
-        out += f'<rect x="-52" y="{dy-14}" width="104" height="28" rx="8" fill="white" stroke="{c}" stroke-width="6"/>'
-        out += f'<circle cx="-34" cy="{dy}" r="5" fill="{c}"/>'
-    return out
-
-
-def _glyph_triple() -> str:
-    c = FDO_ACCENT
-    return (
-        f'<line x1="0" y1="-52" x2="-52" y2="38" stroke="{c}" stroke-width="6"/>'
-        f'<line x1="0" y1="-52" x2="52" y2="38" stroke="{c}" stroke-width="6"/>'
-        f'<line x1="-52" y1="38" x2="52" y2="38" stroke="{c}" stroke-width="6" stroke-dasharray="3 10" stroke-linecap="round"/>'
-        + "".join(f'<circle cx="{x}" cy="{y}" r="14" fill="{c}"/>' for x, y in ((0, -52), (-52, 38), (52, 38)))
-    )
-
-
-def _heading(glyph: str, title: str, sub: str) -> str:
-    """Badge top-left (S8 position and scale), no number: these are not steps."""
-    return (
-        f'<g transform="translate(175,165) scale(0.56)">'
-        f'<circle cx="0" cy="0" r="150" fill="{TINT}" stroke="{FDO_ACCENT}" stroke-width="7"/>'
-        f'<g transform="scale(1.05)">{glyph}</g></g>'
-        + _t(310, 150, title, 58, 700, FDO_ACCENT)
-        + _t(310, 202, sub, 30, 400, MUTED)
-    )
 
 
 def _box(x, y, w, h, rows, dashed=False, fill="white", stroke=FDO_ACCENT, center=False, pad=22) -> str:
@@ -173,15 +133,20 @@ def _tag(x, y, kind: str, dashed=False) -> str:
     )
 
 
-def _legend(note: str, extra: str = "") -> str:
-    ly = 880
-    return (
-        f'<rect x="60" y="{ly}" width="62" height="34" rx="9" fill="white" stroke="{FDO_ACCENT}" stroke-width="3.5"/>'
-        + _t(140, ly + 25, "exists, checked in the repositories", 22)
-        + f'<rect x="560" y="{ly}" width="62" height="34" rx="9" fill="white" stroke="{FDO_ACCENT}" '
+def _legend(extra: str = "pending or planned", solid: str = "exists, checked in the repositories", y: int = 880) -> str:
+    """Solid / dashed legend, one row. Notes and sources are not drawn: they are the site caption."""
+    out = ""
+    x = 60
+    if solid:
+        out += (
+            f'<rect x="{x}" y="{y}" width="62" height="34" rx="9" fill="white" stroke="{FDO_ACCENT}" stroke-width="3.5"/>'
+            + _t(x + 80, y + 25, solid, 22)
+        )
+        x = 560
+    return out + (
+        f'<rect x="{x}" y="{y}" width="62" height="34" rx="9" fill="white" stroke="{FDO_ACCENT}" '
         f'stroke-width="3.5" stroke-dasharray="14 9"/>'
-        + _t(640, ly + 25, extra or "pending or planned", 22)
-        + _t(60, 950, note, 19, 400, MUTED)
+        + _t(x + 80, y + 25, extra, 22)
     )
 
 
@@ -199,7 +164,6 @@ def _arrow(x1, y1, x2, y2) -> str:
 
 def _build_path() -> str:
     p = _open()
-    p.append(_heading(_glyph_hub(), "From packaged FDOs to the federated KG", "3D models and software take the same road"))
 
     # column 1: the finished FDOs
     p.append(_box(50, 300, 400, 540, [("Finished FDOs", 25, 700, INK)], pad=18))
@@ -217,8 +181,6 @@ def _build_path() -> str:
         p.append(_tag(80, y + 11, kind, dashed))
         p.append(_t(138, y + 34, title, 20, 400, INK))
         y += 56
-    p.append(_t(70, 785, "6 × 3D, 2 × SW in the registry;", 17, 400, MUTED))
-    p.append(_t(70, 807, "jupyter-nb-lod: via fdo-git-packager, planned", 17, 400, MUTED))
 
     cols = [
         (500, "Zenodo", ["one record per FDO,", "version DOI, bundle ZIP", "with fdo-metadata.ttl"], False),
@@ -247,14 +209,7 @@ def _build_path() -> str:
         y += 92
     p.append(_arrow(1316, 525, 1352, 525))
 
-
-    p.append(_t(500, 715, "Both kinds of FDO pass the same gates:", 21, 700, INK))
-    p.append(_t(500, 745, "the registry reads a 3DDataFDO and a SoftwareFDO with one pipeline;", 20, 400, INK))
-    p.append(_t(500, 773, "the KG only ever sees the registry’s CRM-anchored bundle.", 20, 400, INK))
-    p.append(_legend(
-        "Read 2026-11-05: fdo-squirrel-registry 253aee9 (release 2026-09-03), fdox-squirrel-n4o-collection 882a5f7 "
-        "(README status 2026-09-04).",
-        "pending or planned (N4O onboarding by VZG, jupyter-nb-lod)"))
+    p.append(_legend(extra="pending or planned (N4O onboarding by VZG, jupyter-nb-lod)", y=870))
     return _close(p)
 
 
@@ -263,7 +218,6 @@ def _build_path() -> str:
 
 def _build_catalogue() -> str:
     p = _open()
-    p.append(_heading(_glyph_stack(), "One catalogue, two kinds of FDO", "The registry’s own overview query lists them side by side"))
 
     x0, y0, rh = 60, 300, 56
     cols = [("Type", 60), ("FDO", 130), ("Licence", 590), ("Files", 880)]
@@ -288,17 +242,6 @@ def _build_catalogue() -> str:
         ("fdo:SoftwareFDO", 25, 700, INK),
         ("rdfs:subClassOf crmdig:D14_Software", 20, 400, MUTED),
     ]))
-    p.append(_box(1010, 475, 690, 220, [
-        ("Same query, same shape", 25, 700, INK),
-        (None, 8),
-        ("Every row is a dcat:Dataset with a licence and", 20, 400, MUTED),
-        ("distributions, whatever it describes. A model of a", 20, 400, MUTED),
-        ("stone and the code that extracts its inscription", 20, 400, MUTED),
-        ("are found, filtered and counted the same way.", 20, 400, MUTED),
-    ]))
-    p.append(_legend(
-        "Registry query “Every FDO with its type, licence and file count” (queries.yaml); values from registry-index.json. "
-        "A ninth pinned record has no fdo-metadata.ttl."))
     return _close(p)
 
 
@@ -307,7 +250,6 @@ def _build_catalogue() -> str:
 
 def _build_shared() -> str:
     p = _open()
-    p.append(_heading(_glyph_triple(), "What the graph links, and what it does not", "Registry query: Wikidata concepts that more than one FDO points at"))
 
     rx, rw, rh, gap, y0 = 60, 600, 54, 8, 270
     # Rows are ordered by membership (both concepts, Q22731 only, neither) so
@@ -360,28 +302,7 @@ def _build_shared() -> str:
     p.append(f'<line x1="{rx+rw}" y1="{cy}" x2="1090" y2="{cy}" stroke="{MUTED}" stroke-width="3" stroke-dasharray="10 8"/>')
     p.append(_box(1090, cy - 26, 200, 52, [("\u201cOgham Stone\u201d", 20, 400, MUTED)], dashed=True, stroke=MUTED, center=True))
 
-    p.append(_box(1330, 255, 370, 200, [
-        ("What this shows", 24, 700, INK),
-        (None, 6),
-        ("3D models and software share", 19, 400, MUTED),
-        ("concepts, so a query from one", 19, 400, MUTED),
-        ("finds the other: the extractor,", 19, 400, MUTED),
-        ("the analysis and two stones.", 19, 400, MUTED),
-    ]))
-    p.append(_box(1330, 490, 370, 240, [
-        ("What it does not", 24, 700, FDO_ACCENT),
-        (None, 6),
-        ("CHUIS/1 says “Ogham Stone” as text", 19, 400, MUTED),
-        ("only and is missing from Q2016147.", 19, 400, MUTED),
-        ("The Beuys stele and the Freshford", 19, 400, MUTED),
-        ("well share no concept with another", 19, 400, MUTED),
-        ("FDO. The query makes that visible.", 19, 400, MUTED),
-    ], dashed=True))
-    p.append(_t(60, 790, "Also shared: both software FDOs carry OSM relation 62273 as dct:spatial.", 21, 400, INK))
-    p.append(_legend(
-        "Registry query “Wikidata concepts that more than one FDO points at” (queries.yaml, shared-concepts), run on "
-        "dist/fdo-registry.ttl (7,793 triples), 2026-11-05.",
-        "free text, no concept IRI"))
+    p.append(_legend(extra="free text, no concept IRI", solid="", y=790))
     return _close(p)
 
 
@@ -394,24 +315,14 @@ SLIDES = [
 ]
 
 
-def _to_rgb(png_path: Path) -> None:
-    from PIL import Image  # lazy, same reasoning as visuals_utils
-
-    with Image.open(png_path) as im:
-        rgb = im.convert("RGB")
-    rgb.save(png_path)
-
-
 def run(strict: bool = False) -> list[str]:
     ensure_dirs()
     log: list[str] = []
     for name, build_fn in SLIDES:
         svg_path = img_path(f"{name}.svg")
-        svg_path.write_text(build_fn(), encoding="utf-8")
         png_path = svg_path.with_suffix(".png")
-        render_svg_to_png(svg_path, png_path, W * OVERSAMPLE, H * OVERSAMPLE)
-        _to_rgb(png_path)
-        log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent).as_posix()} + .png ({W*OVERSAMPLE}x{H*OVERSAMPLE}, white background)")
+        fw, fh = write_tight_graphic(build_fn(), svg_path, png_path, scale=OVERSAMPLE)
+        log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent).as_posix()} + .png ({fw}x{fh}, transparent, <=10px border)")
     return log
 
 

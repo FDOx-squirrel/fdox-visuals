@@ -276,7 +276,8 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S15 | Story-Folien: FKGE-Landkarte, "Zwei Straßen, ein Bündel" (CIIC 81 + Unicorn / + Extractor), Squilly-Graph; Schritt 1 zusätzlich mit CIIC 81 | fdox-visuals | S1, S8, S11–S14 | Entwurf 2026-11-05, wartet auf Abnahme |
 | S16 | RO-Crate und Signposting in den Grafiken: Architekturdiagramm (S4) erweitert, neue Grafik "ein Bundle, drei Sichten", RO-Crate- und RDF-Logo | fdox-visuals | S4, `fdo-squirrel` v1.1.0 | fertig, committet 2026-11-16 (2e573e6) |
 | S17 | Bilder-Pool: Seitenstruktur (Gruppen, Titel ohne "Talk:", "Concept" statt "Draft"), Kreuzungen in Graphen beseitigt, RO-Crate in Schritt 1 | fdox-visuals | S11–S16 | fertig, committet 2026-11-16 (ca3f1f0) |
-| S18 | Lebendige Galerie: neutrale Namen ohne "talk", Piktogramme auf eigene Unterseiten, kein Nutzungshinweis | fdox-visuals | S14, S17 | Entwurf 2026-11-16, wartet auf Abnahme |
+| S18 | Lebendige Galerie: neutrale Namen ohne "talk", Piktogramme auf eigene Unterseiten, kein Nutzungshinweis | fdox-visuals | S14, S17 | fertig, committet 2026-11-16 (1b8928b) |
+| S19 | Graph-Bilder ohne Header/Footer, transparent und eng beschnitten; sechs Piktogramme für fdo-3d-packager | fdox-visuals | S13, S15, S18 | Entwurf 2026-11-16, wartet auf Abnahme |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -1316,3 +1317,28 @@ in Gleitkommastellen, `422.27` statt `422.27000000000004`). **Offen:** Flos Sich
   `--only bundle-views`, `--only site`.
 - **S16: `fdo-squirrel/architecture.mermaid`** bleibt, wie schon nach S4,
   unverändert (anderes Repo pro Chat, A3).
+
+## S19 — Graph-Bilder wie die Schemas, Piktogramme für den 3D-Packager
+
+**Ziel:** die zehn Graph-Bilder (`ogham-graph` ×3, `federation` ×3, `story` ×4) sehen aus wie die
+übrigen Schemas: ohne Header (Icon, Titel, Untertitel), ohne Quellenzeile, ohne weißen
+7:4-Hintergrund, transparent und eng beschnitten (höchstens 10 px Rand). Flos Vorgabe: im Bild
+bleibt nur eine Legende, wenn sie sinnvoll ist; alle Notizen und Erklärungen gehören in die
+Bildunterschrift der Seite. Außerdem bekommt der 3D-Packager wie der Git-Packager Piktogramme.
+
+**Umfang:**
+- `visuals_utils.write_tight_graphic()`: rendert einmal, liest die Alpha-Hülle und schreibt SVG
+  (`viewBox`) und PNG auf denselben Inhaltsrahmen zu; die drei Schritte nutzen sie.
+- Notizboxen und Fußzeilen aus den Bildern entfernt (z. B. "What differs, what does not",
+  "What this shows"); ihr Wortlaut steht jetzt in `site_meta.CAPTIONS` (Bildunterschrift bzw.
+  Quellenzeile). Die Legende (Knotenarten, Linienstile, durchgezogen/gestrichelt) bleibt.
+- Neue Kategorie `3d-packager-pictograms` (Gruppe "3D models", Kürzel DP) mit sechs Piktogrammen
+  `fdox-3d-packager-step-{1-fetch,2-convert,3-nexus,4-mdcff,5-bundle,6-build-fdo}`; durchgezogener
+  Kreis (das Werkzeug existiert), Git-Packager bleibt gestrichelt (Skelett). Schritt `3d-packager`.
+
+**Bewusste Entscheidung:** der Katalog (`federation-catalogue`) behält die Klassenbox
+(`fdo:3DDataFDO` / `fdo:SoftwareFDO` mit CRMdig-Oberklasse) und die Summenzeile, weil sie Teil der
+Tabelle sind; nur die erklärende Box wanderte in die Bildunterschrift.
+
+**Abnahme:** `python main.py --only federation && ... ogham-graph && ... story && ... 3d-packager && ... site`;
+die zehn Bilder zeigen keinen Titel und keine Quellenzeile, PNG-Hintergrund ist transparent.

@@ -62,16 +62,13 @@ from visuals_utils import (  # noqa: E402
     STEPS,
     ensure_dirs,
     esc,
-    render_svg_to_png,
+    write_tight_graphic,
 )
 from step_federation import (  # noqa: E402
     H,
     OVERSAMPLE,
     W,
     _close,
-    _glyph_hub,
-    _glyph_triple,
-    _heading,
     _open,
     _t,
 )
@@ -190,15 +187,14 @@ def _fdo(kind, x, y, title, sub, w=250):
     return N(kind, x, y, w, 72, [(title, 21, 700), (sub, 15, 400)])
 
 
-def _legend(items_note: str, y: int = 905) -> str:
-    """Node-kind and edge-style legend, one row, plus the source note."""
+def _legend(y: int = 905) -> str:
+    """Node-kind legend, one row. Notes and sources are not drawn: they are the site caption."""
     out = ""
     x = 60
     for kind, label in (("fdo3d", "3D FDO"), ("fdosw", "Software FDO"), ("concept", "Wikidata concept"), ("place", "place"), ("person", "person")):
         n = N(kind, x + 22, y, 44, 26, [])
         out += _node_svg(n) + _t(x + 54, y + 7, label, 18, 400, INK)
         x += 54 + len(label) * 9.5 + 34
-    out += _t(60, 958, items_note, 18, 400, MUTED)
     return out
 
 
@@ -207,7 +203,6 @@ def _legend(items_note: str, y: int = 905) -> str:
 
 def _build_cluster() -> str:
     p = _open()
-    p.append(_heading(_glyph_hub(), "Ogham in the graph", "Stones, 3D models and software: real triples of the FDOx Registry"))
 
     n = {
         "hub": N("concept", 875, 500, 250, 76, [("wd:Q2016147", 22, 700), ("Inscribed Ogham stone", 16, 400)]),
@@ -248,20 +243,12 @@ def _build_cluster() -> str:
         ("G", "Q24", "subject"),
     ]
     p.append(_graph(n, edges))
-    # predicate legend under the title
-    p.append(_t(360, 250, "dct:subject", 18, 700, FDO_ACCENT) + f'<line x1="478" y1="243" x2="530" y2="243" stroke="{FDO_ACCENT}" stroke-width="4.5"/>')
-    p.append(_t(570, 250, "dct:creator", 18, 700, MUTED) + f'<line x1="684" y1="243" x2="736" y2="243" stroke="{MUTED}" stroke-width="3"/>')
-    p.append(_t(776, 250, "dct:spatial", 18, 700, FDO_ACCENT_LIGHT) + f'<line x1="890" y1="243" x2="945" y2="243" stroke="{FDO_ACCENT_LIGHT}" stroke-width="3" stroke-dasharray="3 7" stroke-linecap="round"/>')
-    p.append(_box_note(60, 778, 470, 96, ["All five: dct:publisher wd:Q73901970 and one", "fdo:context, “Ogham Stones in the Wild and", "in Museums in Ireland”."]))
-    p.append(_legend("Registry 253aee9, release 2026-09-03 (dist/fdo-registry.ttl). Dashed = free text or a second node for the same person; CHUIS/1 is missing from Q2016147."))
+    # predicate legend, second legend row below the node kinds
+    p.append(_t(60, 962, "dct:subject", 18, 700, FDO_ACCENT) + f'<line x1="178" y1="955" x2="230" y2="955" stroke="{FDO_ACCENT}" stroke-width="4.5"/>')
+    p.append(_t(270, 962, "dct:creator", 18, 700, MUTED) + f'<line x1="384" y1="955" x2="436" y2="955" stroke="{MUTED}" stroke-width="3"/>')
+    p.append(_t(476, 962, "dct:spatial", 18, 700, FDO_ACCENT_LIGHT) + f'<line x1="590" y1="955" x2="645" y2="955" stroke="{FDO_ACCENT_LIGHT}" stroke-width="3" stroke-dasharray="3 7" stroke-linecap="round"/>')
+    p.append(_legend())
     return _close(p)
-
-
-def _box_note(x, y, w, h, lines) -> str:
-    out = f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12" fill="{CODE_BG}" stroke="{HALO}" stroke-width="2.5"/>'
-    for i, ln in enumerate(lines):
-        out += _t(x + 18, y + 30 + i * 25, ln, 18, 400, INK if i == 0 else MUTED)
-    return out
 
 
 # ------------------------------------------------------- slide 2: object --
@@ -269,7 +256,6 @@ def _box_note(x, y, w, h, lines) -> str:
 
 def _build_object() -> str:
     p = _open()
-    p.append(_heading(_glyph_triple(), "One Ogham stone, its 3D FDO and the software", "One hop around each FDO; the link between them is the open point"))
 
     n = {
         "C": N("fdo3d", 480, 520, 300, 100, [("CO074-148----", 25, 700), ("CIIC 81 · 3DDataFDO", 17, 400), ("subClassOf crmdig:D1_Digital_Object", 15, 400)]),
@@ -311,8 +297,7 @@ def _build_object() -> str:
         ("E", "C", "planned", dict(label="uses: not modelled yet", bend=-190, lpos=0.5)),
     ]
     p.append(_graph(n, edges))
-    p.append(_box_note(560, 765, 450, 106, ["What the registry knows today:", "both FDOs are typed with the same concept,", "share fdo:context and publisher. That software", "works on that kind of object is not an edge."]))
-    p.append(_legend("Registry 253aee9 (dist/fdo-registry.ttl, registry-index.json). Dashed arc = proposal (e.g. prov:used), not part of the data."))
+    p.append(_legend())
     return _close(p)
 
 
@@ -321,7 +306,6 @@ def _build_object() -> str:
 
 def _build_registry() -> str:
     p = _open()
-    p.append(_heading(_glyph_hub(), "The whole registry as one graph", "Eight FDOs, the concepts and people that connect them, and the ones that do not"))
 
     fdo = lambda kind, x, y, t, s="": N(kind, x, y, 215, 60, [(t, 18, 700), (s, 14, 400)] if s else [(t, 18, 700)])
     n = {
@@ -348,9 +332,7 @@ def _build_registry() -> str:
         ("E", "osm", "spatial", dict(arrow=False)), ("A", "osm", "spatial", dict(arrow=False)),
     ]
     p.append(_graph(n, edges))
-    p.append(_box_note(60, 690, 330, 150, ["Not connected to the rest:", "Freshford well. It shares no", "concept, place or person with", "another FDO (publisher only)."]))
-    p.append(_box_note(1330, 690, 380, 150, ["One person, two nodes:", "Thiery as ORCID and as a", "registry-minted agent. The registry", "never merges on a name."]))
-    p.append(_legend("Registry 253aee9, dist/fdo-registry.ttl (7,793 triples). wd:Q22731 (“Stone”, 6 FDOs) is left out for legibility; all eight share dct:publisher wd:Q73901970."))
+    p.append(_legend())
     return _close(p)
 
 
@@ -361,24 +343,14 @@ SLIDES = [
 ]
 
 
-def _to_rgb(png_path: Path) -> None:
-    from PIL import Image
-
-    with Image.open(png_path) as im:
-        rgb = im.convert("RGB")
-    rgb.save(png_path)
-
-
 def run(strict: bool = False) -> list[str]:
     ensure_dirs()
     log: list[str] = []
     for name, build_fn in SLIDES:
         svg_path = img_path(f"{name}.svg")
-        svg_path.write_text(build_fn(), encoding="utf-8")
         png_path = svg_path.with_suffix(".png")
-        render_svg_to_png(svg_path, png_path, W * OVERSAMPLE, H * OVERSAMPLE)
-        _to_rgb(png_path)
-        log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent).as_posix()} + .png ({W*OVERSAMPLE}x{H*OVERSAMPLE}, white background)")
+        fw, fh = write_tight_graphic(build_fn(), svg_path, png_path, scale=OVERSAMPLE)
+        log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent).as_posix()} + .png ({fw}x{fh}, transparent, <=10px border)")
     return log
 
 

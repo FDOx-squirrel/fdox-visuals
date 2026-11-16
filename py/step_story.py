@@ -44,7 +44,7 @@ from visuals_utils import (  # noqa: E402
     STEPS,
     ensure_dirs,
     img_path,
-    render_svg_to_png,
+    write_tight_graphic,
 )
 from step_federation import (  # noqa: E402
     H,
@@ -54,15 +54,10 @@ from step_federation import (  # noqa: E402
     _arrow,
     _box,
     _close,
-    _glyph_hub,
-    _glyph_stack,
-    _glyph_triple,
-    _heading,
     _legend,
     _open,
     _t,
     _tag,
-    _to_rgb,
 )
 
 # ------------------------------------------------------- slide 1: FKGE map --
@@ -85,7 +80,6 @@ def _step_chip(x, y, step) -> str:
 
 def _build_fkge_map() -> str:
     p = _open()
-    p.append(_heading(_glyph_hub(), "From the federated KG ecosystem to FDOx", "Two ways into the graph, one bridge for 3D models and software"))
 
     # research object on top
     p.append(_box(520, 250, 710, 70, [("A research object: a stone, a 3D model, a piece of software", 22, 700, INK)], center=True))
@@ -132,8 +126,6 @@ def _build_fkge_map() -> str:
     p.append(f'<polyline points="1535,622 1535,795 1318,795" fill="none" stroke="{MUTED}" stroke-width="3.5" marker-end="url(#arrow)"/>')
     p.append(_pill(50, 690, 330, "3D · Software · Data · Image"))
     p.append(_pill(1370, 690, 330, "3D · Software · Data · Geodata"))
-
-    p.append(_t(60, 950, "Simplified from the FKGE diagram of Thiery & Noback (CC BY 4.0). The four steps are the FDOx four-step pattern.", 19, 400, MUTED))
     return _close(p)
 
 
@@ -158,7 +150,6 @@ def _lane(y, source, packager, packager_dashed, result, result_dashed) -> str:
 
 def _build_two_roads(variant: str) -> str:
     p = _open()
-    p.append(_heading(_glyph_stack(), "Two roads, one bundle", "A 3D model and a piece of software end up as the same kind of FDO"))
     p.append(_t(50, 276, "3D model", 22, 700, FDO_ACCENT))
     p.append(_t(50, 506, "Software", 22, 700, FDO_ACCENT))
 
@@ -175,15 +166,11 @@ def _build_two_roads(variant: str) -> str:
         pack = dict(rows=[("fdo-git-packager", 22, 700, INK), (None, 6), ("S1 skeleton, no step built:", 19, 400, MUTED), ("fetch · inspect · mdcff · bundle · build_fdo", 16, 400, MUTED)])
         res = dict(tag="SW", rows=[(None, 30), ("SoftwareFDO", 23, 700, INK), ("not built yet", 19, 400, MUTED), ("planned", 19, 400, MUTED)])
         res_dashed = True
-        diff_roles = "software files are the code, scripts and documentation"
-        foot = "SPARQLing Unicorn QGIS plugin, tag v0.17.4 = ba8af4c (read 2026-11-05); fdo-git-packager is an S1 skeleton."
     else:
         src = dict(rows=[("o3d-epidoc-extractor", 23, 700, INK), (None, 6), ("Ogham in 3D project", 19, 400, MUTED), ("LOD extractor for TEI/EpiDoc", 17, 400, MUTED)])
         pack = dict(rows=[("fdo-git-packager", 22, 700, INK), (None, 6), ("planned for the next ones;", 19, 400, MUTED), ("how this one was packaged", 17, 400, MUTED), ("is not recorded here", 17, 400, MUTED)])
         res = dict(tag="SW", rows=[(None, 30), ("Ogham 3D EpiDoc Extractor", 21, 700, INK), ("DOI 10.5281/zenodo.18369125", 18, 400, MUTED), ("254 files · MIT", 18, 400, MUTED)])
         res_dashed = False
-        diff_roles = "software 222, script 30, documentation 2"
-        foot = "Registry 253aee9 (release 2026-09-03), registry-index.json; fdo-git-packager is an S1 skeleton."
     p.append(_lane(y2, src, pack, True, res, res_dashed))
 
     # the shared fdo-squirrel box between the lanes
@@ -210,12 +197,7 @@ def _build_two_roads(variant: str) -> str:
     p.append(_arrow(1524, 375, 1554, 375))
     p.append(_arrow(1524, 605, 1554, 605))
 
-    p.append(_box(50, 720, 1650, 130, [
-        ("What differs, what does not", 23, 700, INK),
-        (f"Differs: the type tag (3DDataFDO or SoftwareFDO) and the roles of the files (model and textures; {diff_roles}).", 20, 400, MUTED),
-        ("Does not differ: the MD.cff schema, fdo-squirrel, the DOI, the registry record and the way both are queried.", 20, 400, MUTED),
-    ]))
-    p.append(_legend(foot, "planned or not built yet"))
+    p.append(_legend(extra="planned or not built yet", y=730))
     return _close(p)
 
 
@@ -281,7 +263,6 @@ def _real_graph() -> str:
 
 def _build_squilly() -> str:
     p = _open()
-    p.append(_heading(_glyph_triple(), "From Squilly’s nut-and-string graph to a real one", "Eight FDOs, the concepts and people that connect them: real triples of the registry"))
     p.append(_t(300, 275, "The sketch: nuts and string", 24, 700, FDO_ACCENT, "middle"))
     p.append(_squilly_graph())
     p.append(_t(300, 780, "“FAIR Digital Objects”", 20, 400, MUTED, "middle"))
@@ -290,10 +271,7 @@ def _build_squilly() -> str:
     p.append(_t(675, 490, "becomes", 20, 400, MUTED, "middle"))
     p.append(_t(1235, 275, "The registry today: 3D models and software", 24, 700, FDO_ACCENT, "middle"))
     p.append(_real_graph())
-    p.append(_legend(
-        "Registry 253aee9 (release 2026-09-03), dist/fdo-registry.ttl, 7,793 triples; graph facts as on the Ogham graph slide. "
-        "Freshford shares nothing with the others. The sketch is drawn, not data.",
-        "free text, or an agent the registry minted"))
+    p.append(_legend(extra="free text, or an agent the registry minted", solid="", y=880))
     return _close(p)
 
 
@@ -312,11 +290,9 @@ def run(strict: bool = False) -> list[str]:
     log: list[str] = []
     for name, build_fn in SLIDES:
         svg_path = img_path(f"{name}.svg")
-        svg_path.write_text(build_fn(), encoding="utf-8")
         png_path = svg_path.with_suffix(".png")
-        render_svg_to_png(svg_path, png_path, W * OVERSAMPLE, H * OVERSAMPLE)
-        _to_rgb(png_path)
-        log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent).as_posix()} + .png ({W*OVERSAMPLE}x{H*OVERSAMPLE}, white background)")
+        fw, fh = write_tight_graphic(build_fn(), svg_path, png_path, scale=OVERSAMPLE)
+        log.append(f"wrote {svg_path.relative_to(IMG_DIR.parent).as_posix()} + .png ({fw}x{fh}, transparent, <=10px border)")
     return log
 
 

@@ -35,6 +35,7 @@ STEPS = [
     ("citation-cff-schema", "CITATION.cff schema diagram", "step_citation_cff_schema"),
     ("steps", "The four steps in practice: one graphic per step with real CIIC 81 values", "step_steps"),
     ("outcomes", "The four outcomes in practice: one graphic per outcome with real registry values", "step_outcomes"),
+    ("3d-packager", "Pictograms of the six fdo-3d-packager steps: fetch, convert, nexus, mdcff, bundle, build_fdo", "step_3d_packager_pictograms"),
     ("sphere", "The FDO sphere with all eight pictograms as a ring (2 variants)", "step_sphere"),
     ("git-packager", "fdo-git-packager concept: four-step banner, walkthrough graphics and GitHub Actions swimlane", "step_git_packager"),
     ("federation", "finished 3D and software FDOs in the federated KG ecosystem: three graphics", "step_federation"),

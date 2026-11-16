@@ -47,6 +47,9 @@ CATEGORIES = [
     {"slug": "outcomes", "group": "3D models", "title": "The four outcomes in practice",
      "desc": "One graphic per outcome: FAIR and citable, semantically queryable, interoperable, integrable.",
      "prefixes": ["fdox-outcomes-"]},
+    {"slug": "3d-packager-pictograms", "group": "3D models", "title": "Pictograms: fdo-3d-packager",
+     "desc": "The six pictograms of the fdo-3d-packager steps: fetch, convert, nexus, mdcff, bundle, build_fdo.",
+     "prefixes": ["fdox-3d-packager-step-"]},
     {"slug": "git-packager", "group": "Software", "title": "fdo-git-packager: software as FDO",
      "desc": "Concept graphics for packaging a Git repository as an FDO (the tool is a skeleton, nothing here is implemented yet).",
      "prefixes": ["fdox-git-packager-"]},
@@ -223,6 +226,40 @@ def trim_transparent_border(png_path: Path, margin_px: int = 10) -> tuple[int, i
     out.paste(cropped, (margin_px, margin_px))
     out.save(png_path)
     return out.size
+
+
+def write_tight_graphic(svg_text: str, svg_path: Path, png_path: Path, scale: float = 2.0, margin_px: int = 10) -> tuple[int, int]:
+    """Write a graphic that has no background and no empty canvas.
+
+    The SVG is first drawn on its design canvas and rasterised once; the alpha
+    channel tells where the content really is. The SVG's own width, height and
+    viewBox are then rewritten to that content box plus `margin_px`, so the SVG
+    and the PNG are cropped the same way (like the schemas), and the PNG is
+    rendered again from the cropped SVG. Returns the PNG size.
+    """
+    import re
+
+    from PIL import Image  # lazy, as in trim_transparent_border
+
+    svg_path.write_text(svg_text, encoding="utf-8")
+    m = re.search(r'<svg [^>]*viewBox="([-\d. ]+)"[^>]*>', svg_text)
+    if m is None:
+        raise ValueError("write_tight_graphic: no viewBox in the SVG")
+    vx, vy, vw, vh = (float(v) for v in m.group(1).split())
+    render_svg_to_png(svg_path, png_path, int(vw * scale), int(vh * scale))
+    bbox = Image.open(png_path).convert("RGBA").split()[-1].getbbox()
+    if bbox is None:
+        return Image.open(png_path).size
+    pad = margin_px / scale
+    x0 = round(vx + bbox[0] / scale - pad, 2)
+    y0 = round(vy + bbox[1] / scale - pad, 2)
+    x1 = round(vx + bbox[2] / scale + pad, 2)
+    y1 = round(vy + bbox[3] / scale + pad, 2)
+    w, h = round(x1 - x0, 2), round(y1 - y0, 2)
+    head = f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="{x0} {y0} {w} {h}">'
+    svg_path.write_text(svg_text.replace(m.group(0), head, 1), encoding="utf-8")
+    render_svg_to_png(svg_path, png_path, int(round(w * scale)), int(round(h * scale)))
+    return trim_transparent_border(png_path, margin_px=margin_px)
 
 
 def flatten_to_jpg(png_path: Path, jpg_path: Path, quality: int = 95) -> None:
