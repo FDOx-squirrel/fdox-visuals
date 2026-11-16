@@ -278,7 +278,8 @@ robocopy fdox-visuals fdox-visuals-bundle /E /XD .git __pycache__
 | S17 | Bilder-Pool: Seitenstruktur (Gruppen, Titel ohne "Talk:", "Concept" statt "Draft"), Kreuzungen in Graphen beseitigt, RO-Crate in Schritt 1 | fdox-visuals | S11–S16 | fertig, committet 2026-11-16 (ca3f1f0) |
 | S18 | Lebendige Galerie: neutrale Namen ohne "talk", Piktogramme auf eigene Unterseiten, kein Nutzungshinweis | fdox-visuals | S14, S17 | fertig, committet 2026-11-16 (1b8928b) |
 | S19 | Graph-Bilder ohne Header/Footer, transparent und eng beschnitten; sechs Piktogramme für fdo-3d-packager | fdox-visuals | S13, S15, S18 | fertig, committet 2026-11-16 (f857e27) |
-| S20 | 3D-Packager-Piktogramme in Step 1 und in den "two roads"-Bildern eingebunden statt Textboxen | fdox-visuals | S8, S15, S19 | Entwurf 2026-11-16, wartet auf Abnahme |
+| S20 | 3D-Packager-Piktogramme in Step 1 und in den "two roads"-Bildern eingebunden statt Textboxen | fdox-visuals | S8, S15, S19 | fertig, committet 2026-11-16 |
+| S21 | Keine Versionsangabe des fdo-3d-packager mehr in den Grafiken | fdox-visuals | S20 | Entwurf 2026-11-16, wartet auf Abnahme |
 
 S2–S5 sind alle unabhängig voneinander (hängen nur von S1 ab) und können
 in beliebiger Reihenfolge laufen — `main.py --only fdo-meta` läuft ohne
@@ -1358,7 +1359,13 @@ sechs Schritte des fdo-3d-packager gezeigt werden, statt als Textboxen.
   zeigt die sechs Badges in einer Reihe.
 - Quellenzeilen der Piktogramm-Seite ohne Versionsangabe.
 
-**Offen:** Version des fdo-3d-packager: Step 1 sagt v1.1.0, die Story-Bilder sagten v1.0.0
-(jetzt steht dort keine Version mehr). **Abnahme:** `python main.py --only steps && ...
+**Version des fdo-3d-packager:** Step 1 sagte v1.1.0, die Story-Bilder v1.0.0; seit S21 nennt keine Grafik mehr eine Version. **Abnahme:** `python main.py --only steps && ...
 --only story && ... --only 3d-packager`, danach `git checkout` der unveränderten PNGs
 (`fdox-steps-3-linking-hubs.png`, `fdox-steps-4-federated-kg.png`), dann `--only site`.
+
+## S21 — Keine Versionsangabe des fdo-3d-packager in den Grafiken
+
+Flo: die Version soll überall raus. Entfernt: die Zeile "fdo-3d-packager v1.1.0" in Step 1
+(`fdox-steps-1-fdo-encapsulation` und `…-ciic81`); in den Story-Bildern und Captions stand sie
+seit S20 nicht mehr; in Docstrings ohne Version. **Abnahme:** `python main.py --only steps`,
+danach `git checkout` der unveränderten PNGs (Steps 2 bis 4), dann `--only site`.

@@ -135,7 +135,7 @@ def _build_step1(hshift: int, vshift: int, caption: str = "Freshford: St Lachtai
     p.append(arrow_line(photo_x + photo_w + 15, arrow_y, col0_x - 15, arrow_y))
 
     p.append(f'<text x="{(col0_x+col2_x+col_w)/2}" y="{row1_y-90}" text-anchor="middle" '
-              f'font-family="Fira Sans" font-weight="700" font-size="24" fill="{accent}">fdo-3d-packager v1.1.0</text>')
+              f'font-family="Fira Sans" font-weight="700" font-size="24" fill="{accent}">fdo-3d-packager</text>')
 
     # the six steps as the fdo-3d-packager pictograms: badge on top, step name and what it does below
     cols = [col0_x, col1_x, col2_x]

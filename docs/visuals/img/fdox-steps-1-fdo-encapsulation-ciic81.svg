@@ -10,7 +10,7 @@
 <text x="60" y="684" font-family="Fira Sans" font-weight="700" font-size="22" fill="#161B2E">Sketchfab</text>
 <text x="60" y="710" font-family="Fira Sans" font-weight="400" font-size="20" fill="#5B6478">CIIC 81 / UCC 4 · by b-unicycling, via Sketchfab</text>
 <line x1="535" y1="500.0" x2="605" y2="500.0" stroke="#5B6478" stroke-width="4" marker-end="url(#arrow)"/>
-<text x="986.0" y="250" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="24" fill="#004473">fdo-3d-packager v1.1.0</text>
+<text x="986.0" y="250" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="24" fill="#004473">fdo-3d-packager</text>
 <g transform="translate(730.0,310) scale(0.3)"><circle cx="0" cy="0" r="150" fill="#E6ECF1" stroke="#004473" stroke-width="7"/><g><line x1="0" y1="-54" x2="0" y2="14" stroke="#004473" stroke-width="6" stroke-linecap="round"/><polyline points="-26,-12 0,16 26,-12" fill="none" stroke="#004473" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/><polyline points="-50,18 -50,52 50,52 50,18" fill="none" stroke="#004473" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/></g><rect x="-176" y="-176" width="132" height="132" rx="26" fill="#004473"/><text x="-110.0" y="-70.0" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="104" fill="white">1</text></g>
 <text x="730.0" y="378" text-anchor="middle" font-family="Fira Sans" font-weight="700" font-size="26" fill="#161B2E">fetch</text>
 <text x="730.0" y="406" text-anchor="middle" font-family="Fira Sans" font-weight="400" font-size="18" fill="#5B6478">Sketchfab API / local files</text>

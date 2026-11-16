@@ -1,6 +1,6 @@
 """S19 -- Pictograms for the six steps of fdo-3d-packager.
 
-fdo-3d-packager v1.0.0 (FDOx-squirrel, MIT) runs six steps, as its CLI names them:
+fdo-3d-packager (FDOx-squirrel, MIT) runs six steps, as its CLI names them:
 
   1 fetch      Sketchfab API / local files
   2 convert    Blender -> OBJ + textures

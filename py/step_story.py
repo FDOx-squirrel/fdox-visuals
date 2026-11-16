@@ -12,7 +12,7 @@ ArcheoFOSS 2026 talk:
 Sources, all read on 2026-11-05:
   * FKGE columns and terms: the author's FKGE diagram (Thiery & Noback, CC BY 4.0),
     simplified; NFDI4Objects KG as in the N4O tree slide.
-  * fdo-3d-packager v1.0.0 steps and fdo-squirrel stages: the author's talk slides 20 and 28.
+  * fdo-3d-packager steps and fdo-squirrel stages: the author's talk slides 20 and 28.
   * fdo-git-packager: S1 skeleton (steps fetch, inspect, mdcff, bundle, build_fdo), see S11;
     SPARQLing Unicorn tag v0.17.4 = ba8af4c (S11).
   * Registry 253aee9 (release 2026-09-03), dist/registry-index.json:
