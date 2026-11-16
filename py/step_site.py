@@ -93,8 +93,8 @@ def _category_page(cat: dict, cats: list[dict]) -> str:
 
 
 _GROUP_INTRO = {
-    "Concept": "The pattern and its badges, the schemas and architecture behind fdo-squirrel, and the closing slides.",
-    "3D models": "The worked example for 3D models: CIIC 81 and the registry's 3D objects, one slide per step and per outcome.",
+    "Concept": "The pattern and its badges, the schemas and architecture behind fdo-squirrel, and the FDO sphere with the community hubs.",
+    "3D models": "The worked example for 3D models: CIIC 81 and the registry's 3D objects, one graphic per step and per outcome.",
     "Software": "Software as FDO: concept graphics for fdo-git-packager.",
     "3D and software": "Where both meet: the story from the FKGE to FDOx, and the registry with its 3D and software FDOs as graphs.",
 }
@@ -123,7 +123,7 @@ def _index_page(cats: list[dict]) -> str:
         f'<p class="lead">An image pool of {n} graphics for presentations, posters and papers of the '
         "FDOx-squirrel family. Each comes as PNG and SVG with a caption and a credit line you can copy.</p>"
         '<blockquote class="note"><b>How to use them.</b> Transparent PNGs and SVGs (badges, schemas) go onto '
-        "your own slides and posters; white 7:4 PNGs are complete slides. Where a graphic shows planned work it is "
+        "your own presentations, posters and papers; white 7:4 PNGs are finished graphics with a background. Where a graphic shows planned work it is "
         "tagged <b>Concept</b>; everything else is built from released tools and registry data, and its credit line "
         "names the release.</blockquote>"
         + "".join(sections)
